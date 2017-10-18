@@ -1,16 +1,13 @@
 import java.util.*;
 
 public class User implements Comparable<User> {
-  private int id;
   private String username, pwd;
   private String firstName, lastName;
-  private boolean admin;
+  private boolean admin, isRetired;
   private Map<Account, Account> accts;
-  private boolean isRetired;
 
   // Constructor
-  public User(int id, String username, String pwd, String firstName, String lastName, Boolean admin){
-    this.id = id;
+  public User(String username, String pwd, String firstName, String lastName, Boolean admin){
     this.username = username;
     this.pwd = pwd;
     this.admin = admin;
@@ -19,14 +16,11 @@ public class User implements Comparable<User> {
     accts = new TreeMap<Account, Account>();
     isRetired = false;
   }
-  public User(int id){  // Constructor for tempUser w/ search params.
-    this.id = id;
+  public User(String username){  // Constructor for tempUser w/ search params.
+    this.username = username;
   }
 
   // Setters & Getters
-  public int getID(){
-    return id;
-  }
   public String getUsername(){
     return username;
   }
@@ -34,10 +28,7 @@ public class User implements Comparable<User> {
     this.username = username;
   }
   public boolean testPwd(String test){
-    if (test == pwd){
-      return true;
-    }
-    return false;
+    return (test == pwd);
   }
   public void setPwd(String pwd){
     this.pwd = pwd;
@@ -50,30 +41,22 @@ public class User implements Comparable<User> {
     this.firstName = firstName;
     this.lastName = lastName;
   }
-  public Boolean getAdmin(){
+  public boolean getAdmin(){
     return admin;
+  }
+  public boolean isRetired(){
+    return isRetired;
   }
   public Map<Account, Account> getAccts(){
     return accts;
   }
 
-  // Print Demo
-  public void PrintInfo(){
-    System.out.println("ID: " + getID());
-    System.out.println("Username: " + getUsername());
-    System.out.println("Name: " + getName()[0] + " " + getName()[1]);
-    System.out.println("Is Admin? " + getAdmin());
-  }
-
   // Comparators
-  public int compareTo(User that){    // Compares two Users by ID.
-    if (this.getID() > that.getID()){
-      return +1;
-    } else if (this.getID() < that.getID()){
-      return -1;
-    } else {
-      return 0;
-    }
+  public int compareTo(User that){    // Compares two Users by Username
+    String thisUser = this.getUsername();
+    String thatUser = that.getUsername();
+    int test = thisUser.compareTo(thatUser);
+    return test;
   }
   public static Comparator<User> byName(){  // Compares two User by LastName, FirstName
     return new Comparator<User>() {
@@ -104,9 +87,24 @@ public class User implements Comparable<User> {
     accts.remove(acct);
   }
 
-  // unit test
+  // Login
+  public boolean login(String username, String pwd){
+    if (this.username == username){
+      return testPwd(pwd);
+    }
+    return false;
+  }
+
+  // Print Demo
+  public void PrintInfo(){
+    System.out.println("Username: " + getUsername());
+    System.out.println("Name: " + getName()[0] + " " + getName()[1]);
+    System.out.println("Is Admin? " + getAdmin());
+  }
+
+  // Unit Test
   public static void main(String[] args){
-    User testUser = new User(1, "admin", "12345", "Johnny", "Rotten", true);
+    User testUser = new User("admin", "12345", "Johnny", "Rotten", true);
     testUser.PrintInfo();
   }
 }

@@ -16,27 +16,44 @@ public class UserAcctManager{
     acctIDgen = 0;
   }
 
-  // Create NEW
-  public void NewUser(String username, String pwd, String firstName, String lastName, Boolean admin){
-    userIDgen++;
-    User newUser = new User(userIDgen, username, pwd, firstName, lastName, admin);
-    users.put(newUser, newUser);
+  // Create NEW (returns FALSE if failed)
+  public boolean NewUser(String username, String pwd, String firstName, String lastName, Boolean admin){
+    if (uniqueUsername(username) == true){
+      User newUser = new User(username, pwd, firstName, lastName, admin);
+      users.put(newUser, newUser);
+      return true;
+    }
+    return false;
   }
-  public void NewAcct(double initBalance, User creator){
-    acctIDgen++;
-    Account newAcct = new Account(acctIDgen, initBalance, creator);
-    accts.put(newAcct, newAcct);
+  public boolean NewAcct(String name, String descr, double initBalance, User creator){
+    int id = acctIDgen++;
+    if (uniqueAcctID(id) == true){
+      Account newAcct = new Account(acctIDgen, name, descr, initBalance, creator);
+      accts.put(newAcct, newAcct);
+      return true;
+    }
+    return false;
+  }
+
+  // Check Unique Username & AcctID
+  public boolean uniqueUsername(String username){
+    User tempUser = new User(username);
+    return (!users.containsKey(tempUser));
+  }
+  public boolean uniqueAcctID(int acctID){
+    Account tempAcct = new Account(acctID);
+    return (!accts.containsKey(tempAcct));
   }
 
   // Test, Add & Remove Access
-  public boolean hasAccess(Integer userID, Integer acctID){
-    User tempUser = new User(userID);
+  public boolean hasAccess(String username, Integer acctID){
+    User tempUser = new User(username);
     Account tempAcct = new Account(acctID);
     tempUser = users.get(tempUser);
     return tempUser.hasAccess(tempAcct);
   }
-  public void addAccess(Integer userID, Integer acctID){
-    User tempUser = new User(userID);
+  public void addAccess(String username, Integer acctID){
+    User tempUser = new User(username);
     tempUser = users.get(tempUser);
     Account tempAcct = new Account(acctID);
     tempAcct = accts.get(tempAcct);
@@ -44,13 +61,33 @@ public class UserAcctManager{
     tempUser.addAccess(tempAcct);
     tempAcct.addAccess(tempUser);
   }
-  public void removeAccess(Integer userID, Integer acctID){
-    User tempUser = new User(userID);
+  public void removeAccess(String username, Integer acctID){
+    User tempUser = new User(username);
     tempUser = users.get(tempUser);
     Account tempAcct = new Account(acctID);
     tempAcct = accts.get(tempAcct);
 
     tempUser.removeAccess(tempAcct);
     tempAcct.removeAccess(tempUser);
+  }
+
+  // Login
+  public boolean login(String username, String pwd){
+    User tempUser = new User(username);
+    if (users.containsKey(tempUser)){
+      tempUser = users.get(tempUser);
+      return tempUser.login(username, pwd);
+    }
+    return false;
+  }
+
+  // Print Demo
+  public void printInfo(){
+
+  }
+
+  // Unit Test
+  public static void main(String[] args){
+
   }
 }
