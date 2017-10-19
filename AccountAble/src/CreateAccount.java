@@ -39,7 +39,7 @@ public class CreateAccount {
 	 */
 	private void initialize() {
 		frame = new JFrame("AccountAble");
-		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("./src/chrome2.png"));
+		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("./src/logo.jpg"));
 		frame.setAlwaysOnTop(true);
 		frame.setBounds(100, 100, 850, 650);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

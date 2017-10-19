@@ -46,20 +46,24 @@ Cordell - 7]]></notes>
         <task id="2" name="ATOM" color="#3333ff" meeting="false" start="2017-09-07" duration="11" complete="0" expand="true">
             <notes><![CDATA[Dave - 8
 Clayton - 8
-Derek - 5
+Derek - 9
 Cordell - 3]]></notes>
             <customproperty taskproperty-id="tpc0" value=""/>
         </task>
         <task id="4" name="Gantt Chart" color="#3333ff" meeting="false" start="2017-09-21" duration="4" complete="0" expand="true">
             <notes><![CDATA[Clayton - 1
-Derek - .5
+Derek - 1
 Cordell - 1]]></notes>
         </task>
         <task id="5" name="Backlog" color="#8cb6ce" meeting="false" start="2017-10-10" duration="44" complete="0" expand="true">
             <notes><![CDATA[Dave - 2
 Clayton - 2 
-Derrick - 2
+Derrick -5
 Cordell - 2]]></notes>
+        </task>
+        <task id="11" name="Sprint 1" color="#8cb6ce" meeting="false" start="2017-10-13" duration="6" complete="0" expand="true">
+            <notes><![CDATA[Derek - 4 hours of working on items in product backlog
+]]></notes>
         </task>
     </tasks>
     <resources/>
