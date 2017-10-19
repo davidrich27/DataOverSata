@@ -2,16 +2,19 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import java.awt.BorderLayout;
 import javax.swing.SwingConstants;
 import javax.swing.JToolBar;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.net.URL;
 
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 public class AccountName {
 
@@ -44,32 +47,68 @@ public class AccountName {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame("AccountAble");
+		frame = new JFrame("Account Name");
 		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("./src/chrome2.png"));
 		frame.setAlwaysOnTop(true);
 		frame.setBounds(100, 100, 850, 650);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));
 
-		JPanel panel = new JPanel();
-		frame.getContentPane().add(panel, BorderLayout.EAST);
+		JPanel Wpanel = new JPanel();
+		frame.getContentPane().add(Wpanel, BorderLayout.WEST);
+		Wpanel.setLayout(new BoxLayout(Wpanel, BoxLayout.Y_AXIS));
 		
-		JPanel CPanel = new JPanel();
-		frame.getContentPane().add(CPanel, BorderLayout.WEST);
+		JPanel AccName = new JPanel();
+		Wpanel.add(AccName);
+		JLabel AccNameLabel = new JLabel("Account Name");
+		AccName.add(AccNameLabel);
+		JTextField name = new JTextField(10);
+		AccName.add(name);
+		
+		JPanel RecTransPanel = new JPanel();
+		Wpanel.add(RecTransPanel);
+		JLabel TransLabel = new JLabel("Recent Transactions");
+		RecTransPanel.add(TransLabel);
+		JTextField TransText = new JTextField(20);
+		RecTransPanel.add(TransText);
+		
+		JButton AddTransB = new JButton("Add Transaction");
+		RecTransPanel.add(AddTransB);
+		JButton ViewHistB = new JButton("View History");
+		RecTransPanel.add(ViewHistB);
 
-		JButton btnLogOff = new JButton("Log Off");
-		panel.add(btnLogOff, BorderLayout.NORTH);
 		
-		JButton btnAddTransaction = new JButton("Add Transaction");
-		CPanel.add(btnAddTransaction, BorderLayout.CENTER);
 		
-		JButton btnDeleteTransaction = new JButton("Delete Transaction");
-		CPanel.add(btnDeleteTransaction, BorderLayout.CENTER);
+		JPanel Epanel = new JPanel();
+		frame.getContentPane().add(Epanel, BorderLayout.WEST);
+		Epanel.setLayout(new BoxLayout(Epanel, BoxLayout.Y_AXIS));
 		
-	
+		JPanel ComUsersPanel = new JPanel();
+		Epanel.add(ComUsersPanel);
+		JLabel ComUsersLabel = new JLabel("Recent User");
+		ComUsersPanel.add(ComUsersLabel);
+		
+		JPanel UserTextPanel = new JPanel();
+		Epanel.add(UserTextPanel);
+		JButton EDTransB = new JButton("Edit/Delete Transaction");
+		UserTextPanel.add(EDTransB);
+		
+		
+		JPanel Npanel = new JPanel();
+		Npanel.setLayout(new BorderLayout());
+		Npanel.add(new JButton("Log Off"), BorderLayout.EAST);
+		Npanel.add(new JLabel("Robyn Soft"), BorderLayout.WEST);
+		
+		JPanel Spanel = new JPanel();
+		Spanel.setLayout(new BorderLayout());
+		Spanel.add(new JLabel("Developed By: Data Over Sata"), BorderLayout.SOUTH);
+		
 
-		JLabel lblNewLabel = new JLabel("Developed By: Data Over Sata");
-		frame.getContentPane().add(lblNewLabel, BorderLayout.SOUTH);
+		
+		frame.getContentPane().add(Wpanel, BorderLayout.WEST);
+		frame.getContentPane().add(Npanel, BorderLayout.NORTH);
+		frame.getContentPane().add(Spanel, BorderLayout.SOUTH);
+		frame.getContentPane().add(Epanel, BorderLayout.EAST);
 		
 
 	}
