@@ -92,14 +92,14 @@ public class InitialView {
     delAcctBtn = new JButton("Delete Selected Account");
   }
 
+  // Makes Table NON_EDITABLE
+  // public class MyTableModel extends AbstractTableModel {
+  //   public boolean isCellEditable(int row, int column){
+  //     return false;
+  //   }
+  // }
+
   public static void main(String[] args){
     InitialView launcher = new InitialView();
   }
 }
-
-/***** Makes Table NON_EDITABLE
-// public class MyTableModel extends AbstractTableModel {
-//   public boolean isCellEditable(int row, int column){
-//     return false;
-//   }
-// }
