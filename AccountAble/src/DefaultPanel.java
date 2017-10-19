@@ -59,6 +59,9 @@ public class DefaultPanel {
 
 		JLabel lblNewLabel = new JLabel("Developed By: Data Over Sata");
 		frame.getContentPane().add(lblNewLabel, BorderLayout.SOUTH);
+
+		JPanel panel_1 = new JPanel();
+		frame.getContentPane().add(panel_1, BorderLayout.CENTER);
 	}
 
 }

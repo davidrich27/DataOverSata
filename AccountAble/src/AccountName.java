@@ -44,7 +44,7 @@ public class AccountName {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame("Account Name");
+		frame = new JFrame("AccountAble");
 		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("./src/chrome2.png"));
 		frame.setAlwaysOnTop(true);
 		frame.setBounds(100, 100, 850, 650);
@@ -66,8 +66,7 @@ public class AccountName {
 		JButton btnDeleteTransaction = new JButton("Delete Transaction");
 		CPanel.add(btnDeleteTransaction, BorderLayout.CENTER);
 		
-		JButton btnEditDeleteTransaction = new JButton("Delete Transaction");
-		CPanel.add(btnEditDeleteTransaction, BorderLayout.CENTER);
+	
 
 		JLabel lblNewLabel = new JLabel("Developed By: Data Over Sata");
 		frame.getContentPane().add(lblNewLabel, BorderLayout.SOUTH);
