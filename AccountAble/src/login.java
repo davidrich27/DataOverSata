@@ -27,7 +27,7 @@ public class login extends JFrame {
 
     setSize(300,200);
     setLocation(500,280);
-    loginpanel.setLayout (null); 
+    
 
 
     txuser.setBounds(70,30,150,20);
@@ -86,6 +86,7 @@ public class login extends JFrame {
             
             if(puname.equals(usertxt) && ppaswd.equals(passtxt)) {
                 //Initial view Frame here
+            	 InitialView postlogin =new InitialView ();
                 dispose();
               } 
               else if(puname.equals("") && ppaswd.equals("")){
