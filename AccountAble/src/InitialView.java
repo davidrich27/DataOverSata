@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 
 public class InitialView {
   JFrame frame;
@@ -11,6 +12,7 @@ public class InitialView {
   JTable acctTbl;
 
   JScrollPane scrollPane;
+  JOptionPane optPane;
 
   public InitialView(){
     initUI();
@@ -22,6 +24,7 @@ public class InitialView {
   }
 
   private void buildPanels(){
+    optPane = new JOptionPane();
     mainPanel = new JPanel(new BorderLayout(5, 5)); // top-level panel
 
     // mainPanel components
@@ -67,7 +70,7 @@ public class InitialView {
       content.add(right, BorderLayout.CENTER);
   }
   private void buildFrames(){
-    frame = new JFrame("RobynSoft");
+    frame = new JFrame("AccountAble");
     frame.pack();
     frame.add(mainPanel);
     frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -90,6 +93,25 @@ public class InitialView {
     openAcctBtn = new JButton("Open Selected Account");
     addAcctBtn = new JButton("Add New Account");
     delAcctBtn = new JButton("Delete Selected Account");
+    buildButtonListeners();
+  }
+
+  private void buildButtonListeners() {
+    openAcctBtn.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent arg0) {
+        optPane.showMessageDialog(frame, "Sure, I'll open that Account.");
+      }
+    });
+    addAcctBtn.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent arg0) {
+        optPane.showMessageDialog(frame, "Let's add a new Account!");
+      }
+    });
+    delAcctBtn.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent arg0) {
+        optPane.showMessageDialog(frame, "Are sure you wanna delete it?");
+      }
+    });
   }
 
   // Makes Table NON_EDITABLE

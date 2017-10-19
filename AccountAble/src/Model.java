@@ -4,4 +4,8 @@ public class Model {
   public Model() {
     acctsManager = new UserAcctManager();
   }
+
+  public Model(User[] users, Account[] accts){
+    acctsManager = new UserAcctManager();
+  }
 }
