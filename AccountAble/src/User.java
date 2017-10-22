@@ -3,10 +3,10 @@ import java.util.*;
 public class User implements Comparable<User> {
   private String username, pwd;
   private String firstName, lastName;
-  private boolean admin, isRetired;
+  private boolean admin;
   private Map<Account, Account> accts;
 
-  // Constructor
+  // Constructors
   public User(String username, String pwd, String firstName, String lastName, Boolean admin){
     this.username = username;
     this.pwd = pwd;
@@ -14,9 +14,9 @@ public class User implements Comparable<User> {
     this.firstName = firstName;
     this.lastName = lastName;
     accts = new TreeMap<Account, Account>();
-    isRetired = false;
   }
-  public User(String username){  // Constructor for tempUser w/ search params.
+
+  public User(String username){ // Temp search User
     this.username = username;
   }
 
@@ -43,9 +43,6 @@ public class User implements Comparable<User> {
   }
   public boolean getAdmin(){
     return admin;
-  }
-  public boolean isRetired(){
-    return isRetired;
   }
   public Map<Account, Account> getAccts(){
     return accts;
@@ -93,6 +90,22 @@ public class User implements Comparable<User> {
       return testPwd(pwd);
     }
     return false;
+  }
+
+  // Data formatters :: username;pwd;firstName;lastName;admin
+  public static User DATA_TO_USER(String data){
+    String[] dataArr = data.split(";");
+    boolean admin = Boolean.parseBoolean(dataArr[4]);
+    return new User(dataArr[0], dataArr[1], dataArr[2], dataArr[3], admin);
+  }
+
+  public static String USER_TO_DATA(User user){
+     String data = user.username + ";" +
+       user.pwd + ";" +
+       user.firstName + ";" +
+       user.lastName + ";" +
+       Boolean.toString(user.admin);
+    return data;
   }
 
   // Print Demo

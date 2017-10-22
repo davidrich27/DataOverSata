@@ -51,8 +51,9 @@ public class AccountName {
 		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("./src/logo.jpg"));
 		frame.setAlwaysOnTop(true);
 		frame.setBounds(100, 100, 850, 650);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));
+		frame.setVisible(true);
 
 		JPanel Wpanel = new JPanel();
 		frame.getContentPane().add(Wpanel, BorderLayout.WEST);

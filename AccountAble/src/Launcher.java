@@ -19,12 +19,6 @@ public class Launcher{
       new Account(10001, "Johnny's Account", "The Account of John.", 1000000.01, users[1]),
       new Account(12345, "Master Account", "This is where all the Money is.", 12.00, users[0]),
       new Account(54321, "Offshore Savings", "Shhh...", 999999999.99, users[0])
-      
-      
-      
     };*/
-	  
-	  
-	  login panel =new login(); 
   }
 }

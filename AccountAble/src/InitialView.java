@@ -8,7 +8,7 @@ public class InitialView {
   JPanel header, footer, content, right, left;
   JPanel loginPanel;
 
-  JButton loginBtn, addAcctBtn, delAcctBtn, openAcctBtn;
+  JButton loginBtn, newUserBtn, addAcctBtn, delAcctBtn, openAcctBtn;
   JTable acctTbl;
 
   JScrollPane scrollPane;
@@ -58,7 +58,9 @@ public class InitialView {
     // header components
     loginPanel = new JPanel(new BorderLayout(5, 5));
       loginBtn = new JButton("Logout");
+      newUserBtn = new JButton("Sign Up");
       loginPanel.add(loginBtn, BorderLayout.NORTH);
+      loginPanel.add(newUserBtn, BorderLayout.CENTER);
       loginPanel.add(new JLabel("Not You?"), BorderLayout.SOUTH);
 
     // Add all subpanels
@@ -97,19 +99,25 @@ public class InitialView {
   }
 
   private void buildButtonListeners() {
+    newUserBtn.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent arg0) {
+        NewUser newUser = new NewUser();
+      }
+    });
     openAcctBtn.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent arg0) {
-        optPane.showMessageDialog(frame, "Sure, I'll open that Account.");
+        AccountName acctName = new AccountName();
       }
     });
     addAcctBtn.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent arg0) {
         optPane.showMessageDialog(frame, "Let's add a new Account!");
+        CreateAccount create = new CreateAccount();
       }
     });
     delAcctBtn.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent arg0) {
-        optPane.showMessageDialog(frame, "Are sure you wanna delete it?");
+        optPane.showMessageDialog(frame, "You are about to delete an Account.  Are sure you wanna delete it?");
       }
     });
   }

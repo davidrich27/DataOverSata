@@ -14,7 +14,7 @@ public class login extends JFrame {
 	JLabel username;
 	JLabel password;
 
-	public login() { 
+	public login() {
 		super("AccountAble Login");
 		setResizable(false);
 		loginpanel = new JPanel();
@@ -105,7 +105,7 @@ public class login extends JFrame {
 
 			}
 		});
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setVisible(true);
 
 		Writer writer = null;

@@ -17,7 +17,7 @@ public class UserAcctManager{
   }
 
   // Create NEW (returns FALSE if failed)
-  public boolean NewUser(String username, String pwd, String firstName, String lastName, Boolean admin){
+  public boolean addUser(String username, String pwd, String firstName, String lastName, Boolean admin){
     if (uniqueUsername(username) == true){
       User newUser = new User(username, pwd, firstName, lastName, admin);
       users.put(newUser, newUser);
@@ -25,10 +25,10 @@ public class UserAcctManager{
     }
     return false;
   }
-  public boolean NewAcct(String name, String descr, double initBalance, User creator){
+  public boolean addAcct(String name, String descr, double initBalance){
     int id = acctIDgen++;
     if (uniqueAcctID(id) == true){
-      Account newAcct = new Account(acctIDgen, name, descr, initBalance, creator);
+      Account newAcct = new Account(acctIDgen, name, descr, initBalance);
       accts.put(newAcct, newAcct);
       return true;
     }

@@ -39,7 +39,7 @@ public class NewUser extends JFrame {
 		JLabel lblPassword = new JLabel("Password:");
 		lblPassword.setBounds(14, 68, 50, 14);
 		newUserPanel.add(lblPassword);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setVisible(true);
 
 		Writer writer = null;
@@ -98,5 +98,9 @@ public class NewUser extends JFrame {
 
 			}
 		});
+	}
+	// unit test
+	public static void main(String[] args){
+		NewUser newuser = new NewUser();
 	}
 }
