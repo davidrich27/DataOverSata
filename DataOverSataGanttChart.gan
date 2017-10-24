@@ -63,6 +63,7 @@ Cordell - 3]]></notes>
         </task>
         <task id="11" name="Sprint 1" color="#8cb6ce" meeting="false" start="2017-10-13" duration="6" complete="0" expand="true">
             <notes><![CDATA[Derek - 4 hours of working on items in product backlog
+Clayton - 4 hours creating Account view. Another 2 hours converting code from swing to FX 
 ]]></notes>
         </task>
     </tasks>
