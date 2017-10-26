@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.scene.control.TextField;
 
 
 public class CreateAccount extends Application{
@@ -20,29 +21,15 @@ public class CreateAccount extends Application{
 
 	@Override
 	public void start(Stage primaryStage) throws Exception{
-		//primaryStage.setTitle("Title");
-	//	Button button = new Button();
-	//	button.setText("Click");
 
-	//	BorderPane layout = new BorderPane();
-	//	HBox hbox = addHBox();
-	//	layout.setTop(hbox);
-		//VBox left = new VBox();
-		//layout.setLeft(left);
-		//layout.setLeft(addVBox());
-		//left.getChildren().add(button);
-		//layout.getChildren().add(button);
-		/*addVBox();
-
-		Scene scene = new Scene(layout, 800, 800);
-		primaryStage.setScene(scene);
-		primaryStage.show();*/
 		BorderPane border = new BorderPane();
 
 		HBox header = addHeader();
 		border.setTop(header);
 		HBox footer = addFooter();
 		border.setBottom(footer);
+		VBox left = addLabels();
+		border.setLeft(left);
 
 		Scene scene = new Scene(border, 800, 800);
 		primaryStage.setScene(scene);
@@ -62,8 +49,6 @@ public class CreateAccount extends Application{
 		Text title = new Text("AccountAble");
 		title.setTranslateX(350);
 		hbox.getChildren().addAll(title,b2,b1);
-
-
 		return hbox;
 
 	}
@@ -77,107 +62,40 @@ public class CreateAccount extends Application{
 	}
 
 
-	/*public VBox addVBox(){
+	public VBox addLabels(){
 		VBox vbox = new VBox();
-	}*/
-}
+		Text name = new Text("Account Name: ");
+		name.setTranslateY(50);
+		TextField nameField = new TextField("Enter Account Name");
+		nameField.setTranslateY(25);
+		nameField.setTranslateX(150);
 
+		Text balance = new Text("Account Balance:          $");
+		balance.setTranslateY(150);
+		TextField balanceField = new TextField("Enter Account Balance");
+		balanceField.setTranslateY(125);
+		balanceField.setTranslateX(150);
 
-
-	/*public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					CreateAccount window = new CreateAccount();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
+		Text description = new Text("Account Description: ");
+		description.setTranslateY(250);
+		TextField descField = new TextField("Enter Account Description");
+		descField.setTranslateY(225);
+		descField.setTranslateX(150);
+		Text info = new Text("Please Fill Out All Fields");
+		Button add = new Button("Add Account");
+		add.setOnAction(new EventHandler<ActionEvent>(){
+			@Override public void handle(ActionEvent e){
+				if(nameField.getText().equals("") || nameField.getText().equals("Enter Account Name") || balanceField.getText().equals("")
+				|| balanceField.getText().equals("Enter Account Balance") || descField.getText().equals("") || descField.getText().equals("Enter Account Description")){
+					info.setText("Not All Fields are Filled out");
+				}else{
+					info.setText("Added");
 				}
 			}
 		});
+		add.setTranslateY(350);
+		info.setTranslateY(300);
+		vbox.getChildren().addAll(name, nameField, balance, balanceField, description, descField, info, add);
+		return vbox;
 	}
-
-	/**
-	 * Create the application.
-	 */
-	/*public CreateAccount() {
-		initialize();
-	}
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
-/*	private void initialize() {
-		frame = new JFrame("AccountAble");
-		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("./src/logo.jpg"));
-		frame.setAlwaysOnTop(true);
-		frame.setBounds(100, 100, 850, 650);
-		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		frame.getContentPane().setLayout(new BorderLayout(0, 0));
-
-    JPanel addPanel = new JPanel();
-    frame.getContentPane().add(addPanel, BorderLayout.WEST);
-    addPanel.setLayout(new BoxLayout(addPanel, BoxLayout.Y_AXIS));
-
-    //Create account name label and textfield
-    JPanel namePan = new JPanel();
-    addPanel.add(namePan);
-    JLabel nameLabel = new JLabel("Account Name");
-    namePan.add(nameLabel);
-    JTextField name = new JTextField(10);
-    namePan.add(name);
-    //addPanel.add(Box.createVerticalStrut(20));
-
-    //Create account balance label and textfield
-    JPanel balancePan = new JPanel();
-    addPanel.add(balancePan);
-    JLabel balanceLabel = new JLabel("Account Balance");
-    balancePan.add(balanceLabel);
-    JTextField balance = new JTextField(10);
-    balancePan.add(balance);
-  //  addPanel.add(Box.createVerticalStrut(20));
-
-    //Create account description label and textfield
-    JPanel descPan = new JPanel();
-    addPanel.add(descPan);
-    JLabel descLabel = new JLabel("Account Description");
-    descPan.add(descLabel);
-    JTextField desc = new JTextField(10);
-    descPan.add(desc);
-
-    //Create add button
-    JPanel buttonPanel = new JPanel();
-    addPanel.add(buttonPanel);
-    JButton addButton = new JButton("Add");
-    buttonPanel.add(addButton);
-
-    JOptionPane messagePane = new JOptionPane();
-    addButton.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent arg0) {
-        if (desc.getText().equals("") || balance.getText().equals("") || name.getText().equals("")) {
-          messagePane.showMessageDialog(frame, "Error: All Fields must be filled out");
-        }else{
-          messagePane.showMessageDialog(frame, "Account Created!");
-        }
-
-      }
-    });
-
-
-
-
-
-    JPanel loginPanel = new JPanel(new BorderLayout(5, 5));
-    JButton loginBtn = new JButton("Logout");
-    loginPanel.add(loginBtn, BorderLayout.NORTH);
-    loginPanel.add(new JLabel("Not You?"), BorderLayout.SOUTH);
-
-
-    //Create Developed By footer
-		JLabel lblNewLabel = new JLabel("Developed By: Data Over Sata");
-		frame.getContentPane().add(lblNewLabel, BorderLayout.SOUTH);
-
-
-	}
-
-}*/
+}
