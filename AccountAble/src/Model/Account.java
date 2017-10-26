@@ -4,7 +4,6 @@ public class Account implements Comparable<Account>{
   private int id;
   private String name, descr;
   private double initBalance, balance;
-  private Map<User,User> users;
 
   // Constructor
   public Account(int id, String name, String descr, double initBalance){
@@ -13,7 +12,6 @@ public class Account implements Comparable<Account>{
     this.descr = descr;
     this.initBalance = initBalance;
     this.balance = initBalance;
-    users = new TreeMap<User, User>();
   }
   public Account(int id, String name, String descr, double initBalance, double balance){
     this.id = id;
@@ -21,16 +19,19 @@ public class Account implements Comparable<Account>{
     this.descr = descr;
     this.initBalance = initBalance;
     this.balance = balance;
-    users = new TreeMap<User, User>();
   }
-
-  public Account(int id){   // Temp search Acct
+  // DUMMY SEARCH INSTANCES
+  public Account(int id, String name){
     this.id = id;
+    this.name = name;
   }
 
   // Getters & Setters
   public int getID(){
     return id;
+  }
+  public void setID(int id){
+    this.id = id;
   }
   public String getName(){
     return name;
@@ -50,45 +51,32 @@ public class Account implements Comparable<Account>{
   public double getInitBalance(){
     return initBalance;
   }
-  public Map<User, User> getUsers(){
-    return users;
-  }
 
   // Comparators
   public int compareTo(Account that){   // Compares two Accounts by ID
-    if (this.getID() > that.getID()){
-      return +1;
-    } else if (this.getID() < that.getID()){
-      return -1;
-    } else {
-      return 0;
+    Integer thisID = this.getID();
+    Integer thatID = that.getID();
+    return thisID.compareTo(thatID);
+  }
+  public static Comparator<Account> BY_NAME(){  // Compares two Accounts by LastName, FirstName
+    return new Comparator<Account>() {
+      public int compare(Account a, Account b) {
+        String aName = a.getName();
+        String bName = b.getName();
+        return aName.compareTo(bName);
+      }
+    };
+  }
+
+  // Equals (if Account has same ID or Name, then equal)
+  public boolean equals(Account that){
+    if (this.id == that.id){
+      return true;
     }
-  }
-
-  // Test, Add & Remove User Access
-  public boolean hasAccess(User user){   // Tells whether User is in Users List
-    return users.containsKey(user);
-  }
-  public void addAccess(User user){
-    users.put(user, user);
-  }
-  public void removeAccess(User user){
-    users.remove(user);
-  }
-
-  // Data formatters :: id;name;descr;initBalance
-  public static User DATA_TO_ACCT(String data){
-    String[] dataArr = data.split(";");
-    boolean admin = Boolean.parseBoolean(dataArr[4]);
-    return new User(dataArr[0], dataArr[1], dataArr[2], dataArr[3], admin);
-  }
-
-  public static String ACCT_TO_DATA(Account acct){
-    String data = acct.id + ";" +
-      acct.name + ";" +
-      acct.descr + ";" +
-      Double.toString(acct.initBalance);
-    return data;
+    if (this.name.equals(that.name)){
+      return true;
+    }
+    return false;
   }
 
   // Print Demo
@@ -96,12 +84,13 @@ public class Account implements Comparable<Account>{
     System.out.println("Account ID: " + getID());
     System.out.println("Account Name: " + getName());
     System.out.println("Account Descr: " + getDescr());
-    System.out.println("Account Balance: " + getBalance());
+    System.out.println("Account Initial Balance: $" + getInitBalance());
+    System.out.println("Account Balance: $" + getBalance());
+    System.out.println("");
   }
 
   // Unit Test
   public static void main(String[] args){
-    User testUser = new User("admin", "12345", "Johnny", "Rotten", true);
     Account testAcct = new Account(1, "Johnny's Account", "Don't Ask", 1000000.01);
     testAcct.printInfo();
   }
