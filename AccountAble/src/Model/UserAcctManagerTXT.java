@@ -16,6 +16,13 @@ public class UserAcctManagerTXT{
     accessIDgen = 0;
   }
 
+  // Sets current value for
+  public void setIDs(int userID, int acctID, int accessID){
+    userIDgen = userID;
+    acctIDgen = acctID;
+    accessIDgen = accessID;
+  }
+
   // Add NEW (returns FALSE if not Unique/fails)
   // NEW Users
   public boolean addUser(User newUser){
@@ -138,12 +145,27 @@ public class UserAcctManagerTXT{
   }
 
   // GET ALL ACCOUNTS BY USER (doesn't use binary search...)
+  // O(n) process
   public ArrayList<Account> getAllAcctByUser(User user){
-    return null;
+    ArrayList<Account> allowedAccts = new ArrayList<Account>();
+    for (Access access : accesses){
+      if (access.getUser() == user){
+        Account allowedAcct = access.getAcct();
+        allowedAccts.add(allowedAcct);
+      }
+    }
+    return allowedAccts;
   }
   // GET ALL USERS BY ACCOUNT
   public ArrayList<User> getAllUserByAcct(Account acct){
-    return null;
+    ArrayList<User> allowedUsers = new ArrayList<User>();
+    for (Access access : accesses){
+      if (access.getAcct() == acct){
+        User allowedUser = access.getUser();
+        allowedUsers.add(allowedUser);
+      }
+    }
+    return allowedUsers;
   }
 
   // GET BY ID

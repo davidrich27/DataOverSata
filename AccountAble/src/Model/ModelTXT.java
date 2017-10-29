@@ -3,12 +3,12 @@ public class ModelTXT {
   DataManager dataManager;
 
   public ModelTXT() {
-    userPath = "../../data/Users.txt";
-    acctPath = "../../data/Accounts.txt";
-    user_acctPath = "../../data/User_Account.txt";
-    idPath = "../../data/ID.txt";
+    String userPath = "../../data/Users.txt";
+    String acctPath = "../../data/Accounts.txt";
+    String user_acctPath = "../../data/User_Account.txt";
+    String idPath = "../../data/ID.txt";
 
-    acctsManager = new UserAcctManagerTXT();
+    uaManager = new UserAcctManagerTXT();
     dataManager = new DataManagerTXT(userPath, acctPath, user_acctPath);
   }
 }
