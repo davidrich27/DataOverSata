@@ -4,7 +4,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class InitialView extends Application {
+public class ViewInitial extends Application {
 
     public static void main(String[] args) {
         Application.launch(InitialView.class, args);
@@ -12,7 +12,7 @@ public class InitialView extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("InitialView.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("ViewInitial.fxml"));
 
         stage.setTitle("FXML Welcome");
         stage.setScene(new Scene(root, 300, 275));
