@@ -7,7 +7,7 @@ import javafx.stage.Stage;
 public class ViewInitial extends Application {
 
     public static void main(String[] args) {
-        Application.launch(InitialView.class, args);
+        Application.launch(ViewInitial.class, args);
     }
 
     @Override
