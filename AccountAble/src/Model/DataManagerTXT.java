@@ -2,15 +2,15 @@ import java.io.*;
 import java.util.*;
 
 public class DataManagerTXT {
-  String userPath, acctPath, user_acctPath, idPath;
+  String userPath, acctPath, accessPath, idPath;
   UserAcctManagerTXT uaManager;
 
   // CONSTRUCTOR
   public DataManagerTXT(){
-    this.userPath = userPath;
-    this.acctPath = acctPath;
-    this.user_acctPath = user_acctPath;
-    this.idPath = idPath;
+    this.userPath = "../data/Users.txt";
+    this.acctPath = "../data/Accounts.txt";
+    this.accessPath = "../data/Accesses.txt";
+    this.idPath = "../data/ID.txt";
   }
 
   public DataManagerTXT(String userPath, String acctPath, String accessPath, String idPath, UserAcctManager uaManager){
@@ -18,9 +18,9 @@ public class DataManagerTXT {
     this.acctPath = acctPath;
     this.user_acctPath = user_acctPath;
     this.idPath = idPath;
-
-    
   }
+
+  public void setPath()
 
   // DATA FORMATTERS
   // Account (id;name;descr;initBalance;balance)
