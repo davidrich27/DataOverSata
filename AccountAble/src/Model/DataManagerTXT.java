@@ -77,6 +77,7 @@ public class DataManagerTXT {
       access.getAcct().getID();
     return data;
   }
+  // Transactions (id;AccountID;Amt)
 
   // READERS & WRITERS
   // Reads in all Users from Users.txt
@@ -88,7 +89,7 @@ public class DataManagerTXT {
       manager.addUser(tempUser);
     }
   }
-  // Write single User to Users.txt
+  // Write single User to Users.txt (NO Overwrite)
   public boolean writeUserToFile(User user){
     String userStr = USER_TO_DATA(user);
     return writeLineToFile(userStr, userPath);
@@ -117,7 +118,7 @@ public class DataManagerTXT {
       manager.addAcct(tempAcct);
     }
   }
-  // Write single Acct to Accounts.txt
+  // Write single Acct to Accounts.txt (NO Overwrite)
   public boolean writeAcctToFile(Account acct){
     String acctStr = ACCT_TO_DATA(acct);
     return writeLineToFile(acctStr, acctPath);
@@ -136,6 +137,31 @@ public class DataManagerTXT {
   public boolean writeManagerAcctsToFile(UserAcctManagerTXT manager){
     return writeAllAcctsToFile(manager.getAllAccts());
   }
+
+  // Reads in all Accesses from Accesses.txt
+  public void readAccessFileToManager(UserAcctManagerTXT manager){
+
+  }
+  // Write single Access to Accesses.txt (NO Overwrite)
+  public boolean writeAccessToFile(Access access){
+
+  }
+  // Overwrite all Accesses to Accesses.txt (Overwrite)
+  public boolean writeAllAccessesToFile(ArrayList<Access> accesses, UserAcctManagerTXT manager){
+    boolean success = true;
+    for (Access access : accesses){
+      boolean next = writeAccessToFile(access, manager);
+      if (next == false){
+        success = false;
+      }
+    }
+    return success;
+  }
+  public boolean writeManagerAccessesToFile(UserAcctManagerTXT manager){
+    return writeAllAccessesToFile(manager.getAllAccesses());
+  }
+
+  //***************GENERIC READERS************************
 
   // Generic TextFile Reader
   public ArrayList<String> readFileToList(String filePath){
