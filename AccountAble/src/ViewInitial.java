@@ -14,7 +14,7 @@ public class ViewInitial extends Application {
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("ViewInitial.fxml"));
 
-        stage.setTitle("FXML Welcome");
+        stage.setTitle("AccountAble");
         stage.setScene(new Scene(root, 300, 275));
         stage.setMaximized(true);
         stage.show();
