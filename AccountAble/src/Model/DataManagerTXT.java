@@ -13,14 +13,20 @@ public class DataManagerTXT {
     this.idPath = "../data/ID.txt";
   }
 
-  public DataManagerTXT(String userPath, String acctPath, String accessPath, String idPath, UserAcctManager uaManager){
+  public DataManagerTXT(String userPath, String acctPath, String accessPath, String idPath){
     this.userPath = userPath;
     this.acctPath = acctPath;
-    this.user_acctPath = user_acctPath;
+    this.accessPath = accessPath;
     this.idPath = idPath;
   }
 
-  public void setPath()
+  // GETTERS & SETTERS
+  public void setUserPath(String userPath){
+    this.userPath = userPath;
+  }
+  public String getUserPath(){
+    return this.userPath;
+  }
 
   // DATA FORMATTERS
   // Account (id;name;descr;initBalance;balance)
@@ -80,6 +86,24 @@ public class DataManagerTXT {
   // Transactions (id;AccountID;Amt)
 
   // READERS & WRITERS
+  // Read in all current IDs
+  public void readIDFileToManager(UserAcctManagerTXT manager){
+    ArrayList<String> idList = readFileToList(idPath);
+    String[] ids = idList.get(0).split(";");
+    int userID = Integer.parseInt(ids[0]);
+    int acctID = Integer.parseInt(ids[1]);
+    int accessID = Integer.parseInt(ids[2]);
+    manager.setIDs(userID, acctID, accessID);
+  }
+  public void writeManagerIDsToFile(UserAcctManagerTXT manager){
+    int[] ids = manager.getIDs();
+    String data = ids[0] + ";" +
+        ids[1] + ";" +
+        ids[2];
+    // Overwrite previous values
+    writeLineToFile(data, idPath, true);
+  }
+
   // Reads in all Users from Users.txt
   public void readUserFileToManager(UserAcctManagerTXT manager){
     ArrayList<String> userList = readFileToList(userPath);
@@ -140,17 +164,23 @@ public class DataManagerTXT {
 
   // Reads in all Accesses from Accesses.txt
   public void readAccessFileToManager(UserAcctManagerTXT manager){
-
+    ArrayList<String> accessList = readFileToList(accessPath);
+    // makes Access entry for every line in txt filePath
+    for (String accessStr : accessList){
+      Access tempAccess = DATA_TO_ACCESS(accessStr, manager);
+       manager.addAccess(tempAccess);
+    }
   }
   // Write single Access to Accesses.txt (NO Overwrite)
   public boolean writeAccessToFile(Access access){
-
+    String accessStr = ACCESS_TO_DATA(access);
+    return writeLineToFile(accessStr, accessPath);
   }
   // Overwrite all Accesses to Accesses.txt (Overwrite)
   public boolean writeAllAccessesToFile(ArrayList<Access> accesses, UserAcctManagerTXT manager){
     boolean success = true;
     for (Access access : accesses){
-      boolean next = writeAccessToFile(access, manager);
+      boolean next = writeAccessToFile(access);
       if (next == false){
         success = false;
       }
@@ -158,7 +188,7 @@ public class DataManagerTXT {
     return success;
   }
   public boolean writeManagerAccessesToFile(UserAcctManagerTXT manager){
-    return writeAllAccessesToFile(manager.getAllAccesses());
+    return writeAllAccessesToFile(manager.getAllAccesses(), manager);
   }
 
   //***************GENERIC READERS************************
@@ -229,6 +259,27 @@ public class DataManagerTXT {
 		}
     return false;
   }
+  public boolean writeLineToFile(String line, String filePath, boolean overwrite){
+    try {
+			FileWriter fileWriter = new FileWriter(filePath, !overwrite);
+      // Loop through every String in array and write to file
+      BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+      bufferedWriter.write(line);
+      bufferedWriter.newLine();
+			bufferedWriter.flush();
+			bufferedWriter.close();
+      return true;
+    }
+    catch (IOException e) {
+			e.printStackTrace();
+		}
+    return false;
+  }
+
+  // Print Demo
+  public void printInfo(){
+
+  }
 
   // UNIT TEST
   public static void main(String[] args){
@@ -244,8 +295,9 @@ public class DataManagerTXT {
     String userPath = "../../data/testUsers.txt";
     String acctPath = "../../data/testAccounts.txt";
     String accessPath = "../../data/testAccesses.txt";
+    String idPath = "../../data/testIDs.txt";
 
-    DataManagerTXT dataManager = new DataManagerTXT(userPath, acctPath, accessPath);
+    DataManagerTXT dataManager = new DataManagerTXT(userPath, acctPath, accessPath, idPath);
     User testUser = uaManager.getUserByIndex(1);
     dataManager.writeUserToFile(testUser);
     Account testAcct = uaManager.getAcctByIndex(1);

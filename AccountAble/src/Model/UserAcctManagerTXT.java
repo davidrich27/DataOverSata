@@ -22,6 +22,13 @@ public class UserAcctManagerTXT{
     acctIDgen = acctID;
     accessIDgen = accessID;
   }
+  public int[] getIDs(){
+    int[] ids = new int[3];
+    ids[0] = userIDgen;
+    ids[1] = acctIDgen;
+    ids[2] = accessIDgen;
+    return ids;
+  }
 
   // Add NEW (returns FALSE if not Unique/fails)
   // NEW Users
@@ -280,6 +287,7 @@ public class UserAcctManagerTXT{
 
   // Print Demo
   public void printInfo(){
+    System.out.println("CURRENT ID VALUES: " + userIDgen + ", " + acctIDgen + ", " + acctIDgen);
     System.out.println("ALL USERS:");
     for(User user : users){
       user.printInfo();
