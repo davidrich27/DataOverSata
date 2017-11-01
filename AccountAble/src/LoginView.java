@@ -15,9 +15,9 @@ public class LoginView extends Application {
      
         Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
         
-        stage.setTitle("FXML Welcome");
+        stage.setTitle("AccountAble");
         stage.setScene(new Scene(root, 300, 275));
-        stage.setMaximized(true);
+        stage.setMaximized(false);
         stage.show();
     }
 }
