@@ -9,7 +9,7 @@
 
 <AnchorPane nodeOrientation="LEFT_TO_RIGHT" prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ControllerLogin">
    <children>
-      <Button layoutX="55.0" layoutY="214.0" mnemonicParsing="false" onAction="#Login" text="Login">
+      <Button layoutX="55.0" layoutY="214.0" mnemonicParsing="false" text="Login">
          <font>
             <Font size="18.0" />
          </font>
