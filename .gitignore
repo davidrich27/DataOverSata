@@ -1,2 +1,9 @@
 /bin/
+<<<<<<< HEAD
 /.metadata/
+=======
+*.class
+.DS_Store
+Thumbs.db
+/wbp-meta/
+>>>>>>> 6bbcaebef7d7736de5e99f3aa9bdcec34fb48aaa

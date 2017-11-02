@@ -1,7 +1,10 @@
 public class Controller{
-  Model model;
+  ModelTXT model;
   View view;
-  public Controller(Model model, View view){
+  User loggedIn;
+  ArrayList<Account> accts;
+
+  public Controller(ModelTXT model, View view){
     this.model = model;
     this.view = view;
   }
