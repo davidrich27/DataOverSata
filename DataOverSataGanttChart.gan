@@ -1,15 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2017-08-13" view-index="0" gantt-divider-location="300" resource-divider-location="300" version="2.8.5" locale="en_US">
+<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2017-10-01" view-index="0" gantt-divider-location="236" resource-divider-location="300" version="2.8.5" locale="en_US">
     <description/>
-    <view zooming-state="default:6" id="gantt-chart">
-        <field id="tpd3" name="Name" width="126" order="0"/>
-        <field id="tpd4" name="Begin date" width="52" order="1"/>
-        <field id="tpd5" name="End date" width="52" order="2"/>
-        <field id="tpc0" name="Group Member" width="66" order="3"/>
+    <view zooming-state="default:11" id="gantt-chart">
+        <field id="tpd3" name="Name" width="95" order="0"/>
+        <field id="tpd4" name="Begin date" width="42" order="1"/>
+        <field id="tpd5" name="End date" width="41" order="2"/>
+        <field id="tpc0" name="Group Member" width="52" order="3"/>
         <option id="color.recent"><![CDATA[#00ffff #3333ff #ff0066]]></option>
     </view>
     <view id="resource-table">
-        <field id="0" name="Name" width="210" order="0"/>
-        <field id="1" name="Default role" width="86" order="1"/>
+        <field id="0" name="Name" width="209" order="0"/>
+        <field id="1" name="Default role" width="85" order="1"/>
     </view>
     <!-- -->
     <calendars>
@@ -66,18 +66,19 @@ Cordell - 6]]></notes>
             <notes><![CDATA[Derek - 4 hours of working on items in product backlog
 Clayton - 4 hours creating Account view. Another 2 hours converting code from swing to FX 
 Dave - 4  hours Create Back end code for everthing to work. 
-]]></notes>
+Cordell - 3 hours creating create account and having it accept fields]]></notes>
         </task>
         <task id="12" name="Sprint 2" color="#00ffff" meeting="false" start="2017-10-20" duration="9" complete="0" expand="true">
             <notes><![CDATA[Dave - 20 hours Deleted unused files and organized used files for sprint 2. Created and implemented source code for all files being used besides login files. Created main GUI and tabs panel and the GUI's for OverView and Accounts View. After all views were created and Login View created. Connected all views with proper conrtollers and text databases to make everything work. Created Backlog cards.
 
 Clayton - 15 hours  Created Backlog cards and GUI's for the Transaction View, Create Fee's, Permissions View and All Accounts View. Created Login fxml, java and controller. Updated Gantt chart. Worked on PowerPoint.
 
-Cordell - Created Power Point and Add new Account View 
+Cordell - 7 hours Created Power Point and Add new Account View/transfered code from java to javafx
 
 Derek - 20 Hours Organizer; found Trello which we use for Backlog and uploads them and Scene Builder a tool we use to create GUI's. Updated Login XML file, Created controller to manage logon, researching the
 
 ]]></notes>
+            <customproperty taskproperty-id="tpc0" value=""/>
         </task>
     </tasks>
     <resources/>
