@@ -38,7 +38,7 @@ public class User implements Comparable<User> {
     this.username = username;
   }
   public boolean testPwd(String test){
-    return (test == pwd);
+    return (test.equals(pwd));
   }
   public String getPwd(){
     return pwd;

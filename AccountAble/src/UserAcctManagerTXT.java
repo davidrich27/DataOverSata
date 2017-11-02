@@ -116,21 +116,23 @@ public class UserAcctManagerTXT{
     User testUser = new User(-1, username);
     Collections.sort(users, User.BY_USERNAME());
     int index = Collections.binarySearch(users, testUser, User.BY_USERNAME());
-    Collections.sort(users);
     if (index < 0){
       return null;
     }
-    return users.get(index);
+    User target = users.get(index);
+    Collections.sort(users);
+    return target;
   }
   public Account getAcctByName(String name){
     Account testAcct = new Account(-1, name);
     Collections.sort(accts, Account.BY_NAME());
     int index = Collections.binarySearch(accts, testAcct, Account.BY_NAME());
-    Collections.sort(accts);
     if (index < 0){
       return null;
     }
-    return accts.get(index);
+    Account target = accts.get(index);
+    Collections.sort(accts);
+    return target;
   }
 
   // GET BY USER&ACCT, OR ALL USERS OR ALL ACCOUNTS
@@ -347,5 +349,13 @@ public class UserAcctManagerTXT{
     // Test account access
     System.out.println("Does (1,1) has access? " + uaManager.hasAccess(1,1));
     System.out.println("Does (1,3) has access? " + uaManager.hasAccess(1,3));
+
+    // Get user by Username
+    foundUser = uaManager.getUserByUsername("davey123");
+    foundUser.printInfo();
+    foundUser = uaManager.getUserByUsername("trish123");
+    foundUser.printInfo();
+    foundUser = uaManager.getUserByUsername("admin");
+    foundUser.printInfo();
   }
 }

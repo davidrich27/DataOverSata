@@ -120,14 +120,11 @@ public class DataManagerTXT {
   }
   // Overwrite all Users to User.txt (Overwrite)
   public boolean writeAllUsersToFile(ArrayList<User> users){
-    boolean success = true;
+    ArrayList<String> dataList = new ArrayList<String>();
     for (User user : users){
-      boolean next = writeUserToFile(user);
-      if (next == false){
-        success = false;
-      }
+      dataList.add(USER_TO_DATA(user));
     }
-    return success;
+    return writeListToFile(dataList, userPath);
   }
   public boolean writeManagerUsersToFile(UserAcctManagerTXT manager){
     return writeAllUsersToFile(manager.getAllUsers());
@@ -149,14 +146,11 @@ public class DataManagerTXT {
   }
   // Overwrite all Accounts to Account.txt (Overwrite)
   public boolean writeAllAcctsToFile(ArrayList<Account> accts){
-    boolean success = true;
+    ArrayList<String> dataList = new ArrayList<String>();
     for (Account acct : accts){
-      boolean next = writeAcctToFile(acct);
-      if (next == false){
-        success = false;
-      }
+      dataList.add(ACCT_TO_DATA(acct));
     }
-    return success;
+    return writeListToFile(dataList, acctPath);
   }
   public boolean writeManagerAcctsToFile(UserAcctManagerTXT manager){
     return writeAllAcctsToFile(manager.getAllAccts());
@@ -168,7 +162,7 @@ public class DataManagerTXT {
     // makes Access entry for every line in txt filePath
     for (String accessStr : accessList){
       Access tempAccess = DATA_TO_ACCESS(accessStr, manager);
-       manager.addAccess(tempAccess);
+      manager.addAccess(tempAccess);
     }
   }
   // Write single Access to Accesses.txt (NO Overwrite)
@@ -178,14 +172,11 @@ public class DataManagerTXT {
   }
   // Overwrite all Accesses to Accesses.txt (Overwrite)
   public boolean writeAllAccessesToFile(ArrayList<Access> accesses, UserAcctManagerTXT manager){
-    boolean success = true;
+    ArrayList<String> dataList = new ArrayList<String>();
     for (Access access : accesses){
-      boolean next = writeAccessToFile(access);
-      if (next == false){
-        success = false;
-      }
+      dataList.add(ACCESS_TO_DATA(access));
     }
-    return success;
+    return writeListToFile(dataList, accessPath);
   }
   public boolean writeManagerAccessesToFile(UserAcctManagerTXT manager){
     return writeAllAccessesToFile(manager.getAllAccesses(), manager);
@@ -232,8 +223,8 @@ public class DataManagerTXT {
         bufferedWriter.write(line);
         bufferedWriter.newLine();
       }
-			fileWriter.flush();
-			fileWriter.close();
+			bufferedWriter.flush();
+			bufferedWriter.close();
       return true;
     }
     catch (IOException e) {
