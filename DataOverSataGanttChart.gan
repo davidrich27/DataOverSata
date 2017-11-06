@@ -1,15 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2017-07-01" view-index="0" gantt-divider-location="300" resource-divider-location="300" version="2.8.5" locale="en_US">
+<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2017-10-02" view-index="0" gantt-divider-location="446" resource-divider-location="300" version="2.8.5" locale="en_US">
     <description/>
-    <view zooming-state="default:8" id="gantt-chart">
-        <field id="tpd3" name="Name" width="126" order="0"/>
-        <field id="tpd4" name="Begin date" width="52" order="1"/>
-        <field id="tpd5" name="End date" width="52" order="2"/>
-        <field id="tpc0" name="Group Member" width="66" order="3"/>
-        <option id="color.recent"><![CDATA[#3333ff #ff0066]]></option>
+    <view zooming-state="default:0" id="gantt-chart">
+        <field id="tpd3" name="Name" width="180" order="0"/>
+        <field id="tpd4" name="Begin date" width="81" order="1"/>
+        <field id="tpd5" name="End date" width="75" order="2"/>
+        <field id="tpc0" name="Group Member" width="104" order="3"/>
+        <option id="color.recent"><![CDATA[#00ffff #3333ff #ff0066]]></option>
     </view>
     <view id="resource-table">
-        <field id="0" name="Name" width="210" order="0"/>
-        <field id="1" name="Default role" width="86" order="1"/>
+        <field id="0" name="Name" width="209" order="0"/>
+        <field id="1" name="Default role" width="85" order="1"/>
     </view>
     <!-- -->
     <calendars>
@@ -51,22 +51,61 @@ Cordell - 3]]></notes>
             <customproperty taskproperty-id="tpc0" value=""/>
         </task>
         <task id="4" name="Gantt Chart" color="#3333ff" meeting="false" start="2017-09-21" duration="4" complete="0" expand="true">
-            <notes><![CDATA[Clayton - 1
-Derek - 1
-Cordell - 1]]></notes>
+            <notes><![CDATA[Clayton - 1.5 hours Updated Gantt Chart for Sprint 2
+Derek - 1 updated Gantt Chart
+Cordell - 1 Updated Gantt Chart
+Dave - 1 Updated Gantt Chart]]></notes>
         </task>
         <task id="5" name="Backlog" color="#8cb6ce" meeting="false" start="2017-10-10" duration="44" complete="0" expand="true">
-            <notes><![CDATA[Dave - 2
-Clayton - 2 
-Derrick -5
-Cordell - 2]]></notes>
+            <notes><![CDATA[Dave - 6 Created notecards of Views
+Clayton - 6 Created NoteCard of Views
+Derrick -6 Uploaded NoteCards to Trello
+Cordell - 6]]></notes>
         </task>
         <task id="11" name="Sprint 1" color="#8cb6ce" meeting="false" start="2017-10-13" duration="6" complete="0" expand="true">
             <notes><![CDATA[Derek - 4 hours of working on items in product backlog
+Clayton - 4 hours creating Account view. Another 2 hours converting code from swing to FX
+Dave - 4  hours Create Back end code for everthing to work.
+Cordell - 3 hours creating create account and having it accept fields]]></notes>
+        </task>
+        <task id="12" name="Sprint 2" color="#00ffff" meeting="false" start="2017-10-02" duration="20" complete="0" expand="true">
+            <notes><![CDATA[Dave - 20 hours Deleted unused files and organized used files for sprint 2. Created and implemented source code for all files being used besides login files. Created main GUI and tabs panel and the GUI's for OverView and Accounts View. After all views were created and Login View created. Connected all views with proper conrtollers and text databases to make everything work. Created Backlog cards.
+
+Clayton - 15 hours  Created Backlog cards and GUI's for the Transaction View, Create Fee's, Permissions View and All Accounts View. Created Login fxml, java and controller. Updated Gantt chart. Worked on PowerPoint.
+
+Cordell - 7 hours Created Power Point and Add new Account View/transfered code from java to javafx
+
+Derek - 20 Hours Organizer; found Trello which we use for Backlog and uploads them and Scene Builder a tool we use to create GUI's. Updated Login XML file, Created controller to manage logon, researching the
+
 ]]></notes>
+            <customproperty taskproperty-id="tpc0" value=""/>
+            <task id="17" name="Controllers" color="#8cb6ce" meeting="false" start="2017-10-02" duration="6" complete="0" expand="true">
+                <notes><![CDATA[- Setup controllers for the JavaFX FXML Login and Main Screen views.
+- Implemented functionality for user login and checking account access.
+ ]]></notes>
+            </task>
+            <task id="16" name="Model/DB" color="#8cb6ce" meeting="false" start="2017-10-02" duration="15" complete="0" expand="true">
+                <notes><![CDATA[- Designed and Implemented model for Account, User, Access primary data types
+- Designed and DataManager and UserAccountManager to organize program live data and storage]]></notes>
+            </task>
+            <task id="18" name="View/GUI" meeting="false" start="2017-10-02" duration="20" complete="0" expand="true">
+                <task id="29" name="Java.swt -&gt; JavaFX" color="#8cb6ce" meeting="false" start="2017-10-02" duration="1" complete="0" expand="true">
+                    <notes><![CDATA[- Converted all Java GUI in project from Java Swing to JavaFX.]]></notes>
+                </task>
+                <task id="28" name="ViewInitial" color="#8cb6ce" meeting="false" start="2017-10-02" duration="20" complete="0" expand="true"/>
+                <task id="27" name="ViewLogin" color="#8cb6ce" meeting="false" start="2017-10-02" duration="10" complete="0" expand="true"/>
+            </task>
+            <task id="20" name="Research" color="#8cb6ce" meeting="false" start="2017-10-02" duration="10" complete="0" expand="true">
+                <notes><![CDATA[- Researched technologies for project.  Found JavaFX Scene Builder for making GUI components and Trello for better team organization.]]></notes>
+            </task>
         </task>
     </tasks>
-    <resources/>
+    <resources>
+        <resource id="0" name="David Rich" function="Default:0" contacts="" phone=""/>
+        <resource id="1" name="Clayton Tallwhiteman" function="Default:0" contacts="" phone=""/>
+        <resource id="2" name="Derek Hickman" function="Default:0" contacts="" phone=""/>
+        <resource id="3" name="Cordell Appel" function="Default:0" contacts="" phone=""/>
+    </resources>
     <allocations/>
     <vacations/>
     <previous/>

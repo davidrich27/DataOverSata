@@ -1,5 +1,15 @@
 /bin/
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+/.metadata/
+=======
+>>>>>>> 8d56a13e131685f6c656296e2b74360298c3e89b
 *.class
 .DS_Store
 Thumbs.db
 /wbp-meta/
+<<<<<<< HEAD
+=======
+>>>>>>> 6bbcaebef7d7736de5e99f3aa9bdcec34fb48aaa
+>>>>>>> 8d56a13e131685f6c656296e2b74360298c3e89b
