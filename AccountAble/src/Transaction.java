@@ -1,8 +1,8 @@
 public class Transaction{
-  private int id, int acctID;
+  private int id, acctID;
   private double amount;
 
-  public Transaction(int id, Account acctID, double amount){
+  public Transaction(int id, int acctID, double amount){
     this.id = id;
     this.acctID = acctID;
     this.amount = amount;

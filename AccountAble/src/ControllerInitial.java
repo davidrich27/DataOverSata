@@ -16,6 +16,7 @@ import javafx.scene.control.*;
 import javafx.util.StringConverter;
 import javafx.event.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.Alert.AlertType;
 
 public class ControllerInitial {
 
@@ -53,6 +54,10 @@ public class ControllerInitial {
     private TableColumn descrCol;
     @FXML
     private TableColumn balanceCol;
+    @FXML
+    private Button deleteBtn;
+    @FXML
+    private ListView acctsList;
 
     // called by the FXML loader after the labels declared above are injected:
     public void initialize() {
@@ -107,6 +112,13 @@ public class ControllerInitial {
       // balanceCol.setCellValueFactory(
       //   new PropertyValueFactory<Account,String>("balance")
       // );
+      // Populate ListView on Account View Tab
+      ObservableList<String> acctNames = FXCollections.observableArrayList();
+      for (Account acct : loginAccts){
+        String acctName = acct.getName();
+        acctNames.add(acctName);
+      }
+      acctsList.setItems(acctNames);
     }
 
     @FXML
@@ -114,5 +126,22 @@ public class ControllerInitial {
       // Button was clicked, do something...
       loginStage.show();
       thisStage.hide();
+    }
+
+    @FXML
+    private void handleDelete(ActionEvent event){
+      System.out.println("Delete button clicked!");
+      Alert alert = new Alert(AlertType.CONFIRMATION);
+      alert.setTitle("Confirm Deletion");
+      // String selectedAcct = acctsList.getSelectionModel().getSelectedItem();
+      alert.setHeaderText("You are about to Delete this Account!");
+      alert.setContentText("Are you ok with this?");
+
+      Optional<ButtonType> result = alert.showAndWait();
+      if (result.get() == ButtonType.OK){
+          // ... user chose OK
+      } else {
+          // ... user chose CANCEL or closed the dialog
+      }
     }
 }
