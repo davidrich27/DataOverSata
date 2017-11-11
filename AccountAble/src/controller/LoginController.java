@@ -1,3 +1,6 @@
+package controller;
+import model.*;
+import view.*;
 
 import java.net.URL;
 import java.util.ResourceBundle;

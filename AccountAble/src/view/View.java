@@ -1,3 +1,7 @@
+package view;
+import model.*;
+import controller.*;
+
 import java.io.IOException;
 
 import javafx.application.Application;

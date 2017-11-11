@@ -1,3 +1,7 @@
+package model;
+import view.*;
+import controller.*;
+
 import java.util.*;
 
 public class User implements Comparable<User> {

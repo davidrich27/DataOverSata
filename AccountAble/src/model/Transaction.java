@@ -1,3 +1,7 @@
+package model;
+import view.*;
+import controller.*;
+
 public class Transaction{
   private int id, acctID;
   private double amount;

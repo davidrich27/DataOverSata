@@ -1,3 +1,7 @@
+package model;
+import view.*;
+import controller.*;
+
 import java.io.*;
 import java.util.*;
 

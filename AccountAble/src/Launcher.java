@@ -1,5 +1,8 @@
-import java.io.IOException;
+import model.*;
+import view.*;
+import controller.*;
 
+import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -17,7 +20,7 @@ public class Launcher extends Application {
         model.printInfo();
 
         // Set Stage for Initial View
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("ViewInitial.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("view/ViewInitial.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
@@ -26,7 +29,7 @@ public class Launcher extends Application {
 
         // Set stage for Login Screen
         Stage loginStage = new Stage();
-        FXMLLoader loginLoader = new FXMLLoader(getClass().getResource("ViewLogin.fxml"));
+        FXMLLoader loginLoader = new FXMLLoader(getClass().getResource("view/ViewLogin.fxml"));
         Parent loginRoot = loginLoader.load();
         Scene loginScene = new Scene(loginRoot);
         loginStage.setScene(loginScene);

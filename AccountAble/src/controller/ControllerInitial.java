@@ -1,4 +1,9 @@
+package controller;
+import model.*;
+import view.*;
+
 import java.io.IOException;
+import java.util.*;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -6,9 +11,6 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
-
-import java.util.*;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
