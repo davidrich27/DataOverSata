@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FeeTypeCreateController">
+  <children>
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+      <children>
+            <Label layoutX="187.0" layoutY="62.0" text="Name:" />
+            <Label layoutX="154.0" layoutY="95.0" text="Description:" />
+            <Label layoutX="177.0" layoutY="175.0" text="Amount:" />
+            <TextField fx:id="nameTxt" layoutX="287.0" layoutY="57.0" />
+            <TextField fx:id="amtTxt" layoutX="287.0" layoutY="170.0" />
+            <Button fx:id="confirmBtn" layoutX="224.0" layoutY="359.0" mnemonicParsing="false" onAction="#confirmClick" text="Confirm" />
+            <Button fx:id="cancelBtn" layoutX="299.0" layoutY="359.0" mnemonicParsing="false" onAction="#cancelClick" text="Cancel" />
+            <Label layoutX="215.0" layoutY="14.0" text="Create New Fee Type">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextArea fx:id="descTxt" layoutX="287.0" layoutY="95.0" prefHeight="67.0" prefWidth="236.0" />
+            <Label layoutX="75.0" layoutY="237.0" />
+            <Label layoutX="55.0" layoutY="229.0" text="Is it a Percent or a Flat Fee?:" />
+            <RadioButton fx:id="isPercentRadio" layoutX="287.0" layoutY="228.0" mnemonicParsing="false" text="Percent" />
+            <RadioButton fx:id="isFlatFeeRadio" layoutX="398.0" layoutY="229.0" mnemonicParsing="false" text="Flat Fee" />
+      </children>
+    </AnchorPane>
+  </children>
+</VBox>

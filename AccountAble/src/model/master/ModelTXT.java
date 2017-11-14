@@ -41,6 +41,7 @@ public class ModelTXT {
     dataManager.readUserFileToManager(uaManager);
     dataManager.readAcctFileToManager(uaManager);
     dataManager.readTransFileToManager(uaManager);
+    dataManager.readFeeTypeFileToManager(uaManager);
     dataManager.readUser_AcctFileToManager(uaManager);
     dataManager.readAcct_TransFileToManager(uaManager);
   }

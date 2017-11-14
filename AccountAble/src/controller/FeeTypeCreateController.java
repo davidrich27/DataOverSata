@@ -19,7 +19,19 @@ import javafx.event.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.Alert.AlertType;
 
-public class AcctCreateController {
+public class FeeTypeCreateController {
+
+    @FXML
+    private RadioButton isFlatFeeRadio;
+
+    @FXML
+    private TextField amtTxt;
+
+    @FXML
+    private TextArea descTxt;
+
+    @FXML
+    private RadioButton isPercentRadio;
 
     @FXML
     private Button cancelBtn;
@@ -29,10 +41,6 @@ public class AcctCreateController {
 
     @FXML
     private Button confirmBtn;
-
-    @FXML
-    private TextArea descrTxt;
-
 
     // ************************** Model Variables *******************************
 
@@ -61,8 +69,12 @@ public class AcctCreateController {
     @FXML
     void confirmClick(ActionEvent event) {
       String name = nameTxt.getText();
-      String descr = descrTxt.getText();
-      model.addNewAcct(name, descr);
+      String descr = descTxt.getText();
+      Double amt = Double.parseDouble(amtTxt.getText());
+      Boolean isPercent = isPercentRadio.isSelected();
+      Boolean isAdditional = false;
+      Boolean isCustom = false;
+      model.addNewFeeType(name, descr, amt, isPercent, isAdditional, isCustom);
     }
 
     @FXML

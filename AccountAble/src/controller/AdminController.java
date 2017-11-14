@@ -48,7 +48,7 @@ public class AdminController {
   private TableView<?> userTbl;
 
   @FXML
-  private ListView<?> feeList;
+  private ListView<String> feeList;
 
   @FXML
   private Button editAcctBtn;
@@ -60,7 +60,7 @@ public class AdminController {
   private AnchorPane allowedList;
 
   @FXML
-  private ChoiceBox<?> dropdownAcct;
+  private ChoiceBox<String> dropdownAcct;
 
   @FXML
   private Button addTransactionBtn;
@@ -72,10 +72,13 @@ public class AdminController {
   private Button editUserBtn;
 
   @FXML
-  private TableView<?> acctAllTbl;
+  private TableView<String> acctAllTbl;
 
   @FXML
-  private ListView<?> userList;
+  private ListView<String> userList;
+
+  @FXML
+  private ListView<String> transList;
 
   @FXML
   private Label feeBalanceLbl;
@@ -120,6 +123,9 @@ public class AdminController {
   private TextField feeSearchTxt;
 
   @FXML
+  private Button delTransBtn1;
+
+  @FXML
   private Label usernameLbl;
 
   @FXML
@@ -136,6 +142,15 @@ public class AdminController {
 
   @FXML
   private Button editFeeBtn;
+
+  @FXML
+  private TextField transSearchTxt;
+
+  @FXML
+  private Button editTransBtn1;
+
+  @FXML
+  private Button examTransBtn1;
 
   @FXML
   private Button newUserBtn;
@@ -198,7 +213,7 @@ public class AdminController {
     availBalanceLbl.setText(master.getAvailBalance().toString());
 
     // ACCOUNTS TAB
-    // Populate Avail Accounts List
+    // Populate All Accounts Lists
     ObservableList<String> acctNames = FXCollections.observableArrayList();
     for (Account acct : currentAccts){
       String acctName = acct.getName();
@@ -206,6 +221,22 @@ public class AdminController {
     }
     acctsList.setItems(acctNames);
     acctsAllList.setItems(acctNames);
+    dropdownAcct.setItems(acctNames);
+    // Pop User List
+    ObservableList<String> userNames = FXCollections.observableArrayList();
+    ArrayList<User> allUsers = model.uaManager.getAllUsers();
+    for (User user : allUsers){
+      String userName = user.getUsername();
+      userNames.add(userName);
+    }
+    userList.setItems(userNames);
+    ObservableList<String> feeTypeNames = FXCollections.observableArrayList();
+    ArrayList<FeeType> allFeeTypes = model.uaManager.getAllFeeTypes();
+    for (FeeType feeType : allFeeTypes){
+      String feeTypeName = feeType.getName();
+      feeTypeNames.add(feeTypeName);
+    }
+    feeList.setItems(feeTypeNames);
   }
 
   // ************************** FX Events ***************************************
@@ -227,7 +258,7 @@ public class AdminController {
     Scene newScene = new Scene(newRoot);
     newStage.setScene(newScene);
     UserEditController newCtrl = newLoader.<UserEditController>getController();
-    //changeInfoCtrl.setHomeStages(thisStage);
+    newCtrl.setStage(newStage);
     newStage.show();
   }
 
@@ -239,20 +270,19 @@ public class AdminController {
     Scene newScene = new Scene(newRoot);
     newStage.setScene(newScene);
     UserCreateController newCtrl = newLoader.<UserCreateController>getController();
-    //changeInfoCtrl.setHomeStages(thisStage);
+    newCtrl.setStage(newStage);
     newStage.show();
   }
 
   @FXML
   void addTransactionClicked(ActionEvent event) throws Exception {
-    System.out.println("Clicked!");
     Stage newStage = new Stage();
     FXMLLoader newLoader = new FXMLLoader(getClass().getResource("../view/ViewCreateTrans.fxml"));
     Parent newRoot = newLoader.load();
     Scene newScene = new Scene(newRoot);
     newStage.setScene(newScene);
     TransCreateController newCtrl = newLoader.<TransCreateController>getController();
-    //changeInfoCtrl.setHomeStages(thisStage);
+    newCtrl.setStage(newStage);
     newStage.show();
   }
 
@@ -264,8 +294,19 @@ public class AdminController {
     Scene newScene = new Scene(newRoot);
     newStage.setScene(newScene);
     AcctCreateController newCtrl = newLoader.<AcctCreateController>getController();
-    //changeInfoCtrl.setHomeStages(thisStage);
+    newCtrl.setStage(newStage);
     newStage.show();
   }
 
+  @FXML
+  void newFeeClick(ActionEvent event) throws Exception {
+    Stage newStage = new Stage();
+    FXMLLoader newLoader = new FXMLLoader(getClass().getResource("../view/ViewCreateFeeType.fxml"));
+    Parent newRoot = newLoader.load();
+    Scene newScene = new Scene(newRoot);
+    newStage.setScene(newScene);
+    FeeTypeCreateController newCtrl = newLoader.<FeeTypeCreateController>getController();
+    newCtrl.setStage(newStage);
+    newStage.show();
+  }
 }

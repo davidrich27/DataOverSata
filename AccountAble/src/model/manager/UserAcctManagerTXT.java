@@ -452,8 +452,8 @@ public class UserAcctManagerTXT{
     }
     System.out.println("<----------->");
     System.out.println("ALL FEE TYPES:");
-    for(Transaction tran : trans){
-      tran.printInfo();
+    for(FeeType feeType : feeTypes){
+      feeType.printInfo();
     }
     System.out.println("<----------->");
     System.out.println("ALL USER-ACCOUNT LINKS:");

@@ -293,7 +293,7 @@
                                        </VBox.margin>
                                     </Label>
                                     <TextField fx:id="feeSearchTxt" />
-                                    <Button fx:id="newFeeBtn" mnemonicParsing="false" text="Create Fee">
+                                    <Button fx:id="newFeeBtn" mnemonicParsing="false" onAction="#newFeeClick" text="Create Fee">
                                        <VBox.margin>
                                           <Insets top="5.0" />
                                        </VBox.margin>
@@ -368,6 +368,60 @@
                                        </VBox.margin>
                                     </Button>
                                     <Button fx:id="examUserBtn" mnemonicParsing="false" text="Examine User">
+                                       <VBox.margin>
+                                          <Insets top="5.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                 </children>
+                              </VBox>
+                           </left>
+                        </BorderPane>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="Transactions">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <BorderPane layoutX="61.0" layoutY="29.0" prefHeight="323.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <center>
+                              <TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                 <columns>
+                                    <TableColumn minWidth="3.0" prefWidth="46.0" text="ID" />
+                                    <TableColumn prefWidth="83.0" text="Name" />
+                                    <TableColumn prefWidth="88.0" text="Description" />
+                                    <TableColumn prefWidth="101.0" text="Amount" />
+                                    <TableColumn prefWidth="71.0" text="Is Percent?" />
+                                 </columns>
+                              </TableView>
+                           </center>
+                           <left>
+                              <VBox alignment="CENTER" prefHeight="323.0" prefWidth="203.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <Label text="All Transactions:">
+                                       <VBox.margin>
+                                          <Insets bottom="5.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                    <ListView fx:id="transList" prefHeight="60.0" prefWidth="203.0" />
+                                    <Label text="Find Transaction:">
+                                       <VBox.margin>
+                                          <Insets bottom="5.0" top="5.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                    <TextField fx:id="transSearchTxt" />
+                                    <Button fx:id="delTransBtn1" mnemonicParsing="false" text="Delete/Reverse Transaction">
+                                       <VBox.margin>
+                                          <Insets top="5.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                    <Button fx:id="editTransBtn1" mnemonicParsing="false" text="Edit Transaction">
+                                       <VBox.margin>
+                                          <Insets top="5.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                    <Button fx:id="examTransBtn1" mnemonicParsing="false" text="Examine Transaction">
                                        <VBox.margin>
                                           <Insets top="5.0" />
                                        </VBox.margin>

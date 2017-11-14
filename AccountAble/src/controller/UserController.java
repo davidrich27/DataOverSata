@@ -79,6 +79,13 @@ public class UserController {
 
     public void login(User loginUser){
       currentUser = loginUser;
+      // Populate Text on Overview Tab
+      greetingLbl.setText("Welcome Back, " + currentUser.getName()[0] + "!");
+      usernameLbl.setText(currentUser.getUsername());
+      firstNameLbl.setText(currentUser.getName()[0]);
+      lastNameLbl.setText(currentUser.getName()[1]);
+      emailLbl.setText(currentUser.getEmail());
+      phoneLbl.setText(currentUser.getPhone());
     }
 
     // ************************** Button Events ************************************
