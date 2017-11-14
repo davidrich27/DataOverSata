@@ -1,5 +1,4 @@
-package view;
-import model.*;
+// local packages
 import controller.*;
 
 import javafx.application.Application;

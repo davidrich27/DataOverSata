@@ -1,6 +1,7 @@
 package controller;
-import model.*;
-import view.*;
+import model.basic.*;
+import model.manager.*;
+import model.master.*;
 
 import java.io.IOException;
 import java.util.*;
@@ -21,7 +22,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.Alert.AlertType;
 
 public class ControllerInitial {
-
+/*
     ModelTXT model;
     ControllerLogin loginCtrl;
     Stage thisStage;
@@ -146,4 +147,5 @@ public class ControllerInitial {
           // ... user chose CANCEL or closed the dialog
       }
     }
+    */
 }

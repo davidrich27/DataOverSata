@@ -1,37 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
-	minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
-	prefWidth="600.0" style="-fx-background-color: lightgrey;" xmlns="http://javafx.com/javafx/9.0.1"
-	xmlns:fx="http://javafx.com/fxml/1" fx:controller="LoginController">
-	<children>
-		<Button layoutX="265.0" layoutY="407.0" mnemonicParsing="false"
-			onAction="#checkLogin" text="Login" />
-		<PasswordField fx:id="txtPassword" layoutX="217.0"
-			layoutY="343.0" promptText="Password" />
-		<TextField fx:id="txtUsername" layoutX="217.0" layoutY="288.0"
-			promptText="Username" />
-		<ImageView fitHeight="150.0" fitWidth="200.0" layoutX="85.0"
-			layoutY="41.0" pickOnBounds="true" preserveRatio="true">
-			<image>
-				<Image url="@../../../../Documents/logo.png" />
-			</image>
-		</ImageView>
-		<Label layoutX="209.0" layoutY="83.0" prefHeight="87.0"
-			prefWidth="271.0" text="ccoutAble">
-			<font>
-				<Font size="52.0" />
-			</font>
-		</Label>
-		<Label layoutX="441.0" layoutY="585.0" text="Developed by: Data Over Sata" />
-	</children>
+<AnchorPane nodeOrientation="LEFT_TO_RIGHT" prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
+   <children>
+      <Button fx:id="loginBtn" layoutX="115.0" layoutY="230.0" mnemonicParsing="false" onAction="#handleLogin" text="Login">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <PasswordField fx:id="pwdTxt" layoutX="39.0" layoutY="141.0" promptText="Password">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </PasswordField>
+      <TextField fx:id="usernameTxt" layoutX="39.0" layoutY="96.0" promptText="Username">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </TextField>
+      <Label fx:id="warningLbl" alignment="CENTER" layoutX="3.0" layoutY="189.0" prefHeight="17.0" prefWidth="294.0" text="Status" textFill="#e80a0a">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblStatus1" alignment="CENTER" layoutX="3.0" layoutY="61.0" prefHeight="17.0" prefWidth="294.0" text="Please Log In">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblStatus11" alignment="CENTER" layoutX="3.0" layoutY="21.0" prefHeight="17.0" prefWidth="294.0" text="AccountAble">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+   </children>
 </AnchorPane>

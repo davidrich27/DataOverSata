@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TransCreateController">
+  <children>
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+      <children>
+            <Label layoutX="20.0" layoutY="68.0" text="Amount:" />
+            <Label layoutX="21.0" layoutY="101.0" text="Account:" />
+            <Label layoutX="18.0" layoutY="135.0" text="Code:" />
+            <Label layoutX="311.0" layoutY="66.0" text="Other Party:" />
+            <Label layoutX="311.0" layoutY="97.0" text="Description:" />
+            <TextField fx:id="amountTxt" layoutX="112.0" layoutY="63.0" />
+            <TextField fx:id="codeTxt" layoutX="112.0" layoutY="130.0" />
+            <TextField fx:id="otherPartyTxt" layoutX="404.0" layoutY="63.0" prefHeight="27.0" prefWidth="205.0" />
+            <Button fx:id="confirmBtn" layoutX="250.0" layoutY="359.0" mnemonicParsing="false" onAction="#confirmClick" text="Confirm" />
+            <Button fx:id="cancelBtn" layoutX="325.0" layoutY="359.0" mnemonicParsing="false" onAction="#cancelClick" text="Cancel" />
+            <Label layoutX="215.0" layoutY="14.0" text="Create New Transaction">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <DatePicker fx:id="datePicker" layoutX="112.0" layoutY="162.0" prefHeight="27.0" prefWidth="167.0" />
+            <TextArea fx:id="descrTxt" layoutX="404.0" layoutY="96.0" prefHeight="60.0" prefWidth="205.0" />
+            <Label layoutX="20.0" layoutY="166.0" text="Date:" />
+            <RadioButton fx:id="expenseChkbx" layoutX="17.0" layoutY="200.0" mnemonicParsing="false" text="Expense" />
+            <RadioButton fx:id="depositChkBx" layoutX="101.0" layoutY="200.0" mnemonicParsing="false" text="Deposit" />
+            <ChoiceBox fx:id="acctSelect" layoutX="112.0" layoutY="96.0" prefHeight="27.0" prefWidth="167.0" />
+            <ListView fx:id="feeOutList" layoutX="18.0" layoutY="246.0" prefHeight="66.0" prefWidth="128.0" />
+            <Label layoutX="21.0" layoutY="227.0" text="Fee Types:" />
+            <ListView fx:id="feeInList" layoutX="194.0" layoutY="244.0" prefHeight="66.0" prefWidth="128.0" />
+            <Button fx:id="feeOutBtn" layoutX="153.0" layoutY="247.0" mnemonicParsing="false" onAction="#feeOutClick" text="&lt;&lt;" />
+            <Button fx:id="feeInBtn" layoutX="153.0" layoutY="278.0" mnemonicParsing="false" onAction="#feeInClick" text="&gt;&gt;" />
+            <Button fx:id="recalcBtn" layoutX="17.0" layoutY="319.0" mnemonicParsing="false" onAction="#recalcClick" text="Recalculate Totals" />
+            <Label layoutX="332.0" layoutY="179.0" text="Prev. Account Balance:" />
+            <Label layoutX="342.0" layoutY="205.0" text="Transaction SubTotal:" />
+            <Label fx:id="prevAcctBalLbl" layoutX="503.0" layoutY="179.0" text="prevAcctBalLbl" />
+            <Label fx:id="transSubTotalLbl" layoutX="503.0" layoutY="204.0" text="transSubTotalLbl" />
+            <Label layoutX="409.0" layoutY="231.0" text="Fees Total:" />
+            <Label fx:id="feesTotalLbl" layoutX="503.0" layoutY="231.0" text="feeTotalLbl" />
+            <Label fx:id="transTotalLbl" layoutX="505.0" layoutY="258.0" text="transTotalLbl" />
+            <Label layoutX="364.0" layoutY="257.0" text="Transaction Total:" />
+            <Label layoutX="337.0" layoutY="283.0" text="New Account Balance:" />
+            <Label fx:id="newAcctBalLbl" layoutX="506.0" layoutY="283.0" text="newAcctBalLbl" />
+      </children>
+    </AnchorPane>
+  </children>
+</VBox>

@@ -1,6 +1,4 @@
-package model;
-import view.*;
-import controller.*;
+package model.basic;
 
 import java.util.*;
 
@@ -133,14 +131,11 @@ public class User implements Comparable<User> {
 
   // Print Demo
   public void printInfo(){
-    System.out.println("ID: " + getID());
-    System.out.println("Username: " + getUsername());
-    System.out.println("Password: " + getPwd());
+    System.out.println("ID: " + getID() + ", Username: " + getUsername() + ", Password: " + getPwd());
     System.out.println("Name: " + getName()[0] + " " + getName()[1]);
-    System.out.println("Email: " + getEmail());
-    System.out.println("Phone: " + getPhone());
+    System.out.println("Email: " + getEmail() + ", Phone: " + getPhone());
     System.out.println("Is Admin? " + getAdmin());
-    System.out.println("");
+    System.out.println("---");
   }
 
   // Unit Test
@@ -161,28 +156,25 @@ public class User implements Comparable<User> {
       testList.add(tempUser);
       tempUser = new User(32, "admin", "pwd", "Robyn", "Berg", "robyn@gmail.com", "(406)777-4567", true);
       testList.add(tempUser);
-      // Input Ordering
-      System.out.println("INPUT ORDER:");
-      for (User user : testList){
-        user.printInfo();
-      }
-      // Default Sorting
-      System.out.println("DEFAULT SORT (ID):");
-      Collections.sort(testList);
-      for (User user : testList){
-        user.printInfo();
-      }
-      // Username Sorting
-      System.out.println("USERNAME SORT:");
-      Collections.sort(testList, User.BY_USERNAME());
-      for (User user : testList){
-        user.printInfo();
-      }
-      // Name Sorting
-      System.out.println("NAME SORT:");
-      Collections.sort(testList, User.BY_NAME());
-      for (User user : testList){
-        user.printInfo();
-      }
+    // Sorting Tests
+    System.out.println("INPUT ORDER:");
+    for (User user : testList){
+      user.printInfo();
+    }
+    System.out.println("DEFAULT SORT (ID):");
+    Collections.sort(testList);
+    for (User user : testList){
+      user.printInfo();
+    }
+    System.out.println("USERNAME SORT:");
+    Collections.sort(testList, User.BY_USERNAME());
+    for (User user : testList){
+      user.printInfo();
+    }
+    System.out.println("NAME SORT:");
+    Collections.sort(testList, User.BY_NAME());
+    for (User user : testList){
+      user.printInfo();
+    }
   }
 }

@@ -1,0 +1,16 @@
+DONE:
++ User Class
++ Account Class
++ Link Class
++ Transaction Class
++ Fee Class
++ UserAcctManagerTXT Class
++ DataManagerTXT Class
+
+TO DO:
+- ModelTXT Class
+
+OTHER:
+- Currently need to comment out import and packages to run unit tests (fixable?)
+- Getting All Accts by User and All Transactions by Account are O(n) operations
+- Generic Uniqueness Test doesn't search but iterates over all, so O(n) operation.  Could make function for each.

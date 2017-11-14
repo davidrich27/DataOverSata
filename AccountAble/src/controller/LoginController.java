@@ -1,60 +1,94 @@
 package controller;
-import model.*;
-import view.*;
+import model.basic.*;
+import model.manager.*;
+import model.master.*;
 
-import java.net.URL;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import javafx.application.Application;
-import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-import javafx.scene.paint.Color;
+import javafx.scene.control.*;
+import javafx.util.StringConverter;
+import javafx.event.*;
 
-public class LoginController {
+public class LoginController{
 
-	@FXML // ResourceBundle that was given to the FXMLLoader
-	private ResourceBundle resources;
+  // ************************* FX Objects *************************************
 
-	@FXML // URL location of the FXML file that was given to the FXMLLoader
-	private URL location;
+  @FXML
+  private Label warningLbl;
+  @FXML
+  private TextField usernameTxt;
+  @FXML
+  private TextField pwdTxt;
+  @FXML
+  private Button loginBtn;
 
-	@FXML // fx:id="txtUsername"
-	private TextField txtUsername; // Value injected by FXMLLoader
+  // ************************** Model Variables *******************************
 
-	@FXML // fx:id="txtPassword"
-	private PasswordField txtPassword; // Value injected by FXMLLoader
+  ModelTXT model;
+  Stage thisStage;
+  Stage userStage;
+  Stage adminStage;
+  UserController userCtrl;
+  AdminController adminCtrl;
 
-	@FXML
-	void checkLogin(ActionEvent event) {
+  //*********************** Initialization and Wireup **************************
 
-		String user = "CSAdmin";
-		String pw = "CSCI323";
-		String checkUser, checkPw;
+  public void initialize() {
+    warningLbl.setText("");
+  }
 
-		checkUser = txtUsername.getText().toString();
-		checkPw = txtPassword.getText().toString();
-		if (checkUser.equals(user) && checkPw.equals(pw)) {
-			new ViewInitial();
+  public void setDataModel(ModelTXT model){
+    this.model = model;
+  }
+  public ModelTXT getDataModel(){
+    return model;
+  }
+  public void setOtherStages(Stage adminStage, AdminController adminCtrl, Stage userStage, UserController userCtrl){
+    this.adminStage = adminStage;
+    this.adminCtrl = adminCtrl;
+    this.userStage = userStage;
+    this.userCtrl = userCtrl;
+  }
+  public void setStage(Stage thisStage){
+    this.thisStage = thisStage;
+  }
 
-		} else {
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Login Error");
-			alert.setHeaderText("Incorrect Username/Password Combination");
-			alert.setContentText("Please try again");
+  //************************* Button Events *********************************************
 
-			alert.showAndWait();
-		}
-	}
+  @FXML
+  private void handleLogin(ActionEvent event) {
+    String username = usernameTxt.getText();
+    String pwd = pwdTxt.getText();
+    boolean success = model.testLogin(username, pwd);
+    if (success == true){
+      System.out.println("Logging user in...");
+      User loginUser = model.getUserByUsername(username);
+      loginUser.printInfo();
+      if (loginUser.getAdmin() == true){
+        adminCtrl.login(loginUser);
+        adminStage.show();
+        thisStage.hide();
+      } else {
+        userCtrl.login(loginUser);
+        userStage.show();
+        thisStage.hide();
+      }
+    } else {
+      System.out.println("Incorrect creds...");
+      warningLbl.setText("Sorry, try again.");
+    }
+  }
 
-	@FXML // This method is called by the FXMLLoader when initialization is
-			// complete
-	void initialize() {
-		assert txtUsername != null : "fx:id=\"txtUsername\" was not injected: check your FXML file 'LoginView.fxml'.";
-		assert txtPassword != null : "fx:id=\"txtPassword\" was not injected: check your FXML file 'LoginView.fxml'.";
-
-	}
+  public void clear(){
+    usernameTxt.setText("");
+    pwdTxt.setText("");
+  }
 }

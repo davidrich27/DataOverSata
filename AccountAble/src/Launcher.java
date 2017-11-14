@@ -1,5 +1,6 @@
-import model.*;
-import view.*;
+import model.basic.*;
+import model.manager.*;
+import model.master.*;
 import controller.*;
 
 import java.io.IOException;
@@ -13,45 +14,60 @@ import javafx.scene.Parent;
 public class Launcher extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage loginStage) throws Exception {
 
-        // Create an instance of the DB / Model
-        ModelTXT model = new ModelTXT();
-        model.printInfo();
+      // Create an instance of the DB / Model
+      ModelTXT model = new ModelTXT();
+      model.printInfo();
+      System.out.println("New Model initialized...");
 
-        // Set Stage for Initial View
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("view/ViewInitial.fxml"));
-        Parent root = loader.load();
-        Scene scene = new Scene(root);
-        primaryStage.setScene(scene);
-        primaryStage.setMaximized(true);
-        primaryStage.hide();
+      // Set Stage for Login View
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("view/LoginView.fxml"));
+      Parent root = loader.load();
+      Scene scene = new Scene(root);
+      loginStage.setScene(scene);
+      loginStage.show();
 
-        // Set stage for Login Screen
-        Stage loginStage = new Stage();
-        FXMLLoader loginLoader = new FXMLLoader(getClass().getResource("view/ViewLogin.fxml"));
-        Parent loginRoot = loginLoader.load();
-        Scene loginScene = new Scene(loginRoot);
-        loginStage.setScene(loginScene);
-        loginStage.show();
+      // Set stage for Admin Screen
+      Stage adminStage = new Stage();
+      FXMLLoader adminLoader = new FXMLLoader(getClass().getResource("view/AdminView.fxml"));
+      Parent adminRoot = adminLoader.load();
+      Scene adminScene = new Scene(adminRoot);
+      adminStage.setScene(adminScene);
+      adminStage.setMaximized(true);
+      adminStage.hide();
 
-        // Link the the model to both controllers
-        ControllerInitial ctrlInitial = loader.<ControllerInitial>getController();
-        ctrlInitial.setModel(model);
-        ControllerLogin ctrlLogin = loginLoader.<ControllerLogin>getController();
-        ctrlLogin.setModel(model);
-        // Link references to eachother's controller and view
-        ctrlInitial.setLogin(loginStage, ctrlLogin);
-        ctrlInitial.setStage(primaryStage);
-        ctrlLogin.setInitial(primaryStage, ctrlInitial);
-        ctrlLogin.setStage(loginStage);
+      // Set stage for Normal User Screen
+      Stage userStage = new Stage();
+      FXMLLoader userLoader = new FXMLLoader(getClass().getResource("view/UserView.fxml"));
+      Parent userRoot = userLoader.load();
+      Scene userScene = new Scene(userRoot);
+      userStage.setScene(userScene);
+      userStage.setMaximized(true);
+      userStage.hide();
+
+      // Link the the model to both controllers
+      LoginController loginCtrl = loader.<LoginController>getController();
+      loginCtrl.setDataModel(model);
+      AdminController adminCtrl = adminLoader.<AdminController>getController();
+      adminCtrl.setDataModel(model);
+      UserController userCtrl = userLoader.<UserController>getController();
+      userCtrl.setDataModel(model);
+      // Link references to eachother's controller and view
+      adminCtrl.setOtherStages(loginStage, loginCtrl);
+      userCtrl.setOtherStages(loginStage, loginCtrl);
+      adminCtrl.setStage(adminStage);
+      userCtrl.setStage(userStage);
+      loginCtrl.setOtherStages(adminStage, adminCtrl, userStage, userCtrl);
+      loginCtrl.setStage(loginStage);
     }
 
     // main method to support non-JavaFX-aware environments:
-
     public static void main(String[] args) {
         // starts the FX toolkit, instantiates this class,
         // and calls start(...) on the FX Application thread:
         launch(args);
     }
+
+
 }
