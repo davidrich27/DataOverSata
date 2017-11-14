@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2017-11-01" view-index="0" gantt-divider-location="446" resource-divider-location="300" version="2.8.5" locale="en_US">
     <description/>
     <view zooming-state="default:8" id="gantt-chart">
-        <field id="tpd3" name="Name" width="180" order="0"/>
+        <field id="tpd3" name="Name" width="179" order="0"/>
         <field id="tpd4" name="Begin date" width="82" order="1"/>
         <field id="tpd5" name="End date" width="76" order="2"/>
-        <field id="tpc0" name="Group Member" width="104" order="3"/>
+        <field id="tpc0" name="Group Member" width="103" order="3"/>
         <option id="color.recent"><![CDATA[#00ffff #3333ff #ff0066]]></option>
     </view>
     <view id="resource-table">
-        <field id="0" name="Name" width="173" order="0"/>
-        <field id="1" name="Default role" width="123" order="1"/>
+        <field id="0" name="Name" width="172" order="0"/>
+        <field id="1" name="Default role" width="122" order="1"/>
     </view>
     <!-- -->
     <calendars>
@@ -106,11 +106,12 @@ Derek - 20 Hours Organizer; found Trello which we use for Backlog and uploads th
  ]]></notes>
             </task>
         </task>
-        <task id="51" name="Sprint 3" color="#000000" meeting="false" start="2017-11-01" duration="9" complete="0" expand="true">
+        <task id="51" name="Sprint 3" color="#000000" meeting="false" start="2017-11-01" duration="9" complete="0" expand="false">
             <task id="53" name="Prep/Grooming" meeting="false" start="2017-11-01" duration="9" complete="0" expand="true"/>
             <task id="55" name="Scrum Meetings" meeting="false" start="2017-11-01" duration="9" complete="0" expand="true"/>
             <task id="56" name="View/GUI" color="#8cb6ce" meeting="false" start="2017-11-01" duration="9" complete="0" expand="true">
-                <notes><![CDATA[Clayton - Created AdminView.fxml and UserView.fxml 1 hour.]]></notes>
+                <notes><![CDATA[Clayton - Created AdminView.fxml and UserView.fxml 1 hour.
+Cordell - Created ViewCreateUser.fxml, ViewEditUser.fxml, and ViewCreateAccount.fxml 2 hours]]></notes>
             </task>
             <task id="57" name="Controller" color="#8cb6ce" meeting="false" start="2017-11-01" duration="9" complete="0" expand="true">
                 <notes><![CDATA[Clayton - 15 min created AdminViewController.java and UserViewController.java]]></notes>
