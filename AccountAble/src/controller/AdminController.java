@@ -259,6 +259,7 @@ public class AdminController {
     newStage.setScene(newScene);
     UserEditController newCtrl = newLoader.<UserEditController>getController();
     newCtrl.setStage(newStage);
+    newCtrl.populate(currentUser);
     newStage.show();
   }
 
