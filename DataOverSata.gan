@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2017-11-01" view-index="0" gantt-divider-location="446" resource-divider-location="300" version="2.8.5" locale="en_US">
+<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2017-10-08" view-index="0" gantt-divider-location="446" resource-divider-location="300" version="2.8.5" locale="en_US">
     <description/>
-    <view zooming-state="default:8" id="gantt-chart">
+    <view zooming-state="default:7" id="gantt-chart">
         <field id="tpd3" name="Name" width="179" order="0"/>
         <field id="tpd4" name="Begin date" width="82" order="1"/>
         <field id="tpd5" name="End date" width="76" order="2"/>
         <field id="tpc0" name="Group Member" width="103" order="3"/>
-        <option id="color.recent"><![CDATA[#00ffff #3333ff #ff0066]]></option>
+        <option id="color.recent"><![CDATA[#0000cc #00ff00 #ff0000 #00ffff #3333ff #ff0066]]></option>
     </view>
     <view id="resource-table">
         <field id="0" name="Name" width="172" order="0"/>
@@ -62,13 +62,13 @@ Clayton - 6 Created NoteCard of Views
 Derrick -6 Uploaded NoteCards to Trello
 Cordell - 6]]></notes>
         </task>
-        <task id="11" name="Sprint 1" color="#8cb6ce" meeting="false" start="2017-10-13" duration="6" complete="0" expand="true">
+        <task id="11" name="Sprint 1" color="#8cb6ce" meeting="false" start="2017-10-12" duration="5" complete="0" expand="true">
             <notes><![CDATA[Derek - 4 hours of working on items in product backlog
 Clayton - 4 hours creating Account view. Another 2 hours converting code from swing to FX
 Dave - 4  hours Create Back end code for everthing to work.
 Cordell - 3 hours creating create account and having it accept fields]]></notes>
         </task>
-        <task id="12" name="Sprint 2" color="#00ffff" meeting="false" start="2017-10-02" duration="20" complete="0" expand="false">
+        <task id="12" name="Sprint 2" color="#ff0000" meeting="false" start="2017-10-19" duration="10" complete="0" expand="false">
             <notes><![CDATA[Dave - 20 hours Deleted unused files and organized used files for sprint 2. Created and implemented source code for all files being used besides login files. Created main GUI and tabs panel and the GUI's for OverView and Accounts View. After all views were created and Login View created. Connected all views with proper conrtollers and text databases to make everything work. Created Backlog cards.
 
 Clayton - 15 hours  Created Backlog cards and GUI's for the Transaction View, Create Fee's, Permissions View and All Accounts View. Created Login fxml, java and controller. Updated Gantt chart. Worked on PowerPoint.
@@ -79,8 +79,8 @@ Derek - 20 Hours Organizer; found Trello which we use for Backlog and uploads th
 
 ]]></notes>
             <customproperty taskproperty-id="tpc0" value=""/>
-            <task id="18" name="View/GUI" color="#000000" meeting="false" start="2017-10-02" duration="20" complete="0" expand="true">
-                <task id="28" name="ViewInitial" color="#8cb6ce" meeting="false" start="2017-10-02" duration="20" complete="0" expand="true">
+            <task id="18" name="View/GUI" color="#000000" meeting="false" start="2017-10-19" duration="10" complete="0" expand="false">
+                <task id="28" name="ViewInitial" color="#8cb6ce" meeting="false" start="2017-10-19" duration="10" complete="0" expand="true">
                     <notes><![CDATA[- Designed Layout for several tabs (Still need implementation)
 	- Initial Tab
 	- Account View
@@ -88,35 +88,50 @@ Derek - 20 Hours Organizer; found Trello which we use for Backlog and uploads th
 	- Transaction View
 	- Create Account View]]></notes>
                 </task>
-                <task id="29" name="Java.swt -&gt; JavaFX" color="#8cb6ce" meeting="false" start="2017-10-02" duration="10" complete="0" expand="true">
+                <task id="29" name="Java.swt -&gt; JavaFX" color="#8cb6ce" meeting="false" start="2017-10-19" duration="10" complete="0" expand="true">
                     <notes><![CDATA[- Converted all Java GUI in project from Java Swing to JavaFX.]]></notes>
                 </task>
-                <task id="27" name="ViewLogin" color="#8cb6ce" meeting="false" start="2017-10-02" duration="10" complete="0" expand="true"/>
+                <task id="27" name="ViewLogin" color="#8cb6ce" meeting="false" start="2017-10-19" duration="10" complete="0" expand="true"/>
             </task>
-            <task id="16" name="Model/DB" color="#8cb6ce" meeting="false" start="2017-10-02" duration="10" complete="0" expand="true">
+            <task id="16" name="Model/DB" color="#8cb6ce" meeting="false" start="2017-10-19" duration="10" complete="0" expand="true">
                 <notes><![CDATA[- Designed and Implemented model for Account, User, Access primary data types
 - Designed and DataManager and UserAccountManager to organize program live data and storage]]></notes>
             </task>
-            <task id="20" name="Research" color="#8cb6ce" meeting="false" start="2017-10-02" duration="10" complete="0" expand="true">
+            <task id="20" name="Research" color="#8cb6ce" meeting="false" start="2017-10-19" duration="10" complete="0" expand="true">
                 <notes><![CDATA[- Researched technologies for project.  Found JavaFX Scene Builder for making GUI components and Trello for better team organization.]]></notes>
             </task>
-            <task id="17" name="Controllers" color="#8cb6ce" meeting="false" start="2017-10-02" duration="6" complete="0" expand="true">
+            <task id="17" name="Controllers" color="#8cb6ce" meeting="false" start="2017-10-19" duration="10" complete="0" expand="true">
                 <notes><![CDATA[- Setup controllers for the JavaFX FXML Login and Main Screen views.
 - Implemented functionality for user login and checking account access.
  ]]></notes>
             </task>
         </task>
-        <task id="51" name="Sprint 3" color="#000000" meeting="false" start="2017-11-01" duration="9" complete="0" expand="false">
-            <task id="53" name="Prep/Grooming" meeting="false" start="2017-11-01" duration="9" complete="0" expand="true"/>
-            <task id="55" name="Scrum Meetings" meeting="false" start="2017-11-01" duration="9" complete="0" expand="true"/>
-            <task id="56" name="View/GUI" color="#8cb6ce" meeting="false" start="2017-11-01" duration="9" complete="0" expand="true">
+        <task id="51" name="Sprint 3" color="#00ff00" meeting="false" start="2017-11-02" duration="9" complete="0" expand="false">
+            <task id="53" name="Prep/Grooming" meeting="false" start="2017-11-02" duration="9" complete="0" expand="true"/>
+            <task id="55" name="Scrum Meetings" meeting="false" start="2017-11-02" duration="9" complete="0" expand="true"/>
+            <task id="56" name="View/GUI" color="#8cb6ce" meeting="false" start="2017-11-02" duration="4" complete="0" expand="true">
                 <notes><![CDATA[Clayton - Created AdminView.fxml and UserView.fxml 1 hour.
 Cordell - Created ViewCreateUser.fxml, ViewEditUser.fxml, and ViewCreateAccount.fxml 2 hours]]></notes>
+                <task id="76" name="'Create' Dialogs" color="#8cb6ce" meeting="false" start="2017-11-02" duration="4" complete="0" expand="true">
+                    <notes><![CDATA[Built GUIs for creation dialog boxes.]]></notes>
+                </task>
             </task>
-            <task id="57" name="Controller" color="#8cb6ce" meeting="false" start="2017-11-01" duration="9" complete="0" expand="true">
+            <task id="57" name="Controller" color="#8cb6ce" meeting="false" start="2017-11-02" duration="4" complete="0" expand="true">
                 <notes><![CDATA[Clayton - 15 min created AdminViewController.java and UserViewController.java]]></notes>
+                <task id="73" name="Creation Dialogs" color="#8cb6ce" meeting="false" start="2017-11-02" duration="4" complete="0" expand="true">
+                    <notes><![CDATA[David Rich - Set up controllers for the making creation dialog boxes for accounts, users, transactions, and fees.]]></notes>
+                </task>
             </task>
-            <task id="58" name="Model/DB" meeting="false" start="2017-11-01" duration="9" complete="0" expand="true"/>
+            <task id="58" name="Model/DB" meeting="false" start="2017-11-02" duration="4" complete="0" expand="true">
+                <task id="70" name="Transaction, Fee data types" color="#8cb6ce" meeting="false" start="2017-11-02" duration="4" complete="0" expand="true">
+                    <notes><![CDATA[David Rich - Created two new basic data types, implemented them in the DataManager and UserAccountManager classes for the Model framework.]]></notes>
+                </task>
+            </task>
+        </task>
+        <task id="65" name="Sprint 4" color="#0000cc" meeting="false" start="2017-11-16" duration="10" complete="0" expand="false">
+            <task id="78" name="View/GUI" color="#8cb6ce" meeting="false" start="2017-11-16" duration="10" complete="0" expand="true"/>
+            <task id="80" name="Controller" meeting="false" start="2017-11-16" duration="10" complete="0" expand="true"/>
+            <task id="81" name="Model/DB" color="#8cb6ce" meeting="false" start="2017-11-16" duration="10" complete="0" expand="true"/>
         </task>
     </tasks>
     <resources>
@@ -135,6 +150,9 @@ Cordell - Created ViewCreateUser.fxml, ViewEditUser.fxml, and ViewCreateAccount.
         <allocation task-id="0" resource-id="0" function="2" responsible="true" load="100.0"/>
         <allocation task-id="2" resource-id="0" function="2" responsible="true" load="100.0"/>
         <allocation task-id="51" resource-id="0" function="2" responsible="true" load="100.0"/>
+        <allocation task-id="70" resource-id="0" function="2" responsible="true" load="100.0"/>
+        <allocation task-id="73" resource-id="0" function="2" responsible="true" load="100.0"/>
+        <allocation task-id="76" resource-id="0" function="2" responsible="true" load="100.0"/>
         <allocation task-id="18" resource-id="1" function="1" responsible="false" load="100.0"/>
         <allocation task-id="27" resource-id="1" function="1" responsible="true" load="100.0"/>
         <allocation task-id="28" resource-id="1" function="1" responsible="true" load="100.0"/>
@@ -143,6 +161,7 @@ Cordell - Created ViewCreateUser.fxml, ViewEditUser.fxml, and ViewCreateAccount.
         <allocation task-id="51" resource-id="1" function="1" responsible="false" load="100.0"/>
         <allocation task-id="56" resource-id="1" function="1" responsible="true" load="100.0"/>
         <allocation task-id="57" resource-id="1" function="1" responsible="true" load="50.0"/>
+        <allocation task-id="76" resource-id="1" function="1" responsible="false" load="100.0"/>
         <allocation task-id="29" resource-id="2" function="1" responsible="false" load="100.0"/>
         <allocation task-id="18" resource-id="2" function="1" responsible="false" load="100.0"/>
         <allocation task-id="27" resource-id="2" function="1" responsible="false" load="100.0"/>
@@ -156,6 +175,7 @@ Cordell - Created ViewCreateUser.fxml, ViewEditUser.fxml, and ViewCreateAccount.
         <allocation task-id="0" resource-id="3" function="1" responsible="false" load="100.0"/>
         <allocation task-id="2" resource-id="3" function="1" responsible="false" load="100.0"/>
         <allocation task-id="51" resource-id="3" function="1" responsible="false" load="100.0"/>
+        <allocation task-id="76" resource-id="3" function="1" responsible="false" load="100.0"/>
     </allocations>
     <vacations/>
     <previous/>
