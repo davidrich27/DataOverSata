@@ -131,6 +131,7 @@ public class User implements Comparable<User> {
 
   // Print Demo
   public void printInfo(){
+    System.out.println("USER DETAILS: ");
     System.out.println("ID: " + getID() + ", Username: " + getUsername() + ", Password: " + getPwd());
     System.out.println("Name: " + getName()[0] + " " + getName()[1]);
     System.out.println("Email: " + getEmail() + ", Phone: " + getPhone());

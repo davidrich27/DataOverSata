@@ -69,7 +69,7 @@ public class FeeType implements Comparable<FeeType>{
     this.isCustom = isCustom;
   }
   // COMPARATORS
-  public int compareTo(FeeType that){
+  public int compareTo(FeeType that){     // Default compare: By ID
     return this.getID().compareTo(that.getID());
   }
   public boolean equals(FeeType that){  // If IDs or name are the same, they are equal
@@ -88,6 +88,7 @@ public class FeeType implements Comparable<FeeType>{
     System.out.println("FEE DETAILS:");
     System.out.println("ID: " + id + ", Name: " + name + ", Descr: " + descr);
     System.out.println("Amount: " + amt + ", Is it an Percentage?: " + isPercent + ", Is it Additional?: " + isAdditional + ", Is it Custom?: " + isCustom);
+    System.out.println("---");
   }
   // UNIT TEST
   public static void main(String[] args){

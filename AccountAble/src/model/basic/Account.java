@@ -73,7 +73,7 @@ public class Account implements Comparable<Account>{
     Integer thatID = that.getID();
     return thisID.compareTo(thatID);
   }
-  public static Comparator<Account> BY_NAME(){  // Compares two Accounts by LastName, FirstName
+  public static Comparator<Account> BY_NAME(){  // Compares two Accounts by Name
     return new Comparator<Account>() {
       public int compare(Account a, Account b) {
         String aName = a.getName();
@@ -96,8 +96,8 @@ public class Account implements Comparable<Account>{
 
   // Print Demo
   public void printInfo(){
-    System.out.println("Account ID: " + getID() + ", Account Name: " + getName());
-    System.out.println("Account Descr: " + getDescr());
+    System.out.println("ACCOUNT DETAILS:");
+    System.out.println("ID: " + getID() + ", Name: " + getName() + ", Descr: " + getDescr());
     System.out.println("Account Balance: $" + getBalance());
     System.out.println("---");
   }

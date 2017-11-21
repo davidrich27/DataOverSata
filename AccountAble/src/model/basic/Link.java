@@ -36,8 +36,7 @@ public class Link implements Comparable<Link>{    // Note: Maybe convert to Gene
     this.idB = idB;
   }
   // COMPARATORS
-  // Natural Order by Link id
-  public int compareTo(Link that){
+  public int compareTo(Link that){    // Default: Sort By Link ID
     return this.id.compareTo(that.getId());
   }
   public static Comparator<Link> BY_A(){  // Compares two User by idA, idB
@@ -53,7 +52,7 @@ public class Link implements Comparable<Link>{    // Note: Maybe convert to Gene
       }
     };
   }
-  public static Comparator<Link> BY_B(){  // Compares two User by idA, idB
+  public static Comparator<Link> BY_B(){  // Compares two User by idB, idA
     return new Comparator<Link>() {
       public int compare(Link link1, Link link2) {
         int testB = link1.getIdB().compareTo(link2.getIdB());
@@ -80,8 +79,8 @@ public class Link implements Comparable<Link>{    // Note: Maybe convert to Gene
   }
   // Print Demo
   public void printInfo(){
-    System.out.println("Link ID : " + id);
-    System.out.println("Link Pair : " + idA + " - " + idB);
+    System.out.println("LINK DETAILS: ");
+    System.out.println("Link ID : " + id + ", Link Pair : " + idA + " - " + idB);
   }
   // Unit Test
   public static void main(String[] args){

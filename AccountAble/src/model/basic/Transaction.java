@@ -146,7 +146,8 @@ public class Transaction implements Comparable<Transaction>{
       }
     };
   }
-  public boolean equals(Transaction that){
+  // TODO : Make comparators by user ID and by acct ID
+  public boolean equals(Transaction that){    // If same ID, then equal
     return this.getID().equals(that.getID());
   }
   // PRINT DEMO
@@ -156,6 +157,7 @@ public class Transaction implements Comparable<Transaction>{
     System.out.println("SubTotal: " + subTotal + ", Fee: " + feeTotal + ", Total: " + total);
     System.out.println("Other Party: " + otherParty + ", Descr: " + descr);
     System.out.println("Date: " + date + ", Is it an Expense?: " + isExpense + ", Has the fee been paid?: " + paidFee);
+    System.out.println("---");
   }
 
   // UNIT TEST
