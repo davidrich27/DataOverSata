@@ -392,8 +392,6 @@ public class AdminController {
     transColOtherParty.setCellValueFactory(new PropertyValueFactory<Transaction, String>("OtherParty"));
     transColIsExpense.setCellValueFactory(new PropertyValueFactory<Transaction, String>("IsExpense"));
     transColPaidFee.setCellValueFactory(new PropertyValueFactory<Transaction, String>("PaidFee"));
-
-    repop();
   }
 
   // Populate Tables
@@ -470,10 +468,11 @@ public class AdminController {
     feeList.setItems(feeTypeNames);
 
     setFactories();
+    repop();
   }
 
   public void refresh(){
-
+    repop();
   }
 
   // ************************** FX Events ***************************************
@@ -505,7 +504,7 @@ public class AdminController {
     // *********************** Users Overview Tab **********
 
   @FXML
-  void newUserClicked(ActionEvent event) throws Exception {
+  void newUserClick(ActionEvent event) throws Exception {
     Stage newStage = new Stage();
     FXMLLoader newLoader = new FXMLLoader(getClass().getResource("../view/ViewCreateUser.fxml"));
     Parent newRoot = newLoader.load();
@@ -513,13 +512,15 @@ public class AdminController {
     newStage.setScene(newScene);
     UserCreateController newCtrl = newLoader.<UserCreateController>getController();
     newCtrl.setStage(newStage);
+    newCtrl.setHome(thisStage, this);
+    newCtrl.setModel(model);
     newStage.show();
   }
 
     // ****************** Transaction Overview Tab **********
 
   @FXML
-  void addTransactionClicked(ActionEvent event) throws Exception {
+  void addTransactionClick(ActionEvent event) throws Exception {
     Stage newStage = new Stage();
     FXMLLoader newLoader = new FXMLLoader(getClass().getResource("../view/ViewCreateTrans.fxml"));
     Parent newRoot = newLoader.load();
@@ -527,6 +528,8 @@ public class AdminController {
     newStage.setScene(newScene);
     TransCreateController newCtrl = newLoader.<TransCreateController>getController();
     newCtrl.setStage(newStage);
+    newCtrl.setHome(thisStage, this);
+    newCtrl.setModel(model);
     newStage.show();
   }
 
@@ -541,6 +544,8 @@ public class AdminController {
     newStage.setScene(newScene);
     AcctCreateController newCtrl = newLoader.<AcctCreateController>getController();
     newCtrl.setStage(newStage);
+    newCtrl.setHome(thisStage, this);
+    newCtrl.setModel(model);
     newStage.show();
   }
 

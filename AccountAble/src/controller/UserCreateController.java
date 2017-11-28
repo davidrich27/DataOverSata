@@ -56,6 +56,7 @@ public class UserCreateController {
     ModelTXT model;
     Stage thisStage;
     Stage homeStage;
+    AdminController homeCtrl;
 
     // ************************** Initialization and Wireup *********************
 
@@ -66,8 +67,9 @@ public class UserCreateController {
       this.thisStage = thisStage;
       System.out.println("Starting User creator...");
     }
-    public void setHomeStage(Stage homeStage){
+    public void setHome(Stage homeStage, AdminController homeCtrl){
       this.homeStage = homeStage;
+      this.homeCtrl = homeCtrl;
     }
 
     // ************************** Other Events ************************************
@@ -83,9 +85,10 @@ public class UserCreateController {
       String phone = phoneTxt.getText();
       Boolean admin = adminChkbx.isSelected();
       model.addNewUser(username, pwd, firstname, lastname, email, phone, admin);
-      System.out.println("New User created!");
+      System.out.println("New User, " + username + ", was created!");
       // close window
       thisStage.hide();
+      homeCtrl.repop();
     }
 
     @FXML

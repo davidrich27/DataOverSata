@@ -176,7 +176,7 @@
                                        <VBox.margin>
                                           <Insets top="5.0" />
                                        </VBox.margin></Button>
-                                    <Button fx:id="addTransactionBtn" mnemonicParsing="false" onAction="#addTransactionClicked" text="Add New Transaction">
+                                    <Button fx:id="addTransactionBtn" mnemonicParsing="false" onAction="#addTransactionClick" text="Add New Transaction">
                                        <VBox.margin>
                                           <Insets top="5.0" />
                                        </VBox.margin></Button>
@@ -204,8 +204,8 @@
                                     <TableColumn fx:id="acctColSubTotal" prefWidth="75.0" text="SubTotal" />
                                     <TableColumn fx:id="acctColFeeTotal" prefWidth="75.0" text="FeeTotal" />
                                     <TableColumn fx:id="acctColTotal" prefWidth="75.0" text="Total" />
-                                    <TableColumn fx:id="acctColDescr" prefWidth="250.0" text="Description" />
-                                    <TableColumn fx:id="acctColOtherParty" prefWidth="75.0" text="Other Party" />
+                                    <TableColumn fx:id="acctColDescr" prefWidth="300.0" text="Description" />
+                                    <TableColumn fx:id="acctColOtherParty" prefWidth="125.0" text="Other Party" />
                                     <TableColumn fx:id="acctColBal" prefWidth="75.0" text="Balance" />
                                     <TableColumn fx:id="acctColIsExpense" minWidth="3.0" prefWidth="50.0" text="Expense?" />
                                     <TableColumn fx:id="acctColPaidFee" minWidth="3.0" prefWidth="50.0" text="Paid Fee?" />
@@ -371,7 +371,7 @@
                                        </VBox.margin>
                                     </Label>
                                     <TextField fx:id="userSearchTxt" />
-                                    <Button fx:id="newUserBtn" mnemonicParsing="false" onAction="#newUserClicked" text="Create User">
+                                    <Button fx:id="newUserBtn" mnemonicParsing="false" onAction="#newUserClick" text="Create User">
                                        <VBox.margin>
                                           <Insets top="5.0" />
                                        </VBox.margin>
@@ -415,8 +415,8 @@
                                     <TableColumn fx:id="transColSubTotal" prefWidth="75.0" text="SubTotal" />
                                     <TableColumn fx:id="transColFeeTotal" prefWidth="75.0" text="FeeTotal" />
                                     <TableColumn fx:id="transColTotal" prefWidth="75.0" text="Total" />
-                                    <TableColumn fx:id="transColDescr" prefWidth="250.0" text="Description" />
-                                    <TableColumn fx:id="transColOtherParty" prefWidth="75.0" text="Other Party" />
+                                    <TableColumn fx:id="transColDescr" prefWidth="300.0" text="Description" />
+                                    <TableColumn fx:id="transColOtherParty" prefWidth="125.0" text="Other Party" />
                                     <TableColumn fx:id="transColBal" prefWidth="75.0" text="Balance" />
                                     <TableColumn fx:id="transColIsExpense" minWidth="3.0" prefWidth="50.0" text="Expense?" />
                                     <TableColumn fx:id="transColPaidFee" minWidth="3.0" prefWidth="50.0" text="Paid Fee?" />

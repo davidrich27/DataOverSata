@@ -39,6 +39,7 @@ public class AcctCreateController {
     ModelTXT model;
     Stage thisStage;
     Stage homeStage;
+    AdminController homeCtrl;
 
     User loginUser;
 
@@ -50,8 +51,9 @@ public class AcctCreateController {
     public void setStage(Stage thisStage){
       this.thisStage = thisStage;
     }
-    public void setHomeStage(Stage homeStage){
+    public void setHome(Stage homeStage, AdminController homeCtrl){
       this.homeStage = homeStage;
+      this.homeCtrl = homeCtrl;
     }
     public void populate(User loginUser){
     }
@@ -63,6 +65,9 @@ public class AcctCreateController {
       String name = nameTxt.getText();
       String descr = descrTxt.getText();
       model.addNewAcct(name, descr);
+      System.out.println("New Account, " + name + " has been created!");
+      thisStage.hide();
+      homeCtrl.refresh();
     }
 
     @FXML

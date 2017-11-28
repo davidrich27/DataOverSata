@@ -86,6 +86,7 @@ public class TransCreateController {
     ModelTXT model;
     Stage thisStage;
     Stage homeStage;
+    AdminController homeCtrl;
 
     User loginUser;
 
@@ -100,8 +101,9 @@ public class TransCreateController {
     public void setStage(Stage thisStage){
       this.thisStage = thisStage;
     }
-    public void setHomeStage(Stage homeStage){
+    public void setHome(Stage homeStage, AdminController homeCtrl){
       this.homeStage = homeStage;
+      this.homeCtrl = homeCtrl;
     }
     public void populate(User loginUser){
       this.loginUser = loginUser;
