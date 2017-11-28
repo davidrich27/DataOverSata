@@ -21,7 +21,7 @@ public class DataManagerTXT {
     this.acct_transPath = "../data/Account_Transaction.txt";
     this.idPath = "../data/ID.txt";
   }
-
+  // Custom Paths
   public DataManagerTXT(String userPath, String acctPath, String transPath, String feeTypePath, String user_acctPath, String acct_transPath, String idPath){
     this.userPath = userPath;
     this.acctPath = acctPath;
