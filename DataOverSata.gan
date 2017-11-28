@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2017-10-08" view-index="0" gantt-divider-location="446" resource-divider-location="300" version="2.8.5" locale="en_US">
     <description/>
     <view zooming-state="default:7" id="gantt-chart">
-        <field id="tpd3" name="Name" width="179" order="0"/>
-        <field id="tpd4" name="Begin date" width="82" order="1"/>
-        <field id="tpd5" name="End date" width="76" order="2"/>
-        <field id="tpc0" name="Group Member" width="103" order="3"/>
+        <field id="tpd3" name="Name" width="173" order="0"/>
+        <field id="tpd4" name="Begin date" width="79" order="1"/>
+        <field id="tpd5" name="End date" width="74" order="2"/>
+        <field id="tpc0" name="Group Member" width="99" order="3"/>
         <option id="color.recent"><![CDATA[#0000cc #00ff00 #ff0000 #00ffff #3333ff #ff0066]]></option>
     </view>
     <view id="resource-table">
@@ -128,10 +128,21 @@ Cordell - Created ViewCreateUser.fxml, ViewEditUser.fxml, and ViewCreateAccount.
                 </task>
             </task>
         </task>
-        <task id="65" name="Sprint 4" color="#0000cc" meeting="false" start="2017-11-16" duration="10" complete="0" expand="true">
-            <task id="78" name="View/GUI" color="#8cb6ce" meeting="false" start="2017-11-16" duration="10" complete="0" expand="true"/>
-            <task id="80" name="Controller" meeting="false" start="2017-11-16" duration="10" complete="0" expand="true"/>
+        <task id="65" name="Sprint 4" color="#0000cc" meeting="false" start="2017-10-09" duration="38" complete="0" expand="true">
+            <task id="78" name="View/GUI" color="#8cb6ce" meeting="false" start="2017-10-09" duration="1" complete="0" expand="true">
+                <task id="86" name="Built/Name Table Cols" color="#8cb6ce" meeting="false" start="2017-10-09" duration="1" complete="0" expand="true">
+                    <notes><![CDATA[Dave - .5 Hours - Added/Named the columns to the tables in GUI view.]]></notes>
+                </task>
+            </task>
+            <task id="80" name="Controller" meeting="false" start="2017-10-09" duration="1" complete="0" expand="true">
+                <task id="82" name="Populate Tables" color="#8cb6ce" meeting="false" start="2017-10-09" duration="1" complete="0" expand="true">
+                    <notes><![CDATA[Dave - 2.5 hrs - Got all tables in AdminView to populate with values.]]></notes>
+                </task>
+            </task>
             <task id="81" name="Model/DB" color="#8cb6ce" meeting="false" start="2017-11-16" duration="10" complete="0" expand="true"/>
+        </task>
+        <task id="84" name="Compiled JAR file" color="#8cb6ce" meeting="false" start="2017-10-09" duration="1" complete="0" expand="true">
+            <notes><![CDATA[Dave - 1 hour - Compiled project into a JAR file.]]></notes>
         </task>
     </tasks>
     <resources>
@@ -153,6 +164,9 @@ Cordell - Created ViewCreateUser.fxml, ViewEditUser.fxml, and ViewCreateAccount.
         <allocation task-id="70" resource-id="0" function="2" responsible="true" load="100.0"/>
         <allocation task-id="73" resource-id="0" function="2" responsible="true" load="100.0"/>
         <allocation task-id="76" resource-id="0" function="2" responsible="true" load="100.0"/>
+        <allocation task-id="82" resource-id="0" function="2" responsible="true" load="100.0"/>
+        <allocation task-id="84" resource-id="0" function="2" responsible="true" load="100.0"/>
+        <allocation task-id="86" resource-id="0" function="2" responsible="true" load="100.0"/>
         <allocation task-id="18" resource-id="1" function="1" responsible="false" load="100.0"/>
         <allocation task-id="27" resource-id="1" function="1" responsible="true" load="100.0"/>
         <allocation task-id="28" resource-id="1" function="1" responsible="true" load="100.0"/>

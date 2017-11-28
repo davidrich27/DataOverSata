@@ -146,7 +146,6 @@ public class Transaction implements Comparable<Transaction>{
       }
     };
   }
-<<<<<<< HEAD
   public static Comparator<Transaction> BY_ACCOUNT(){  // Compares two Trans by Acct, then Date
     return new Comparator<Transaction>() {
       public int compare(Transaction a, Transaction b) {
@@ -160,10 +159,6 @@ public class Transaction implements Comparable<Transaction>{
     };
   }
   public boolean equals(Transaction that){
-=======
-  // TODO : Make comparators by user ID and by acct ID
-  public boolean equals(Transaction that){    // If same ID, then equal
->>>>>>> 0093fc51fbffc4392aaeead87013434199b3fa22
     return this.getID().equals(that.getID());
   }
   // PRINT DEMO

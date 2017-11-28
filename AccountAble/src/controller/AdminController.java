@@ -338,10 +338,8 @@ public class AdminController {
   }
 
   // Set Values of Model to Populate Tables
-  public void factorySetup(){
+  public void setFactories(){
     // Set User Factory
-    ArrayList<User> users = model.uaManager.getAllUsers();
-    ObservableList<User> usersObservable = FXCollections.observableArrayList(users);
     userColID.setCellValueFactory(new PropertyValueFactory<User, Integer>("ID"));
     userColUsername.setCellValueFactory(new PropertyValueFactory<User, String>("Username"));
     userColFirstName.setCellValueFactory(new PropertyValueFactory<User, String>("FirstName"));
@@ -349,11 +347,8 @@ public class AdminController {
     userColEmail.setCellValueFactory(new PropertyValueFactory<User, String>("Email"));
     userColPhone.setCellValueFactory(new PropertyValueFactory<User, String>("Phone"));
     userColAdmin.setCellValueFactory(new PropertyValueFactory<User, String>("Admin"));
-    userTbl.setItems(usersObservable);
 
     // Set Account Transaction Factory
-    ArrayList<Transaction> acctTrans = model.uaManager.getAllTransactions();
-    ObservableList<Transaction> acctTransObservable = FXCollections.observableArrayList(acctTrans);
     acctColID.setCellValueFactory(new PropertyValueFactory<Transaction, Integer>("ID"));
     acctColAcctID.setCellValueFactory(new PropertyValueFactory<Transaction, Integer>("AcctID"));
     acctColUserID.setCellValueFactory(new PropertyValueFactory<Transaction, Integer>("UserID"));
@@ -366,22 +361,16 @@ public class AdminController {
     acctColOtherParty.setCellValueFactory(new PropertyValueFactory<Transaction, String>("OtherParty"));
     acctColIsExpense.setCellValueFactory(new PropertyValueFactory<Transaction, String>("IsExpense"));
     acctColPaidFee.setCellValueFactory(new PropertyValueFactory<Transaction, String>("PaidFee"));
-    acctTbl.setItems(acctTransObservable);
 
     // Set Accounts Factory
-    ArrayList<Account> accts = model.uaManager.getAllAccts();
-    ObservableList<Account> acctsObservable = FXCollections.observableArrayList(accts);
     acctsColID.setCellValueFactory(new PropertyValueFactory<Account, Integer>("ID"));
     acctsColName.setCellValueFactory(new PropertyValueFactory<Account, String>("Name"));
     acctsColDesc.setCellValueFactory(new PropertyValueFactory<Account, String>("Descr"));
     acctsColBal.setCellValueFactory(new PropertyValueFactory<Account, Double>("Balance"));
     acctsColFees.setCellValueFactory(new PropertyValueFactory<Account, Double>("FeesBalance"));
     acctsColAvail.setCellValueFactory(new PropertyValueFactory<Account, Double>("AvailBalance"));
-    acctAllTbl.setItems(acctsObservable);
 
     // Set Fees Factory
-    ArrayList<FeeType> feeTypes = model.uaManager.getAllFeeTypes();
-    ObservableList<FeeType> feeTypesObservable = FXCollections.observableArrayList(feeTypes);
     feeTypeColID.setCellValueFactory(new PropertyValueFactory<FeeType, Integer>("ID"));
     feeTypeColName.setCellValueFactory(new PropertyValueFactory<FeeType, String>("Name"));
     feeTypeColDescr.setCellValueFactory(new PropertyValueFactory<FeeType, String>("Descr"));
@@ -389,11 +378,8 @@ public class AdminController {
     feeTypeColIsPer.setCellValueFactory(new PropertyValueFactory<FeeType, Boolean>("isPercent"));
     feeTypeColIsAdd.setCellValueFactory(new PropertyValueFactory<FeeType, Boolean>("isAdditional"));
     feeTypeColIsCustom.setCellValueFactory(new PropertyValueFactory<FeeType, Boolean>("isCustom"));
-    feeTypeTbl.setItems(feeTypesObservable);
 
     // Set All Transaction Factory
-    ArrayList<Transaction> trans = model.uaManager.getAllTransactions();
-    ObservableList<Transaction> transObservable = FXCollections.observableArrayList(trans);
     transColID.setCellValueFactory(new PropertyValueFactory<Transaction, Integer>("ID"));
     transColAcctID.setCellValueFactory(new PropertyValueFactory<Transaction, Integer>("AcctID"));
     transColUserID.setCellValueFactory(new PropertyValueFactory<Transaction, Integer>("UserID"));
@@ -406,6 +392,30 @@ public class AdminController {
     transColOtherParty.setCellValueFactory(new PropertyValueFactory<Transaction, String>("OtherParty"));
     transColIsExpense.setCellValueFactory(new PropertyValueFactory<Transaction, String>("IsExpense"));
     transColPaidFee.setCellValueFactory(new PropertyValueFactory<Transaction, String>("PaidFee"));
+
+    repop();
+  }
+
+  // Populate Tables
+  public void repop(){
+    ArrayList<User> users = model.uaManager.getAllUsers();
+    ObservableList<User> usersObservable = FXCollections.observableArrayList(users);
+    userTbl.setItems(usersObservable);
+
+    ArrayList<Transaction> acctTrans = model.uaManager.getAllTransactions();
+    ObservableList<Transaction> acctTransObservable = FXCollections.observableArrayList(acctTrans);
+    acctTbl.setItems(acctTransObservable);
+
+    ArrayList<Account> accts = model.uaManager.getAllAccts();
+    ObservableList<Account> acctsObservable = FXCollections.observableArrayList(accts);
+    acctAllTbl.setItems(acctsObservable);
+
+    ArrayList<FeeType> feeTypes = model.uaManager.getAllFeeTypes();
+    ObservableList<FeeType> feeTypesObservable = FXCollections.observableArrayList(feeTypes);
+    feeTypeTbl.setItems(feeTypesObservable);
+
+    ArrayList<Transaction> trans = model.uaManager.getAllTransactions();
+    ObservableList<Transaction> transObservable = FXCollections.observableArrayList(trans);
     transTbl.setItems(transObservable);
   }
 
@@ -438,8 +448,6 @@ public class AdminController {
     }
     acctsList.setItems(acctNames);
     acctsAllList.setItems(acctNames);
-    // Populate All Accounts Table
-
 
     // USERS TAB
     // Populate User List
@@ -461,8 +469,7 @@ public class AdminController {
     }
     feeList.setItems(feeTypeNames);
 
-    factorySetup();
-    factorySetup();
+    setFactories();
   }
 
   public void refresh(){
