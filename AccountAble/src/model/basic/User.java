@@ -56,6 +56,18 @@ public class User implements Comparable<User> {
     this.firstName = firstName;
     this.lastName = lastName;
   }
+  public String getFirstName(){
+    return firstName;
+  }
+  public void setFirstName(String firstName){
+    this.firstName = firstName;
+  }
+  public String getLastName(){
+    return lastName;
+  }
+  public void setLastName(String lastName){
+    this.lastName = lastName;
+  }
   public String getEmail(){
     return email;
   }
@@ -65,7 +77,7 @@ public class User implements Comparable<User> {
   public String getPhone(){
     return phone;
   }
-  public void setPhone(){
+  public void setPhone(String phone){
     this.phone = phone;
   }
   public boolean getAdmin(){

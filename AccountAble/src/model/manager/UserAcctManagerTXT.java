@@ -15,7 +15,7 @@ public class UserAcctManagerTXT{
   private ArrayList<Link> acct_trans;             // linking table for which Accounts contain which Transaction
   private Account masterAcct;                    // an account that holds all transactions
 
-  // Constructor
+  // CONSTRUCTOR
   public UserAcctManagerTXT(){
     users = new ArrayList<User>();
     accts = new ArrayList<Account>();
@@ -29,7 +29,7 @@ public class UserAcctManagerTXT{
     acct_transIDgen = 0;
     masterAcct = new Account(-1, "Master Account", "Running Total of All Transactions from All Accounts.");
   }
-
+  // SETTERS & GETTERS
   // Sets current value for
   public void setIDs(int userIDgen, int acctIDgen, int transIDgen, int user_acctIDgen, int acct_transIDgen, int feeType_transIDgen){
     this.userIDgen = userIDgen;
@@ -49,7 +49,7 @@ public class UserAcctManagerTXT{
     return ids;
   }
 
-  // Add NEW (returns FALSE if isUnique=F and Add fails)
+  // Add NEW (returns FALSE if isUnique=F and Add fails) (Returns ID given to NEW object)
   // NEW Users
   public boolean addUser(User newUser){
     if (isUnique(newUser, users) == true){
@@ -202,6 +202,23 @@ public class UserAcctManagerTXT{
   public boolean addAcct_Trans(int id, int acctID, int tranID){
     Link newAcct_Tran = new Link(id, acctID, tranID);
     return addAcct_Trans(newAcct_Tran);
+  }
+
+  // EDIT (BY ID)
+  // Edit User By Id
+  public int editUser(int id, String username, String pwd, String firstName, String lastName, String email, String phone, boolean admin){
+    User gotUser = getUserByID(id);
+    if (gotUser == null){
+      System.out.println("Error: User does not exist.");
+      return -1;
+    }
+    gotUser.setUsername(username);
+    gotUser.setPwd(pwd);
+    gotUser.setName(firstName, lastName);
+    gotUser.setEmail(email);
+    gotUser.setPhone(phone);
+    gotUser.setAdmin(admin);
+    return id;
   }
 
   // GET ALL

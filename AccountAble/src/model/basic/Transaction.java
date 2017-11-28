@@ -54,7 +54,7 @@ public class Transaction implements Comparable<Transaction>{
   public void setID(int id){
     this.id = id;
   }
-  public int getAcctID(){
+  public Integer getAcctID(){
     return acctId;
   }
   public void setAcctID(int acctId){
@@ -131,14 +131,14 @@ public class Transaction implements Comparable<Transaction>{
   public int compareTo(Transaction that){     // Default comparator: By ID
     return this.getID().compareTo(that.getID());
   }
-  public static Comparator<Transaction> BY_DATE_EARLIEST(){  // Compares two User by Date (Most Recent First)
+  public static Comparator<Transaction> BY_DATE_EARLIEST(){  // Compares two Trans by Date (Most Recent First)
     return new Comparator<Transaction>() {
       public int compare(Transaction a, Transaction b) {
         return a.getDate().compareTo(b.getDate());
       }
     };
   }
-  public static Comparator<Transaction> BY_DATE_OLDEST(){  // Compares two User by Date (Oldest First)
+  public static Comparator<Transaction> BY_DATE_OLDEST(){  // Compares two Trans by Date (Oldest First)
     return new Comparator<Transaction>() {
       public int compare(Transaction a, Transaction b) {
         int testTime = a.getDate().compareTo(b.getDate());
@@ -146,8 +146,24 @@ public class Transaction implements Comparable<Transaction>{
       }
     };
   }
+<<<<<<< HEAD
+  public static Comparator<Transaction> BY_ACCOUNT(){  // Compares two Trans by Acct, then Date
+    return new Comparator<Transaction>() {
+      public int compare(Transaction a, Transaction b) {
+        int testAcct = a.getAcctID().compareTo(b.getAcctID());
+        if (testAcct != 0){
+          return testAcct;
+        }
+        int testDate = a.getDate().compareTo(b.getDate());
+        return testDate;
+      }
+    };
+  }
+  public boolean equals(Transaction that){
+=======
   // TODO : Make comparators by user ID and by acct ID
   public boolean equals(Transaction that){    // If same ID, then equal
+>>>>>>> 0093fc51fbffc4392aaeead87013434199b3fa22
     return this.getID().equals(that.getID());
   }
   // PRINT DEMO

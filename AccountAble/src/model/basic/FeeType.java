@@ -65,7 +65,7 @@ public class FeeType implements Comparable<FeeType>{
   public Boolean getIsCustom(){
     return this.isCustom;
   }
-  public void setIsCustom(boolean isAdditional){
+  public void setIsCustom(boolean isCustom){
     this.isCustom = isCustom;
   }
   // COMPARATORS
