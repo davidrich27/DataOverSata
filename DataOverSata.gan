@@ -128,8 +128,10 @@ Cordell - Created ViewCreateUser.fxml, ViewEditUser.fxml, and ViewCreateAccount.
                 </task>
             </task>
         </task>
-        <task id="65" name="Sprint 4" color="#0000cc" meeting="false" start="2017-11-16" duration="10" complete="0" expand="false">
-            <task id="78" name="View/GUI" color="#8cb6ce" meeting="false" start="2017-11-16" duration="10" complete="0" expand="true"/>
+        <task id="65" name="Sprint 4" color="#0000cc" meeting="false" start="2017-11-16" duration="10" complete="0" expand="true">
+            <task id="78" name="View/GUI" color="#8cb6ce" meeting="false" start="2017-11-16" duration="10" complete="0" expand="true">
+                <notes><![CDATA[Cordell- Creating accurate help windows and attempting to implement them into the working menu - 5 hours]]></notes>
+            </task>
             <task id="80" name="Controller" meeting="false" start="2017-11-16" duration="10" complete="0" expand="true"/>
             <task id="81" name="Model/DB" color="#8cb6ce" meeting="false" start="2017-11-16" duration="10" complete="0" expand="true"/>
         </task>
