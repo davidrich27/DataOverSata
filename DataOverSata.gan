@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2017-10-08" view-index="0" gantt-divider-location="446" resource-divider-location="300" version="2.8.5" locale="en_US">
+<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2017-02-01" view-index="0" gantt-divider-location="446" resource-divider-location="300" version="2.8.5" locale="en_US">
     <description/>
-    <view zooming-state="default:7" id="gantt-chart">
-        <field id="tpd3" name="Name" width="173" order="0"/>
-        <field id="tpd4" name="Begin date" width="79" order="1"/>
-        <field id="tpd5" name="End date" width="74" order="2"/>
-        <field id="tpc0" name="Group Member" width="99" order="3"/>
+    <view zooming-state="default:11" id="gantt-chart">
+        <field id="tpd3" name="Name" width="177" order="0"/>
+        <field id="tpd4" name="Begin date" width="83" order="1"/>
+        <field id="tpd5" name="End date" width="79" order="2"/>
+        <field id="tpc0" name="Group Member" width="103" order="3"/>
         <option id="color.recent"><![CDATA[#0000cc #00ff00 #ff0000 #00ffff #3333ff #ff0066]]></option>
     </view>
     <view id="resource-table">
@@ -129,12 +129,12 @@ Cordell - Created ViewCreateUser.fxml, ViewEditUser.fxml, and ViewCreateAccount.
             </task>
         </task>
         <task id="65" name="Sprint 4" color="#0000cc" meeting="false" start="2017-10-09" duration="38" complete="0" expand="true">
-            <task id="78" name="View/GUI" color="#8cb6ce" meeting="false" start="2017-10-09" duration="1" complete="0" expand="true">
+            <task id="78" name="View/GUI" color="#8cb6ce" meeting="false" start="2017-10-09" duration="1" complete="0" expand="false">
                 <task id="86" name="Built/Name Table Cols" color="#8cb6ce" meeting="false" start="2017-10-09" duration="1" complete="0" expand="true">
                     <notes><![CDATA[Dave - .5 Hours - Added/Named the columns to the tables in GUI view.]]></notes>
                 </task>
             </task>
-            <task id="80" name="Controller" meeting="false" start="2017-10-09" duration="1" complete="0" expand="true">
+            <task id="80" name="Controller" meeting="false" start="2017-10-09" duration="1" complete="0" expand="false">
                 <task id="82" name="Populate Tables" color="#8cb6ce" meeting="false" start="2017-10-09" duration="1" complete="0" expand="true">
                     <notes><![CDATA[Dave - 2.5 hrs - Got all tables in AdminView to populate with values.]]></notes>
                 </task>
@@ -144,6 +144,9 @@ Cordell - Created ViewCreateUser.fxml, ViewEditUser.fxml, and ViewCreateAccount.
                 <notes><![CDATA[Derek- Researched Jar File, Trying to create one to run the program, couldn't get it to run on Windows. 5hrs
 David Rich- Creating Jar File that works on all systems. 3 hrs.]]></notes>
             </task>
+        </task>
+        <task id="87" name="Benefits Calculator" color="#8cb6ce" meeting="false" start="2017-11-27" duration="1" complete="0" expand="true">
+            <notes><![CDATA[Clayton - Created Benefits Calculator 6 hours. ]]></notes>
         </task>
         <task id="84" name="Compiled JAR file" color="#8cb6ce" meeting="false" start="2017-10-09" duration="1" complete="0" expand="true">
             <notes><![CDATA[Dave - 1 hour - Compiled project into a JAR file.]]></notes>
@@ -180,6 +183,7 @@ David Rich- Creating Jar File that works on all systems. 3 hrs.]]></notes>
         <allocation task-id="56" resource-id="1" function="1" responsible="true" load="100.0"/>
         <allocation task-id="57" resource-id="1" function="1" responsible="true" load="50.0"/>
         <allocation task-id="76" resource-id="1" function="1" responsible="false" load="100.0"/>
+        <allocation task-id="87" resource-id="1" function="1" responsible="true" load="100.0"/>
         <allocation task-id="29" resource-id="2" function="1" responsible="false" load="100.0"/>
         <allocation task-id="18" resource-id="2" function="1" responsible="false" load="100.0"/>
         <allocation task-id="27" resource-id="2" function="1" responsible="false" load="100.0"/>
@@ -205,3 +209,4 @@ David Rich- Creating Jar File that works on all systems. 3 hrs.]]></notes>
         <role id="3" name="Product Owner"/>
     </roles>
 </project>
+
