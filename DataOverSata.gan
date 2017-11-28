@@ -1,17 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2017-10-08" view-index="0" gantt-divider-location="446" resource-divider-location="300" version="2.8.5" locale="en_US">
     <description/>
     <view zooming-state="default:7" id="gantt-chart">
-<<<<<<< HEAD
         <field id="tpd3" name="Name" width="173" order="0"/>
         <field id="tpd4" name="Begin date" width="79" order="1"/>
         <field id="tpd5" name="End date" width="74" order="2"/>
         <field id="tpc0" name="Group Member" width="99" order="3"/>
-=======
-        <field id="tpd3" name="Name" width="179" order="0"/>
-        <field id="tpd4" name="Begin date" width="83" order="1"/>
-        <field id="tpd5" name="End date" width="77" order="2"/>
-        <field id="tpc0" name="Group Member" width="103" order="3"/>
->>>>>>> c3ecd7902162313505c59639b5ba93dc2027466b
         <option id="color.recent"><![CDATA[#0000cc #00ff00 #ff0000 #00ffff #3333ff #ff0066]]></option>
     </view>
     <view id="resource-table">
@@ -148,7 +141,7 @@ Cordell - Created ViewCreateUser.fxml, ViewEditUser.fxml, and ViewCreateAccount.
             </task>
             <task id="81" name="Model/DB" color="#8cb6ce" meeting="false" start="2017-11-16" duration="10" complete="0" expand="true"/>
             <task id="85" name="Creating JAR File" color="#8cb6ce" meeting="false" start="2017-11-16" duration="10" complete="0" expand="true">
-                <notes><![CDATA[Derek- Researched Jar File, Trying to create one to run the program, couldn't get it to run on Windows. 5hrs 
+                <notes><![CDATA[Derek- Researched Jar File, Trying to create one to run the program, couldn't get it to run on Windows. 5hrs
 David Rich- Creating Jar File that works on all systems. 3 hrs.]]></notes>
             </task>
         </task>
@@ -175,13 +168,9 @@ David Rich- Creating Jar File that works on all systems. 3 hrs.]]></notes>
         <allocation task-id="70" resource-id="0" function="2" responsible="true" load="100.0"/>
         <allocation task-id="73" resource-id="0" function="2" responsible="true" load="100.0"/>
         <allocation task-id="76" resource-id="0" function="2" responsible="true" load="100.0"/>
-<<<<<<< HEAD
         <allocation task-id="82" resource-id="0" function="2" responsible="true" load="100.0"/>
         <allocation task-id="84" resource-id="0" function="2" responsible="true" load="100.0"/>
         <allocation task-id="86" resource-id="0" function="2" responsible="true" load="100.0"/>
-=======
-        <allocation task-id="85" resource-id="0" function="2" responsible="false" load="3.0"/>
->>>>>>> c3ecd7902162313505c59639b5ba93dc2027466b
         <allocation task-id="18" resource-id="1" function="1" responsible="false" load="100.0"/>
         <allocation task-id="27" resource-id="1" function="1" responsible="true" load="100.0"/>
         <allocation task-id="28" resource-id="1" function="1" responsible="true" load="100.0"/>
