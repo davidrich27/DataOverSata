@@ -549,6 +549,23 @@ public class AdminController {
     newStage.show();
   }
 
+  @FXML
+  void editAcctClick(ActionEvent event) throws Exception {
+    Stage newStage = new Stage();
+    FXMLLoader newLoader = new FXMLLoader(getClass().getResource("../view/ViewEditAcct.fxml"));
+    Parent newRoot = newLoader.load();
+    Scene newScene = new Scene(newRoot);
+    newStage.setScene(newScene);
+    AcctEditController newCtrl = newLoader.<AcctEditController>getController();
+    newCtrl.setStage(newStage);
+    newCtrl.setHome(thisStage, this);
+    newCtrl.setModel(model);
+    // Populate fields with selected acct information
+    Account selected = acctAllTbl.getSelectionModel().getSelectedItem();
+    newCtrl.populate(selected);
+    newStage.show();
+  }
+
     // ******************* Fees Overview Tab ****************
 
   @FXML
