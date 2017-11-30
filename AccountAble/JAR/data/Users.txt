@@ -1,4 +1,0 @@
-1,davey123,pwd,Dave,Rich,dave@gmail.com,(406)555-1209,false
-2,trish123,pwd,Patricia,Duce,p.Duce@gmail.com,(406)555-1234,false
-3,admin,pwd,Robyn,Berg,robyn@gmail.com,(406)777-4567,true
-4,csadmin,csci323,Default,Default,csadmin323@umt.edu,(790)604-4060,true
