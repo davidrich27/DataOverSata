@@ -93,7 +93,6 @@ public class TransCreateController {
     // ************************** Initialization and Wireup *********************
 
     public void initialize() {
-      System.out.println("Running initialization of TransCreateController...");
     }
     public void setModel(ModelTXT model){
       this.model = model;
