@@ -26,6 +26,7 @@ public class Launcher extends Application {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("view/LoginView.fxml"));
       Parent root = loader.load();
       Scene scene = new Scene(root);
+      scene.getStylesheets().add(getClass().getResource("view/style.css").toExternalForm());
       loginStage.setScene(scene);
       loginStage.show();
 

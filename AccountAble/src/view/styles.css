@@ -1,0 +1,7 @@
+.root {
+	-fx-background-color: blue;
+}
+
+#loginBtn {
+	-fx-background-color: cyan;
+}
