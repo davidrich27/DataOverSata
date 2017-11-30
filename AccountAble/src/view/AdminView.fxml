@@ -259,7 +259,7 @@
                                           <Insets top="5.0" />
                                        </VBox.margin>
                                     </Button>
-                                    <Button fx:id="editAcctBtn" mnemonicParsing="false" text="Edit Account">
+                                    <Button fx:id="editAcctBtn" mnemonicParsing="false" onAction="#editAcctClick" text="Edit Account">
                                        <VBox.margin>
                                           <Insets top="5.0" />
                                        </VBox.margin>
