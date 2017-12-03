@@ -308,6 +308,9 @@ public class AdminController {
 
       @FXML
       private TableView<Transaction> transTbl;
+      
+      @FXML
+      private MenuItem benCalcMenuItem;
 
   // ************************** Model Variables *******************************
 
@@ -576,6 +579,19 @@ public class AdminController {
     Scene newScene = new Scene(newRoot);
     newStage.setScene(newScene);
     FeeTypeCreateController newCtrl = newLoader.<FeeTypeCreateController>getController();
+    newCtrl.setStage(newStage);
+    newStage.show();
+  }
+
+  @FXML
+  void benCalcClick(ActionEvent event) throws Exception {
+	//  System.out.println("benCalc clicked!");
+    Stage newStage = new Stage();
+    FXMLLoader newLoader = new FXMLLoader(getClass().getResource("../view/BCview.fxml"));
+    Parent newRoot = newLoader.load();
+    Scene newScene = new Scene(newRoot);
+    newStage.setScene(newScene);
+    BCcontroller newCtrl = newLoader.<BCcontroller>getController();
     newCtrl.setStage(newStage);
     newStage.show();
   }

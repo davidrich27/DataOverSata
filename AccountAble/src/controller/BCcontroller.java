@@ -3,6 +3,7 @@ package controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
 import model.basic.BCmodel;
 import javafx.scene.control.Button;
 
@@ -58,6 +59,11 @@ public class BCcontroller {
 			
 			
 		}
+
+	public void setStage(Stage newStage) {
+		// TODO Auto-generated method stub
+		
+	}
 		
 	}
 
