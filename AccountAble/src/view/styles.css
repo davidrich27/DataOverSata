@@ -3,5 +3,9 @@
 }
 
 #loginBtn {
-	-fx-background-color: cyan;
+	-fx-background-color: #006699;
+}
+.button {
+	
+	-fx-background-color: #006699;
 }
