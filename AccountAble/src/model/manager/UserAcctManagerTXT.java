@@ -4,13 +4,15 @@ import model.basic.*;
 
 import java.util.*;
 import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class UserAcctManagerTXT{
-  private int userIDgen, acctIDgen, transIDgen, feeTypeIDgen, user_acctIDgen, acct_transIDgen;   // Generates unique IDs for all arraylist entries
+  private int userIDgen, acctIDgen, transIDgen, feeTypeIDgen, codeIDgen, user_acctIDgen, acct_transIDgen;   // Generates unique IDs for all arraylist entries
   private ArrayList<User> users;
   private ArrayList<Account> accts;
   private ArrayList<Transaction> trans;
   private ArrayList<FeeType> feeTypes;
+  private ArrayList<Code> codes;
   private ArrayList<Link> user_acct;              // linking table for User to Account access
   private ArrayList<Link> acct_trans;             // linking table for which Accounts contain which Transaction
   private Account masterAcct;                    // an account that holds all transactions
@@ -21,6 +23,7 @@ public class UserAcctManagerTXT{
     accts = new ArrayList<Account>();
     trans = new ArrayList<Transaction>();
     feeTypes = new ArrayList<FeeType>();
+    codes = new ArrayList<Code>();
     user_acct = new ArrayList<Link>();
     acct_trans = new ArrayList<Link>();
     userIDgen = 0;
@@ -31,21 +34,24 @@ public class UserAcctManagerTXT{
   }
   // SETTERS & GETTERS
   // Sets current value for
-  public void setIDs(int userIDgen, int acctIDgen, int transIDgen, int user_acctIDgen, int acct_transIDgen, int feeType_transIDgen){
+  public void setIDs(int userIDgen, int acctIDgen, int transIDgen, int codeIDgen, int user_acctIDgen, int acct_transIDgen, int feeType_transIDgen){
     this.userIDgen = userIDgen;
     this.acctIDgen = acctIDgen;
     this.transIDgen = transIDgen;
+    this.codeIDgen = codeIDgen;
     this.user_acctIDgen = user_acctIDgen;
     this.acct_transIDgen = acct_transIDgen;
   }
   public int[] getIDs(){
-    int[] ids = new int[6];
+    int[] ids = new int[7];
     ids[0] = userIDgen;
     ids[1] = acctIDgen;
     ids[2] = transIDgen;
+    ids[3] = codeIDgen;
     ids[3] = feeTypeIDgen;
-    ids[4] = user_acctIDgen;
-    ids[5] = acct_transIDgen;
+    ids[4] = codeIDgen;
+    ids[5] = user_acctIDgen;
+    ids[6] = acct_transIDgen;
     return ids;
   }
 
@@ -100,7 +106,7 @@ public class UserAcctManagerTXT{
     return false;
   }
   // NOT FOR OLD TRANSACTIONS!!!
-  public int addTrans(int acctId, int userId, int codeId, double subTotal, double feeTotal, double total, String otherParty, String descr, LocalDateTime date, boolean isExpense, boolean paidFee){
+  public int addTrans(int acctId, int userId, int codeId, double subTotal, double feeTotal, double total, String otherParty, String descr, LocalDateTime dateEntry, LocalDate dateSale, boolean isExpense, boolean paidFee){
     transIDgen++;
     // Add Transaction To Account Totals
     Account acct = getAcctByID(acctId);
@@ -117,7 +123,7 @@ public class UserAcctManagerTXT{
       acct.setAvailBalance(acctTotal);
     }
     // Create New Transaction
-    Transaction newTrans = new Transaction(transIDgen, acctId, userId, codeId, subTotal, feeTotal, acctTotal, otherParty, descr, date, isExpense, paidFee);
+    Transaction newTrans = new Transaction(transIDgen, acctId, userId, codeId, subTotal, feeTotal, acctTotal, otherParty, descr, dateEntry, dateSale, isExpense, paidFee);
     boolean success = addTrans(newTrans);
     if (success == true){
       return transIDgen;
@@ -143,6 +149,26 @@ public class UserAcctManagerTXT{
       return feeTypeIDgen;
     }
     feeTypeIDgen--;
+    return -1;
+  }
+
+  // NEW Codes
+  public boolean addCode(Code code){
+    if (isUnique(code, codes) == true){
+      codes.add(code);
+      Collections.sort(codes);
+      return true;
+    }
+    return false;
+  }
+  public int addCode(String name, String descr){
+    codeIDgen++;
+    Code newCode = new Code(codeIDgen, name, descr);
+    boolean success = addCode(newCode);
+    if (success == true){
+      return codeIDgen;
+    }
+    codeIDgen--;
     return -1;
   }
 
@@ -220,6 +246,16 @@ public class UserAcctManagerTXT{
     gotUser.setAdmin(admin);
     return id;
   }
+  public int editAccount(int id, String name, String descr){
+    Account gotAcct = getAcctByID(id);
+    if (gotAcct == null){
+      System.out.println("Error: Account does not exist.");
+      return -1;
+    }
+    gotAcct.setName(name);
+    gotAcct.setDescr(descr);
+    return id;
+  }
 
   // GET ALL
   public ArrayList<User> getAllUsers(){
@@ -233,6 +269,9 @@ public class UserAcctManagerTXT{
   }
   public ArrayList<FeeType> getAllFeeTypes(){
     return feeTypes;
+  }
+  public ArrayList<Code> getAllCodes(){
+    return codes;
   }
   public ArrayList<Link> getAllUser_Accts(){
     return user_acct;
@@ -364,6 +403,14 @@ public class UserAcctManagerTXT{
     }
     return feeTypes.get(index);
   }
+  public Code getCodeByID(int id){
+    Code code = new Code(id);
+    int index = Collections.binarySearch(codes, code);
+    if (index < 0){
+      return null;
+    }
+    return codes.get(index);
+  }
   public Link getUser_AcctByID(int id){
     Link testLink = new Link(id);
     int index = Collections.binarySearch(user_acct, testLink);
@@ -394,6 +441,9 @@ public class UserAcctManagerTXT{
   public FeeType getFeeTypeByIndex(int index){
     return feeTypes.get(index);
   }
+  public Code getCodeByIndex(int index){
+    return codes.get(index);
+  }
   public Link getUser_AcctByIndex(int index){
     return user_acct.get(index);
   }
@@ -408,7 +458,7 @@ public class UserAcctManagerTXT{
     Link testLink = new Link(-1, userID, acctID);
     return !isUnique(testLink, user_acct);
   }
-  // UNIQUENESS TEST
+  // UNIQUENESS TEST **(Note: Uses linear search - could implement binary search)
   public boolean isUnique(User testUser, ArrayList<User> array){
     for (User user : array){
       if (user.equals(testUser)){
@@ -436,6 +486,14 @@ public class UserAcctManagerTXT{
   public boolean isUnique(FeeType testFeeType, ArrayList<FeeType> array){
     for (FeeType feeType : array){
       if (feeType.equals(testFeeType)){
+        return false;
+      }
+    }
+    return true;
+  }
+  public boolean isUnique(Code testCode, ArrayList<Code> array){
+    for (Code code : array){
+      if (code.equals(testCode)){
         return false;
       }
     }
@@ -471,6 +529,11 @@ public class UserAcctManagerTXT{
     System.out.println("ALL FEE TYPES:");
     for(FeeType feeType : feeTypes){
       feeType.printInfo();
+    }
+    System.out.println("<----------->");
+    System.out.println("ALL CODES:");
+    for(Code code : codes){
+      code.printInfo();
     }
     System.out.println("<----------->");
     System.out.println("ALL USER-ACCOUNT LINKS:");

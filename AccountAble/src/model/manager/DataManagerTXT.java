@@ -5,9 +5,10 @@ import model.basic.*;
 import java.io.*;
 import java.util.*;
 import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class DataManagerTXT {
-  String userPath, acctPath, transPath, feeTypePath;
+  String userPath, acctPath, transPath, feeTypePath, codePath;
   String user_acctPath, acct_transPath, idPath;
   UserAcctManagerTXT uaManager;
 
@@ -17,15 +18,17 @@ public class DataManagerTXT {
     this.acctPath = "../data/Accounts.txt";
     this.transPath = "../data/Transaction.txt";
     this.feeTypePath = "../data/FeeType.txt";
+    this.codePath = "../data/Code.txt";
     this.user_acctPath = "../data/User_Account.txt";
     this.acct_transPath = "../data/Account_Transaction.txt";
     this.idPath = "../data/ID.txt";
   }
   // Custom Paths
-  public DataManagerTXT(String userPath, String acctPath, String transPath, String feeTypePath, String user_acctPath, String acct_transPath, String idPath){
+  public DataManagerTXT(String userPath, String acctPath, String transPath, String feeTypePath, String codePath, String user_acctPath, String acct_transPath, String idPath){
     this.userPath = userPath;
     this.acctPath = acctPath;
     this.transPath = transPath;
+    this.codePath = codePath;
     this.feeTypePath = feeTypePath;
     this.user_acctPath = user_acctPath;
     this.acct_transPath = acct_transPath;
@@ -94,10 +97,11 @@ public class DataManagerTXT {
       double acctTotal = Double.parseDouble(dataArr[6]);
       String otherParty = dataArr[7].replaceAll(":::", ",");
       String descr = dataArr[8].replaceAll(":::", ",");
-      LocalDateTime date = LocalDateTime.parse(dataArr[9]);
-      boolean isExpense = Boolean.parseBoolean(dataArr[10]);
-      boolean paidFee = Boolean.parseBoolean(dataArr[11]);
-    return new Transaction(id, acctId, userId, codeId, subTotal, feeTotal, acctTotal, otherParty, descr, date, isExpense, paidFee);
+      LocalDateTime dateEntry = LocalDateTime.parse(dataArr[9]);
+      LocalDate dateSale = LocalDate.parse(dataArr[10]);
+      boolean isExpense = Boolean.parseBoolean(dataArr[11]);
+      boolean paidFee = Boolean.parseBoolean(dataArr[12]);
+    return new Transaction(id, acctId, userId, codeId, subTotal, feeTotal, acctTotal, otherParty, descr, dateEntry, dateSale, isExpense, paidFee);
   }
   public static String TRANSACTION_TO_DATA(Transaction trans){
     String data = trans.getID() + "," +
@@ -109,7 +113,8 @@ public class DataManagerTXT {
       trans.getAcctTotal() + "," +
       trans.getOtherParty().replaceAll(",", ":::") + "," +
       trans.getDescr().replaceAll(",", ":::") + "," +
-      trans.getDate().toString() + "," +
+      trans.getDateEntry().toString() + "," +
+      trans.getDateSale().toString() + "," +
       trans.getIsExpense() + "," +
       trans.getPaidFee();
     return data;
@@ -136,6 +141,20 @@ public class DataManagerTXT {
       feeType.getIsCustom();
     return data;
   }
+  // Code(int id, String name, String descr)
+  public static Code DATA_TO_CODE(String data){
+    String[] dataArr = data.split(",");
+      int id = Integer.parseInt(dataArr[0]);
+      String name = dataArr[1].replaceAll(":::", ",");
+      String descr = dataArr[2].replaceAll(":::", ",");
+    return new Code(id, name, descr);
+  }
+  public static String CODE_TO_DATA(Code code){
+    String data = code.getID() + "," +
+      code.getName().replaceAll(",", ":::") + "," +
+      code.getDescr().replaceAll(",", ":::");
+    return data;
+  }
   // Links (int id, int idA, int idB)
   public static Link DATA_TO_LINK(String data){
     String[] dataArr = data.split(",");
@@ -156,8 +175,8 @@ public class DataManagerTXT {
   // Read in all current IDs
   public void readIDFileToManager(UserAcctManagerTXT manager){
     ArrayList<String> idList = readFileToList(idPath);
-    if (idList.get(0) == null){
-      manager.setIDs(0,0,0,0,0,0);
+    if (idList.isEmpty()){
+      manager.setIDs(0,0,0,0,0,0,0);
     } else {
       String[] ids = idList.get(0).split(",");
       System.out.println(ids[0]);
@@ -165,9 +184,10 @@ public class DataManagerTXT {
       int acctID = Integer.parseInt(ids[1]);
       int transID = Integer.parseInt(ids[2]);
       int feeTypeID = Integer.parseInt(ids[3]);
-      int user_acctID = Integer.parseInt(ids[4]);
-      int acct_transID = Integer.parseInt(ids[5]);
-      manager.setIDs(userID, acctID, transID, feeTypeID, user_acctID, acct_transID);
+      int codeID = Integer.parseInt(ids[4]);
+      int user_acctID = Integer.parseInt(ids[5]);
+      int acct_transID = Integer.parseInt(ids[6]);
+      manager.setIDs(userID, acctID, transID, feeTypeID, codeID, user_acctID, acct_transID);
     }
   }
   public void writeManagerIDsToFile(UserAcctManagerTXT manager){
@@ -177,7 +197,8 @@ public class DataManagerTXT {
         ids[2] + "," +
         ids[3] + "," +
         ids[4] + "," +
-        ids[5];
+        ids[5] + "," +
+        ids[6];
     // Overwrite previous values
     writeLineToFile(data, idPath, true);
   }
@@ -288,6 +309,33 @@ public class DataManagerTXT {
   }
   public boolean writeManagerFeeTypeToFile(UserAcctManagerTXT manager){
     return writeAllFeeTypesToFile(manager.getAllFeeTypes());
+  }
+
+  // CODES
+  // Reads in all Codes to Manager
+  public void readCodeFileToManager(UserAcctManagerTXT manager){
+    ArrayList<String> codeList = readFileToList(codePath);
+    // makes Access entry for every line in txt filePath
+    for (String codeStr : codeList){
+      Code code = DATA_TO_CODE(codeStr);
+      manager.addCode(code);
+    }
+  }
+  // Write single Code to File (NO Overwrite)
+  public boolean writeCodeToFile(Code code){
+    String codeStr = CODE_TO_DATA(code);
+    return writeLineToFile(codeStr, codePath);
+  }
+  // Overwrite All Code
+  public boolean writeAllCodesToFile(ArrayList<Code> codes){
+    ArrayList<String> dataList = new ArrayList<String>();
+    for (Code code : codes){
+      dataList.add(CODE_TO_DATA(code));
+    }
+    return writeListToFile(dataList, codePath);
+  }
+  public boolean writeManagerCodeToFile(UserAcctManagerTXT manager){
+    return writeAllCodesToFile(manager.getAllCodes());
   }
 
   // USER_ACCT

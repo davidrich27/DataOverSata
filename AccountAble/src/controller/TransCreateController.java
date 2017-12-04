@@ -4,6 +4,8 @@ import model.basic.*;
 import model.manager.*;
 import model.master.*;
 
+import java.util.*;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -89,6 +91,11 @@ public class TransCreateController {
     AdminController homeCtrl;
 
     User loginUser;
+    Account selectedAcct;
+
+    ArrayList<FeeType> feeTypeOut;
+    ArrayList<FeeType> feeTypeIn;
+
 
     // ************************** Initialization and Wireup *********************
 
@@ -104,8 +111,12 @@ public class TransCreateController {
       this.homeStage = homeStage;
       this.homeCtrl = homeCtrl;
     }
-    public void populate(User loginUser){
+    public void populate(User loginUser, Account selectedAcct){
       this.loginUser = loginUser;
+      this.selectedAcct = selectedAcct;
+
+      String prevBal = selectedAcct.getBalance().toString();
+      prevAcctBalLbl.setText(prevBal);
     }
 
     // ************************** Other Events ************************************
@@ -113,6 +124,7 @@ public class TransCreateController {
     @FXML
     void confirmClick(ActionEvent event) {
       System.out.println("Clicked Confirm!");
+
     }
 
     @FXML

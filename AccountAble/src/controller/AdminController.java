@@ -6,6 +6,7 @@ import model.master.*;
 import java.io.IOException;
 import java.util.*;
 import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -31,7 +32,7 @@ public class AdminController {
       private Button delFeeBtn;
 
       @FXML
-      private ListView<String> acctsList;
+      private ListView<String> acctList;
 
       @FXML
       private TableColumn<User, String> userColEmail;
@@ -265,7 +266,10 @@ public class AdminController {
       private TableColumn<Transaction, Integer> acctColCode;
 
       @FXML
-      private TableColumn<Transaction, LocalDateTime> acctColDate;
+      private TableColumn<Transaction, LocalDateTime> acctColDateEntry;
+
+      @FXML
+      private TableColumn<Transaction, LocalDate> acctColDateSale;
 
       @FXML
       private TableColumn<Transaction, Double> acctColSubTotal;
@@ -292,6 +296,18 @@ public class AdminController {
       private TableColumn<Transaction, String> acctColPaidFee;
 
       @FXML
+      private TableColumn<Code, Integer> codeColID;
+
+      @FXML
+      private TableColumn<Code, String> codeColName;
+
+      @FXML
+      private TableColumn<Code, String> codeColDescr;
+
+      @FXML
+      private TableView<Code> codeTbl;
+
+      @FXML
       private Button editTransBtn1;
 
       @FXML
@@ -308,7 +324,7 @@ public class AdminController {
 
       @FXML
       private TableView<Transaction> transTbl;
-      
+
       @FXML
       private MenuItem benCalcMenuItem;
 
@@ -356,7 +372,8 @@ public class AdminController {
     acctColAcctID.setCellValueFactory(new PropertyValueFactory<Transaction, Integer>("AcctID"));
     acctColUserID.setCellValueFactory(new PropertyValueFactory<Transaction, Integer>("UserID"));
     acctColCode.setCellValueFactory(new PropertyValueFactory<Transaction, Integer>("CodeID"));
-    acctColDate.setCellValueFactory(new PropertyValueFactory<Transaction, LocalDateTime>("Date"));
+    acctColDateEntry.setCellValueFactory(new PropertyValueFactory<Transaction, LocalDateTime>("DateEntry"));
+    acctColDateSale.setCellValueFactory(new PropertyValueFactory<Transaction, LocalDate>("DateSale"));
     acctColSubTotal.setCellValueFactory(new PropertyValueFactory<Transaction, Double>("SubTotal"));
     acctColFeeTotal.setCellValueFactory(new PropertyValueFactory<Transaction, Double>("FeeTotal"));
     acctColTotal.setCellValueFactory(new PropertyValueFactory<Transaction, Double>("Total"));
@@ -381,6 +398,11 @@ public class AdminController {
     feeTypeColIsPer.setCellValueFactory(new PropertyValueFactory<FeeType, Boolean>("isPercent"));
     feeTypeColIsAdd.setCellValueFactory(new PropertyValueFactory<FeeType, Boolean>("isAdditional"));
     feeTypeColIsCustom.setCellValueFactory(new PropertyValueFactory<FeeType, Boolean>("isCustom"));
+
+    // Set Codes Factory
+    codeColID.setCellValueFactory(new PropertyValueFactory<Code, Integer>("ID"));
+    codeColName.setCellValueFactory(new PropertyValueFactory<Code, String>("Name"));
+    codeColDescr.setCellValueFactory(new PropertyValueFactory<Code, String>("Descr"));
 
     // Set All Transaction Factory
     transColID.setCellValueFactory(new PropertyValueFactory<Transaction, Integer>("ID"));
@@ -418,6 +440,10 @@ public class AdminController {
     ArrayList<Transaction> trans = model.uaManager.getAllTransactions();
     ObservableList<Transaction> transObservable = FXCollections.observableArrayList(trans);
     transTbl.setItems(transObservable);
+
+    ArrayList<Code> codes = model.uaManager.getAllCodes();
+    ObservableList<Code> codesObservable = FXCollections.observableArrayList(codes);
+    codeTbl.setItems(codesObservable);
   }
 
   // ************************** Other Events ************************************
@@ -447,7 +473,7 @@ public class AdminController {
       String acctName = acct.getName();
       acctNames.add(acctName);
     }
-    acctsList.setItems(acctNames);
+    acctList.setItems(acctNames);
     acctsAllList.setItems(acctNames);
 
     // USERS TAB
@@ -488,7 +514,7 @@ public class AdminController {
     thisStage.hide();
   }
 
-    // ************************ Overview Tab ***************
+    // ************************ Overview Tab *************************************
 
   @FXML
   void changeInfoClick(ActionEvent event) throws IOException {
@@ -504,7 +530,7 @@ public class AdminController {
     newStage.show();
   }
 
-    // *********************** Users Overview Tab **********
+    // *********************** Users Overview Tab *********************************
 
   @FXML
   void newUserClick(ActionEvent event) throws Exception {
@@ -520,7 +546,21 @@ public class AdminController {
     newStage.show();
   }
 
-    // ****************** Transaction Overview Tab **********
+  @FXML
+  void editUserClick(ActionEvent event) throws Exception {
+    // Stage newStage = new Stage();
+    // FXMLLoader newLoader = new FXMLLoader(getClass().getResource("../view/ViewCreateUser.fxml"));
+    // Parent newRoot = newLoader.load();
+    // Scene newScene = new Scene(newRoot);
+    // newStage.setScene(newScene);
+    // UserCreateController newCtrl = newLoader.<UserCreateController>getController();
+    // newCtrl.setStage(newStage);
+    // newCtrl.setHome(thisStage, this);
+    // newCtrl.setModel(model);
+    // newStage.show();
+  }
+
+    // ****************** Transaction Overview Tab ********************************
 
   @FXML
   void addTransactionClick(ActionEvent event) throws Exception {
@@ -534,9 +574,13 @@ public class AdminController {
     newCtrl.setHome(thisStage, this);
     newCtrl.setModel(model);
     newStage.show();
+    String selectedAcctName = acctList.getSelectionModel().getSelectedItem();
+    Account selectedAcct = model.uaManager.getAcctByName(selectedAcctName);
+    // Note: Account can be null
+    newCtrl.populate(currentUser, selectedAcct);
   }
 
-    // ******************* All Accounts Overview Tab ********
+    // ******************* All Accounts Overview Tab *****************************
 
   @FXML
   void newAcctClick(ActionEvent event) throws Exception {
@@ -569,7 +613,7 @@ public class AdminController {
     newStage.show();
   }
 
-    // ******************* Fees Overview Tab ****************
+    // ******************* Fees Overview Tab *************************************
 
   @FXML
   void newFeeClick(ActionEvent event) throws Exception {
@@ -583,6 +627,8 @@ public class AdminController {
     newStage.show();
   }
 
+  // ***************** Benefits Calculator ***************************************
+
   @FXML
   void benCalcClick(ActionEvent event) throws Exception {
 	//  System.out.println("benCalc clicked!");
@@ -594,5 +640,12 @@ public class AdminController {
     BCcontroller newCtrl = newLoader.<BCcontroller>getController();
     newCtrl.setStage(newStage);
     newStage.show();
+  }
+
+  // ************************ Notifications *************************************
+
+  // Warning if user needs to select something but hasn't
+  void noSelectNotif(String thing){
+    System.out.println("Error: Sorry, you must select a " + thing + " to open this dialog.");
   }
 }

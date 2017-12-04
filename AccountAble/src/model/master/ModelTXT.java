@@ -5,6 +5,7 @@ import model.manager.*;
 
 import java.util.*;
 import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class ModelTXT {
   public UserAcctManagerTXT uaManager;
@@ -13,9 +14,9 @@ public class ModelTXT {
   public User login;
 
   // Custom Paths
-  public ModelTXT(String userPath, String acctPath, String transPath, String feeTypePath, String user_acctPath, String acct_transPath, String idPath) {
+  public ModelTXT(String userPath, String acctPath, String transPath, String feeTypePath, String codePath, String user_acctPath, String acct_transPath, String idPath) {
     uaManager = new UserAcctManagerTXT();
-    dataManager = new DataManagerTXT(userPath, acctPath, transPath, feeTypePath, user_acctPath, acct_transPath, idPath);
+    dataManager = new DataManagerTXT(userPath, acctPath, transPath, feeTypePath, codePath, user_acctPath, acct_transPath, idPath);
 
     loadAll();
   }
@@ -25,12 +26,13 @@ public class ModelTXT {
     String acctPath = "../data/Accounts.txt";
     String transPath = "../data/Transactions.txt";
     String feeTypePath = "../data/FeeTypes.txt";
+    String codePath = "../data/Code.txt";
     String user_acctPath = "../data/User_Account.txt";
     String acct_transPath = "../data/Account_Transaction.txt";
     String idPath = "../data/ID.txt";
 
     uaManager = new UserAcctManagerTXT();
-    dataManager = new DataManagerTXT(userPath, acctPath, transPath, feeTypePath, user_acctPath, acct_transPath, idPath);
+    dataManager = new DataManagerTXT(userPath, acctPath, transPath, feeTypePath, codePath, user_acctPath, acct_transPath, idPath);
 
     loadAll();
   }
@@ -41,6 +43,7 @@ public class ModelTXT {
     dataManager.readUserFileToManager(uaManager);
     dataManager.readAcctFileToManager(uaManager);
     dataManager.readTransFileToManager(uaManager);
+    dataManager.readCodeFileToManager(uaManager);
     dataManager.readFeeTypeFileToManager(uaManager);
     dataManager.readUser_AcctFileToManager(uaManager);
     dataManager.readAcct_TransFileToManager(uaManager);
@@ -52,6 +55,7 @@ public class ModelTXT {
     dataManager.writeManagerUsersToFile(uaManager);
     dataManager.writeManagerAcctsToFile(uaManager);
     dataManager.writeManagerTransToFile(uaManager);
+    dataManager.writeManagerCodeToFile(uaManager);
     dataManager.writeManagerFeeTypeToFile(uaManager);
     dataManager.writeManagerUser_AcctsToFile(uaManager);
     dataManager.writeManagerAcct_TransToFile(uaManager);
@@ -75,6 +79,10 @@ public class ModelTXT {
   public void saveFeeType(FeeType feeType){
     uaManager.addFeeType(feeType);
     dataManager.writeFeeTypeToFile(feeType);
+  }
+  public void saveCode(Code code){
+    uaManager.addCode(code);
+    dataManager.writeCodeToFile(code);
   }
   public void saveUser_Acct(Link user_acct){
     uaManager.addUser_Acct(user_acct);
@@ -125,10 +133,20 @@ public class ModelTXT {
     }
     return false;
   }
+  public boolean addNewCode(String name, String descr){
+    int codeId = uaManager.addCode(name, descr);
+    if (codeId > -1){
+      Code tempCode = uaManager.getCodeByID(codeId);
+      saveCode(tempCode);
+      saveIDs();
+      return true;
+    }
+    return false;
+  }
   // For FEES
-  public boolean addNewTrans(ArrayList<FeeType> feeTypes, int acctId, int userId, int codeId, double transSubTotal, String otherParty, String descr, LocalDateTime date, boolean isExpense, boolean paidFee){
+  public boolean addNewTrans(ArrayList<FeeType> feeTypes, int acctId, int userId, int codeId, double transSubTotal, String otherParty, String descr, LocalDateTime dateEntry, LocalDate dateSale, boolean isExpense, boolean paidFee){
     double[] totals = calcFees(transSubTotal, feeTypes, isExpense);
-    int transID = uaManager.addTrans(acctId, userId, codeId, totals[0], totals[1], totals[2], otherParty, descr, date, isExpense, paidFee);
+    int transID = uaManager.addTrans(acctId, userId, codeId, totals[0], totals[1], totals[2], otherParty, descr, dateEntry, dateSale, isExpense, paidFee);
     if (transID > -1){
       Transaction trans = uaManager.getTransByID(transID);
       saveTrans(trans);
@@ -138,8 +156,8 @@ public class ModelTXT {
     return false;
   }
   // For NO FEES
-  public boolean addNewTrans(int acctId, int userId, int codeId, double transSubTotal, String otherParty, String descr, LocalDateTime date, boolean isExpense){
-    int transID = uaManager.addTrans(acctId, userId, codeId, transSubTotal, 0, transSubTotal, otherParty, descr, date, isExpense, true);
+  public boolean addNewTrans(int acctId, int userId, int codeId, double transSubTotal, String otherParty, String descr, LocalDateTime dateEntry, LocalDate dateSale, boolean isExpense){
+    int transID = uaManager.addTrans(acctId, userId, codeId, transSubTotal, 0, transSubTotal, otherParty, descr, dateEntry, dateSale, isExpense, true);
     if (transID > -1){
       Transaction trans = uaManager.getTransByID(transID);
       saveTrans(trans);

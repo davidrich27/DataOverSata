@@ -94,6 +94,17 @@ public class UserCreateController {
     @FXML
     void cancelClick(ActionEvent event) {
       thisStage.hide();
+      clear();
+    }
+
+    void clear(){
+      usernameTxt.setText("");
+      newPwdTxt1.setText("");
+      firstnameTxt.setText("");
+      lastnameTxt.setText("");
+      emailTxt.setText("");
+      phoneTxt.setText("");
+      adminChkbx.setSelected(false);
     }
 
 }

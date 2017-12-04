@@ -42,7 +42,7 @@ public class AcctEditController {
     AdminController homeCtrl;
 
     User loginUser;
-    Account selected;
+    Account selectedAcct;
 
     // ************************** Initialization and Wireup *********************
 
@@ -56,11 +56,11 @@ public class AcctEditController {
       this.homeStage = homeStage;
       this.homeCtrl = homeCtrl;
     }
-    public void populate(Account selected){
-      if (selected != null){
-        this.selected = selected;
-        nameTxt.setText(selected.getName());
-        descrTxt.setText(selected.getDescr());
+    public void populate(Account selectedAcct){
+      if (selectedAcct != null){
+        this.selectedAcct = selectedAcct;
+        nameTxt.setText(selectedAcct.getName());
+        descrTxt.setText(selectedAcct.getDescr());
       } else {
         System.out.println("Error: No Account was selected.");
       }
@@ -74,8 +74,8 @@ public class AcctEditController {
       // Change selected Account's name and descr
       String name = nameTxt.getText();
       String descr = descrTxt.getText();
-      selected.setName(name);
-      selected.setDescr(descr);
+      selectedAcct.setName(name);
+      selectedAcct.setDescr(descr);
       homeCtrl.refresh();
       thisStage.hide();
     }
