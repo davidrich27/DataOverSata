@@ -112,6 +112,30 @@
                   <Font size="18.0" />
                </font>
             </Button>
+            <Button mnemonicParsing="false" onAction="#processNumbers" prefWidth="75.0" text=".">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#processOperators" prefWidth="75.0" text="12%">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="50.0" prefWidth="300.0" spacing="10.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#processNumbers" prefWidth="75.0" text="0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#processOperators" prefWidth="75.0" text="CE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
             <Button mnemonicParsing="false" onAction="#processOperators" prefWidth="75.0" text="=">
                <font>
                   <Font size="18.0" />
