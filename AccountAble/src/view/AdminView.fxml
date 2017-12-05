@@ -170,7 +170,7 @@
                                           <Insets bottom="5.0" top="5.0" />
                                        </VBox.margin></Label>
                                     <TextField fx:id="acctSearchTxt" />
-                                    <Button fx:id="acctHistoryBtn" mnemonicParsing="false" text="View History">
+                                    <Button fx:id="acctHistoryBtn" mnemonicParsing="false" onAction="#acctHistoryClick" text="View History">
                                        <VBox.margin>
                                           <Insets top="5.0" />
                                        </VBox.margin></Button>
@@ -178,12 +178,7 @@
                                        <VBox.margin>
                                           <Insets top="5.0" />
                                        </VBox.margin></Button>
-                                    <Button mnemonicParsing="false" text="Create Expense">
-                                       <VBox.margin>
-                                          <Insets top="5.0" />
-                                       </VBox.margin>
-                                    </Button>
-                                    <Button mnemonicParsing="false" text="Create Deposit">
+                                    <Button fx:id="editTransactionBtn" mnemonicParsing="false" onAction="#editTransactionClick" text="Edit Transaction">
                                        <VBox.margin>
                                           <Insets top="5.0" />
                                        </VBox.margin>
@@ -377,12 +372,12 @@
                                           <Insets top="5.0" />
                                        </VBox.margin>
                                     </Button>
-                                    <Button fx:id="examUserBtn" mnemonicParsing="false" text="Examine User">
+                                    <Button fx:id="examUserBtn" mnemonicParsing="false" onAction="#examUserClick" text="Examine User">
                                        <VBox.margin>
                                           <Insets top="5.0" />
                                        </VBox.margin>
                                     </Button>
-                                    <Button fx:id="delUserBtn" mnemonicParsing="false" text="Delete User">
+                                    <Button fx:id="delUserBtn" mnemonicParsing="false" onAction="#delUserClick" text="Delete User">
                                        <VBox.margin>
                                           <Insets top="5.0" />
                                        </VBox.margin>

@@ -233,6 +233,14 @@ public class ModelTXT {
   }
 
   // DELETE
+  public boolean deleteUser(int userID){
+    int index = uaManager.deleteUserByID(userID);
+    if (index > -1){
+      dataManager.writeManagerUser_AcctsToFile(uaManager);
+      return true;
+    }
+    return false;
+  }
   public boolean deleteUser_Acct(int userID, int acctID){
     int index = uaManager.deleteUser_AcctByUserAcctID(userID, acctID);
     if (index > -1){

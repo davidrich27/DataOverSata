@@ -147,6 +147,8 @@ public class TransCreateController {
       transTotalLbl.setText("0.0");
       newAcctBalLbl.setText(prevAcctBal.toString());
 
+      datePicker.setValue(LocalDate.now());
+
       popLists();
     }
     void setupEdit(){
