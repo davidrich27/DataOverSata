@@ -10,11 +10,9 @@ import javafx.scene.control.Button;
 public class BCcontroller {
 	
 	@FXML
-	private Label result, leftOver;
-	private double num1 = 0;
+	private Label result, leftOver, decValue;
 	private String operator = "";
 	private boolean start = true;
-	private BCmodel model = new BCmodel();
 	
 	//When a number is clicked start is set to false.
 	@FXML
@@ -28,6 +26,7 @@ public class BCcontroller {
 		String value = ((Button)event.getSource()).getText();
 		//set result to equal value. 
 		result.setText(result.getText()+ value);
+
 		
 	}
 	
