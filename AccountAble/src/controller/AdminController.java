@@ -22,6 +22,7 @@ import javafx.util.StringConverter;
 import javafx.event.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonBar.ButtonData;
 
 public class AdminController {
 
@@ -477,6 +478,7 @@ public class AdminController {
   // Refresh all dataViews
   public void refresh(){
     resetText();
+    repop();
     // refresh all tables
     acctTbl.refresh();
     userTbl.refresh();
@@ -554,6 +556,39 @@ public class AdminController {
     }
   }
 
+  @FXML
+  void examUserClick(ActionEvent event) throws Exception {
+  }
+
+  @FXML
+  void delUserClick(ActionEvent event) throws Exception {
+    User selected = userTbl.getSelectionModel().getSelectedItem();
+    if (selected == null){
+      return;
+    }
+    Alert alert = new Alert(AlertType.CONFIRMATION);
+    alert.setTitle("You are about to Delete or Retire An Account");
+    alert.setHeaderText("Warning: You are about to Delete or Retire an Account");
+    alert.setContentText("Choose carefully - Retiring a User will allow it to be recovered if you ever need to do so, but deleting cannot be undone. Continue?");
+
+    ButtonType delBtn = new ButtonType("Delete");
+    ButtonType retireBtn = new ButtonType("Retire");
+    ButtonType cancelBtn = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+
+    alert.getButtonTypes().setAll(delBtn, retireBtn, cancelBtn);
+
+    Optional<ButtonType> result = alert.showAndWait();
+    if (result.get() == delBtn){
+        // ... user chose "One"
+        System.out.println(model.deleteUser(selected.getID()));
+        refresh();
+    } else if (result.get() == retireBtn) {
+        // ... user chose "Two"
+    } else {
+        // ... user chose CANCEL or closed the dialog
+    }
+      }
+
     // ****************** Transaction Overview Tab ********************************
 
   @FXML
@@ -574,6 +609,14 @@ public class AdminController {
     } else {
       System.out.println("ERROR: Must select Account for Transaction to be entered.");
     }
+  }
+
+  @FXML
+  void acctHistoryClick(ActionEvent event) throws Exception {
+  }
+
+  @FXML
+  void editTransactionClick(ActionEvent event) throws Exception {
   }
 
     // ******************* All Accounts Overview Tab *****************************
