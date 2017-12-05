@@ -32,13 +32,10 @@ public class AdminController {
       private Button delFeeBtn;
 
       @FXML
-      private ListView<String> acctList;
+      private ListView<Account> acctList;
 
       @FXML
       private TableColumn<User, String> userColEmail;
-
-      @FXML
-      private ListView<String> feeList;
 
       @FXML
       private Button addTransactionBtn;
@@ -48,9 +45,6 @@ public class AdminController {
 
       @FXML
       private TableView<Account> acctAllTbl;
-
-      @FXML
-      private ListView<String> userList;
 
       @FXML
       private Label feeBalanceLbl;
@@ -71,7 +65,7 @@ public class AdminController {
       private Label emailLbl;
 
       @FXML
-      private ScrollPane blockedList;
+      private ListView<User> blockedList;
 
       @FXML
       private Button examAcctBtn;
@@ -131,22 +125,16 @@ public class AdminController {
       private Button newAcctBtn;
 
       @FXML
-      private AnchorPane allowedList;
+      private ListView<User> allowedList;
 
       @FXML
-      private ChoiceBox<?> dropdownAcct;
+      private ChoiceBox<Account> acctDropDown;
 
       @FXML
       private Button editUserBtn;
 
       @FXML
-      private ListView<String> transList;
-
-      @FXML
       private TextField acctSearchTxt;
-
-      @FXML
-      private ListView<String> acctsAllList;
 
       @FXML
       private Label phoneLbl;
@@ -167,7 +155,7 @@ public class AdminController {
       private Label usernameLbl;
 
       @FXML
-      private Button selectAcct;
+      private Button acctPermissionBtn;
 
       @FXML
       private Button examFeeBtn;
@@ -328,6 +316,9 @@ public class AdminController {
       @FXML
       private MenuItem benCalcMenuItem;
 
+      @FXML
+      private Label permissionAcctLbl;
+
   // ************************** Model Variables *******************************
 
   ModelTXT model;
@@ -357,7 +348,7 @@ public class AdminController {
   }
 
   // Set Values of Model to Populate Tables
-  public void setFactories(){
+  public void resetFactories(){
     // Set User Factory
     userColID.setCellValueFactory(new PropertyValueFactory<User, Integer>("ID"));
     userColUsername.setCellValueFactory(new PropertyValueFactory<User, String>("Username"));
@@ -446,13 +437,9 @@ public class AdminController {
     codeTbl.setItems(codesObservable);
   }
 
-  // ************************** Other Events ************************************
+  // Reset Texts
+  public void resetText(){
 
-  public void login(User loginUser){
-    currentUser = loginUser;
-    currentAccts = model.uaManager.getAllAccts();
-
-    // OVERVIEW TAB
     // Populate Text on Overview Tab
     greetingLbl.setText("Welcome Back, " + currentUser.getName()[0] + "!");
     usernameLbl.setText(currentUser.getUsername());
@@ -466,42 +453,39 @@ public class AdminController {
     feeBalanceLbl.setText(master.getFeesBalance().toString());
     availBalanceLbl.setText(master.getAvailBalance().toString());
 
-    // ACCOUNTS TAB
-    // Populate All Accounts Lists
-    ObservableList<String> acctNames = FXCollections.observableArrayList();
-    for (Account acct : currentAccts){
-      String acctName = acct.getName();
-      acctNames.add(acctName);
-    }
-    acctList.setItems(acctNames);
-    acctsAllList.setItems(acctNames);
+    // Populate All Lists
+    ObservableList<Account> acctsObservable = FXCollections.observableArrayList(currentAccts);
+    acctList.setItems(acctsObservable);
+    acctDropDown.setItems(acctsObservable);
 
-    // USERS TAB
-    // Populate User List
-    ObservableList<String> userNames = FXCollections.observableArrayList();
-    ArrayList<User> allUsers = model.uaManager.getAllUsers();
-    for (User user : allUsers){
-      String userName = user.getUsername();
-      userNames.add(userName);
-    }
-    userList.setItems(userNames);
+    ArrayList<User> users = model.uaManager.getAllUsers();
+    ObservableList<User> usersObservable = FXCollections.observableArrayList(users);
+    blockedList.setItems(usersObservable);
+  }
 
-    // FEETYPE TAB
-    // Populate FeeType List
-    ObservableList<String> feeTypeNames = FXCollections.observableArrayList();
-    ArrayList<FeeType> allFeeTypes = model.uaManager.getAllFeeTypes();
-    for (FeeType feeType : allFeeTypes){
-      String feeTypeName = feeType.getName();
-      feeTypeNames.add(feeTypeName);
-    }
-    feeList.setItems(feeTypeNames);
+  // ************************** Other Events ************************************
 
-    setFactories();
+  public void login(User loginUser){
+    currentUser = loginUser;
+    currentAccts = model.uaManager.getAllAccts();
+
+    resetText();
+    resetFactories();
     repop();
   }
 
+  // Refresh all dataViews
   public void refresh(){
-    repop();
+    resetText();
+    // refresh all tables
+    acctTbl.refresh();
+    userTbl.refresh();
+    feeTypeTbl.refresh();
+    codeTbl.refresh();
+    acctAllTbl.refresh();
+    transTbl.refresh();
+    // refresh all lists
+    acctList.refresh();
   }
 
   // ************************** FX Events ***************************************
@@ -520,13 +504,15 @@ public class AdminController {
   void changeInfoClick(ActionEvent event) throws IOException {
     // Open new instance of viewEditUser
     Stage newStage = new Stage();
-    FXMLLoader newLoader = new FXMLLoader(getClass().getResource("../view/ViewEditUser.fxml"));
+    FXMLLoader newLoader = new FXMLLoader(getClass().getResource("../view/ViewChangeInfo.fxml"));
     Parent newRoot = newLoader.load();
     Scene newScene = new Scene(newRoot);
     newStage.setScene(newScene);
-    UserEditController newCtrl = newLoader.<UserEditController>getController();
+    ChangeInfoController newCtrl = newLoader.<ChangeInfoController>getController();
     newCtrl.setStage(newStage);
-    newCtrl.populate(currentUser);
+    newCtrl.setHome(thisStage, this);
+    newCtrl.setModel(model);
+    newCtrl.setupEdit(currentUser);
     newStage.show();
   }
 
@@ -543,41 +529,51 @@ public class AdminController {
     newCtrl.setStage(newStage);
     newCtrl.setHome(thisStage, this);
     newCtrl.setModel(model);
+    newCtrl.setupCreate();
     newStage.show();
   }
 
   @FXML
   void editUserClick(ActionEvent event) throws Exception {
-    // Stage newStage = new Stage();
-    // FXMLLoader newLoader = new FXMLLoader(getClass().getResource("../view/ViewCreateUser.fxml"));
-    // Parent newRoot = newLoader.load();
-    // Scene newScene = new Scene(newRoot);
-    // newStage.setScene(newScene);
-    // UserCreateController newCtrl = newLoader.<UserCreateController>getController();
-    // newCtrl.setStage(newStage);
-    // newCtrl.setHome(thisStage, this);
-    // newCtrl.setModel(model);
-    // newStage.show();
+    // Pass selected user to controller
+    User selected = userTbl.getSelectionModel().getSelectedItem();
+    if (selected != null){
+      Stage newStage = new Stage();
+      FXMLLoader newLoader = new FXMLLoader(getClass().getResource("../view/ViewCreateUser.fxml"));
+      Parent newRoot = newLoader.load();
+      Scene newScene = new Scene(newRoot);
+      newStage.setScene(newScene);
+      UserCreateController newCtrl = newLoader.<UserCreateController>getController();
+      newCtrl.setStage(newStage);
+      newCtrl.setHome(thisStage, this);
+      newCtrl.setModel(model);
+      newCtrl.setupEdit(selected);
+      newStage.show();
+    } else {
+      System.out.println("ERROR: Must select an User to edit.");
+    }
   }
 
     // ****************** Transaction Overview Tab ********************************
 
   @FXML
   void addTransactionClick(ActionEvent event) throws Exception {
-    Stage newStage = new Stage();
-    FXMLLoader newLoader = new FXMLLoader(getClass().getResource("../view/ViewCreateTrans.fxml"));
-    Parent newRoot = newLoader.load();
-    Scene newScene = new Scene(newRoot);
-    newStage.setScene(newScene);
-    TransCreateController newCtrl = newLoader.<TransCreateController>getController();
-    newCtrl.setStage(newStage);
-    newCtrl.setHome(thisStage, this);
-    newCtrl.setModel(model);
-    newStage.show();
-    String selectedAcctName = acctList.getSelectionModel().getSelectedItem();
-    Account selectedAcct = model.uaManager.getAcctByName(selectedAcctName);
-    // Note: Account can be null
-    newCtrl.populate(currentUser, selectedAcct);
+    Account selectedAcct = acctList.getSelectionModel().getSelectedItem();
+    if (selectedAcct != null) {
+      Stage newStage = new Stage();
+      FXMLLoader newLoader = new FXMLLoader(getClass().getResource("../view/ViewCreateTrans.fxml"));
+      Parent newRoot = newLoader.load();
+      Scene newScene = new Scene(newRoot);
+      newStage.setScene(newScene);
+      TransCreateController newCtrl = newLoader.<TransCreateController>getController();
+      newCtrl.setStage(newStage);
+      newCtrl.setHome(thisStage, this);
+      newCtrl.setModel(model);
+      newCtrl.setupCreate(currentUser, selectedAcct, currentAccts);
+      newStage.show();
+    } else {
+      System.out.println("ERROR: Must select Account for Transaction to be entered.");
+    }
   }
 
     // ******************* All Accounts Overview Tab *****************************
@@ -593,24 +589,29 @@ public class AdminController {
     newCtrl.setStage(newStage);
     newCtrl.setHome(thisStage, this);
     newCtrl.setModel(model);
+    newCtrl.setupCreate();
     newStage.show();
   }
 
   @FXML
   void editAcctClick(ActionEvent event) throws Exception {
-    Stage newStage = new Stage();
-    FXMLLoader newLoader = new FXMLLoader(getClass().getResource("../view/ViewEditAcct.fxml"));
-    Parent newRoot = newLoader.load();
-    Scene newScene = new Scene(newRoot);
-    newStage.setScene(newScene);
-    AcctEditController newCtrl = newLoader.<AcctEditController>getController();
-    newCtrl.setStage(newStage);
-    newCtrl.setHome(thisStage, this);
-    newCtrl.setModel(model);
-    // Populate fields with selected acct information
+    // Pass selected account to controller
     Account selected = acctAllTbl.getSelectionModel().getSelectedItem();
-    newCtrl.populate(selected);
-    newStage.show();
+    if (selected != null){
+      Stage newStage = new Stage();
+      FXMLLoader newLoader = new FXMLLoader(getClass().getResource("../view/ViewCreateAcct.fxml"));
+      Parent newRoot = newLoader.load();
+      Scene newScene = new Scene(newRoot);
+      newStage.setScene(newScene);
+      AcctCreateController newCtrl = newLoader.<AcctCreateController>getController();
+      newCtrl.setStage(newStage);
+      newCtrl.setHome(thisStage, this);
+      newCtrl.setModel(model);
+      newCtrl.setupEdit(selected);
+      newStage.show();
+    } else {
+      System.out.println("ERROR: Must select an Account to edit.");
+    }
   }
 
     // ******************* Fees Overview Tab *************************************
@@ -624,7 +625,113 @@ public class AdminController {
     newStage.setScene(newScene);
     FeeTypeCreateController newCtrl = newLoader.<FeeTypeCreateController>getController();
     newCtrl.setStage(newStage);
+    newCtrl.setHome(thisStage, this);
+    newCtrl.setModel(model);
+    newCtrl.setupCreate();
     newStage.show();
+  }
+
+  @FXML
+  void editFeeClick(ActionEvent event) throws Exception {
+    // Pass selected account to controller
+    FeeType selected = feeTypeTbl.getSelectionModel().getSelectedItem();
+    if (selected != null){
+      Stage newStage = new Stage();
+      FXMLLoader newLoader = new FXMLLoader(getClass().getResource("../view/ViewCreateFeeType.fxml"));
+      Parent newRoot = newLoader.load();
+      Scene newScene = new Scene(newRoot);
+      newStage.setScene(newScene);
+      FeeTypeCreateController newCtrl = newLoader.<FeeTypeCreateController>getController();
+      newCtrl.setStage(newStage);
+      newCtrl.setHome(thisStage, this);
+      newCtrl.setModel(model);
+      newCtrl.setupEdit(selected);
+      newStage.show();
+    } else {
+      System.out.println("ERROR: Must select a Fee Type to edit.");
+    }
+  }
+
+  // ******************* Code Overview Tab *************************************
+
+  @FXML
+  void newCodeClick(ActionEvent event) throws Exception {
+    Stage newStage = new Stage();
+    FXMLLoader newLoader = new FXMLLoader(getClass().getResource("../view/ViewCreateCode.fxml"));
+    Parent newRoot = newLoader.load();
+    Scene newScene = new Scene(newRoot);
+    newStage.setScene(newScene);
+    CodeCreateController newCtrl = newLoader.<CodeCreateController>getController();
+    newCtrl.setStage(newStage);
+    newCtrl.setHome(thisStage, this);
+    newCtrl.setModel(model);
+    newCtrl.setupCreate();
+    newStage.show();
+  }
+
+  @FXML
+  void editCodeClick(ActionEvent event) throws Exception {
+    // Pass selected account to controller
+    Code selected = codeTbl.getSelectionModel().getSelectedItem();
+    if (selected != null){
+      Stage newStage = new Stage();
+      FXMLLoader newLoader = new FXMLLoader(getClass().getResource("../view/ViewCreateCode.fxml"));
+      Parent newRoot = newLoader.load();
+      Scene newScene = new Scene(newRoot);
+      newStage.setScene(newScene);
+      CodeCreateController newCtrl = newLoader.<CodeCreateController>getController();
+      newCtrl.setStage(newStage);
+      newCtrl.setHome(thisStage, this);
+      newCtrl.setModel(model);
+      newCtrl.setupEdit(selected);
+      newStage.show();
+    } else {
+      System.out.println("ERROR: Must select an Code to edit.");
+    }
+  }
+
+  // ***************** Permissions ***********************************************
+
+  ArrayList<Integer> allowedUserIDs;
+  ArrayList<User> allowedUsers;
+  Account permissionAcct;
+
+  @FXML
+  void acctPermissionClick(ActionEvent event) throws Exception {
+    permissionAcct = acctDropDown.getSelectionModel().getSelectedItem();
+    permissionAcctLbl.setText(permissionAcct.getName());
+    allowedUserIDs = model.uaManager.getAllUserByAcct(permissionAcct.getID());
+    allowedUsers = new ArrayList<User>();
+    for (int i : allowedUserIDs){
+      User allowedUser = model.uaManager.getUserByID(i);
+      allowedUsers.add(allowedUser);
+    }
+    ObservableList<User> allowedObservable = FXCollections.observableArrayList(allowedUsers);
+    allowedList.setItems(allowedObservable);
+  }
+
+  @FXML
+  void allowedBtnClick(ActionEvent event) throws Exception {
+    User selectedUser = blockedList.getSelectionModel().getSelectedItem();
+    if (selectedUser != null && permissionAcct != null){
+      if (allowedUsers.contains(selectedUser) == false){
+        model.addNewUser_Acct(selectedUser.getID(), permissionAcct.getID());
+        allowedUsers.add(selectedUser);
+        ObservableList<User> allowedObservable = FXCollections.observableArrayList(allowedUsers);
+        allowedList.setItems(allowedObservable);
+      }
+    }
+  }
+
+  @FXML
+  void blockedBtnClick(ActionEvent event) throws Exception {
+    User selectedUser = allowedList.getSelectionModel().getSelectedItem();
+    if (selectedUser != null && permissionAcct != null){
+      model.deleteUser_Acct(selectedUser.getID(), permissionAcct.getID());
+      allowedUsers.remove(selectedUser);
+      ObservableList<User> allowedObservable = FXCollections.observableArrayList(allowedUsers);
+      allowedList.setItems(allowedObservable);
+    }
   }
 
   // ***************** Benefits Calculator ***************************************

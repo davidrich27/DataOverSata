@@ -166,6 +166,17 @@ public class ModelTXT {
     }
     return false;
   }
+  // For FEE CALCULATED BEFOREHAND
+  public boolean addNewTrans(int acctId, int userId, int codeId, double subTotal, double feeTotal, double acctTotal, String otherParty, String descr, LocalDateTime dateEntry, LocalDate dateSale, boolean isExpense, boolean paidFee){
+    int transID = uaManager.addTrans(acctId, userId, codeId, subTotal, feeTotal, acctTotal, otherParty, descr, dateEntry, dateSale, isExpense, paidFee);
+    if (transID > -1){
+      Transaction trans = uaManager.getTransByID(transID);
+      saveTrans(trans);
+      saveIDs();
+      return true;
+    }
+    return false;
+  }
   public boolean addNewUser_Acct(int userID, int acctID){
     int user_acctID = uaManager.addUser_Acct(userID, acctID);
     if (user_acctID > -1){
@@ -186,6 +197,52 @@ public class ModelTXT {
     }
     return false;
   }
+  // EDIT
+  public boolean editUser(int id, String username, String pwd, String firstName, String lastName, String email, String phone, boolean admin){
+    int userID = uaManager.editUserByID(id, username, pwd, firstName, lastName, email, phone, admin);
+    if (userID > -1){
+      dataManager.writeManagerUsersToFile(uaManager);
+      return true;
+    }
+    return false;
+  }
+  public boolean editAccount(int id, String name, String descr){
+    int acctID = uaManager.editAcctByID(id, name, descr);
+    if (acctID > -1){
+      dataManager.writeManagerAcctsToFile(uaManager);
+      return true;
+    }
+    return false;
+  }
+  public boolean editFeeType(int id, String name, String descr, double amt, boolean isPercent, boolean isAdditional, boolean isCustom){
+    int feeTypeID = uaManager.editFeeTypeByID(id, name, descr, amt, isPercent, isAdditional, isCustom);
+    if (feeTypeID > -1){
+      uaManager.getFeeTypeByID(id).printInfo();
+      dataManager.writeManagerFeeTypeToFile(uaManager);
+      return true;
+    }
+    return false;
+  }
+  public boolean editCode(int id, String name, String descr){
+    int codeID = uaManager.editCodeByID(id, name, descr);
+    if (codeID > -1){
+      dataManager.writeManagerCodeToFile(uaManager);
+      return true;
+    }
+    return false;
+  }
+
+  // DELETE
+  public boolean deleteUser_Acct(int userID, int acctID){
+    int index = uaManager.deleteUser_AcctByUserAcctID(userID, acctID);
+    if (index > -1){
+      dataManager.writeManagerUser_AcctsToFile(uaManager);
+      return true;
+    }
+    return false;
+  }
+
+
   // CALCULATE FEES : return array (transSubTotal, feeTotal, transTotal, acctTotal)
   public double[] calcFees(double subTotal, ArrayList<FeeType> feeTypes, boolean isExpense){
     double transSubTotal = subTotal;

@@ -34,10 +34,11 @@ public class UserAcctManagerTXT{
   }
   // SETTERS & GETTERS
   // Sets current value for
-  public void setIDs(int userIDgen, int acctIDgen, int transIDgen, int codeIDgen, int user_acctIDgen, int acct_transIDgen, int feeType_transIDgen){
+  public void setIDs(int userIDgen, int acctIDgen, int transIDgen, int feeTypeIDgen, int codeIDgen, int user_acctIDgen, int acct_transIDgen){
     this.userIDgen = userIDgen;
     this.acctIDgen = acctIDgen;
     this.transIDgen = transIDgen;
+    this.feeTypeIDgen = feeTypeIDgen;
     this.codeIDgen = codeIDgen;
     this.user_acctIDgen = user_acctIDgen;
     this.acct_transIDgen = acct_transIDgen;
@@ -53,6 +54,11 @@ public class UserAcctManagerTXT{
     ids[5] = user_acctIDgen;
     ids[6] = acct_transIDgen;
     return ids;
+  }
+
+  // RECONCILE (Goes trans-by-trans and calculates the total balance, fee balance, and )
+  public void reconcile(){
+
   }
 
   // Add NEW (returns FALSE if isUnique=F and Add fails) (Returns ID given to NEW object)
@@ -136,7 +142,7 @@ public class UserAcctManagerTXT{
   public boolean addFeeType(FeeType newFeeType){
     if (isUnique(newFeeType, feeTypes) == true){
       feeTypes.add(newFeeType);
-      Collections.sort(trans);
+      Collections.sort(feeTypes);
       return true;
     }
     return false;
@@ -231,8 +237,7 @@ public class UserAcctManagerTXT{
   }
 
   // EDIT (BY ID)
-  // Edit User By Id
-  public int editUser(int id, String username, String pwd, String firstName, String lastName, String email, String phone, boolean admin){
+  public int editUserByID(int id, String username, String pwd, String firstName, String lastName, String email, String phone, boolean admin){
     User gotUser = getUserByID(id);
     if (gotUser == null){
       System.out.println("Error: User does not exist.");
@@ -246,7 +251,7 @@ public class UserAcctManagerTXT{
     gotUser.setAdmin(admin);
     return id;
   }
-  public int editAccount(int id, String name, String descr){
+  public int editAcctByID(int id, String name, String descr){
     Account gotAcct = getAcctByID(id);
     if (gotAcct == null){
       System.out.println("Error: Account does not exist.");
@@ -255,6 +260,70 @@ public class UserAcctManagerTXT{
     gotAcct.setName(name);
     gotAcct.setDescr(descr);
     return id;
+  }
+  public int editTransByID(int id, int acctId, int userId, int codeId, double subTotal, double feeTotal, double total, String otherParty, String descr, LocalDateTime dateEntry, LocalDate dateSale, boolean isExpense, boolean paidFee){
+    Transaction gotTrans = getTransByID(id);
+    if (gotTrans == null){
+      System.out.println("Error: Transaction does not exist.");
+      return -1;
+    }
+    gotTrans.setAcctID(acctId);
+    gotTrans.setUserID(userId);
+    gotTrans.setCodeID(codeId);
+    gotTrans.setSubTotal(subTotal);
+    gotTrans.setFeeTotal(feeTotal);
+    gotTrans.setFeeTotal(total);
+    gotTrans.setOtherParty(otherParty);
+    gotTrans.setDescr(descr);
+    gotTrans.setDateEntry(dateEntry);
+    gotTrans.setDateSale(dateSale);
+    gotTrans.setIsExpense(isExpense);
+    gotTrans.setPaidFee(paidFee);
+    return id;
+  }
+  public int editFeeTypeByID(int id, String name, String descr, double amt, boolean isPercent, boolean isAdditional, boolean isCustom){
+    FeeType gotFeeType = getFeeTypeByID(id);
+    if (gotFeeType == null){
+      System.out.println("Error: FeeType does not exist.");
+      return -1;
+    }
+    gotFeeType.setName(name);
+    gotFeeType.setDescr(descr);
+    gotFeeType.setAmt(amt);
+    gotFeeType.setIsPercent(isPercent);
+    gotFeeType.setIsAdditional(isAdditional);
+    gotFeeType.setIsCustom(isCustom);
+    return id;
+  }
+  public int editCodeByID(int id, String name, String descr){
+    Code gotCode = getCodeByID(id);
+    if (gotCode == null){
+      System.out.println("Error: Code does not exist.");
+      return -1;
+    }
+    gotCode.setName(name);
+    gotCode.setDescr(descr);
+    return id;
+  }
+
+  // DELETE (BY ID)
+  public int deleteUserByID(int id){
+    User testUser = new User(id, "");
+    int index = Collections.binarySearch(users, testUser);
+    if (index < 0){
+      return -1;
+    }
+    users.remove(index);
+    return index;
+  }
+  public int deleteUser_AcctByUserAcctID(int userID, int acctID){
+    Link tempLink = new Link(-1, userID, acctID);
+    for (int i = 0; i < user_acct.size(); i++){
+      if (user_acct.get(i).equals(tempLink)) {
+        user_acct.remove(i);
+      }
+    }
+    return -1;
   }
 
   // GET ALL
@@ -306,7 +375,7 @@ public class UserAcctManagerTXT{
     Collections.sort(accts);
     return target;
   }
-  // Linear search
+  // LINEAR SEARCHES!!!!
   public FeeType getFeeTypeByName(String name){
     for (FeeType feeType : feeTypes){
       if (feeType.getName() == name){
@@ -450,8 +519,6 @@ public class UserAcctManagerTXT{
   public Link getAcct_TransByIndex(int index){
     return acct_trans.get(index);
   }
-
-  // REMOVE
 
   // ACCESS TEST
   public boolean testUser_Acct(int userID, int acctID){

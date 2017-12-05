@@ -49,6 +49,10 @@ public class Code implements Comparable<Code>{
     return false;
   }
 
+  public String toString(){
+    return name;
+  }
+
   // PRINT DEMO
   public void printInfo(){
     System.out.println("CODE DETAILS:");

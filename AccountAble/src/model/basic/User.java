@@ -141,6 +141,10 @@ public class User implements Comparable<User> {
     return false;
   }
 
+  public String toString(){
+    return username;
+  }
+
   // Print Demo
   public void printInfo(){
     System.out.println("USER DETAILS: ");

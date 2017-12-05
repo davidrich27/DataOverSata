@@ -19,7 +19,7 @@ import javafx.event.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.Alert.AlertType;
 
-public class AcctEditController {
+public class CodeCreateController {
 
     @FXML
     private Button cancelBtn;
@@ -33,16 +33,25 @@ public class AcctEditController {
     @FXML
     private TextArea descrTxt;
 
+    @FXML
+    private Label warningLbl;
+
+    @FXML
+    private Label titleLbl;
+
 
     // ************************** Model Variables *******************************
 
     ModelTXT model;
     Stage thisStage;
+
     Stage homeStage;
     AdminController homeCtrl;
 
     User loginUser;
-    Account selectedAcct;
+    Code selectedCode;
+    // Determines whether in create, edit, view
+    String mode;
 
     // ************************** Initialization and Wireup *********************
 
@@ -56,13 +65,24 @@ public class AcctEditController {
       this.homeStage = homeStage;
       this.homeCtrl = homeCtrl;
     }
-    public void populate(Account selectedAcct){
-      if (selectedAcct != null){
-        this.selectedAcct = selectedAcct;
-        nameTxt.setText(selectedAcct.getName());
-        descrTxt.setText(selectedAcct.getDescr());
+    public void setMode(String mode){
+      this.mode = mode;
+    }
+    public void setupCreate(){
+      setMode("create");
+      titleLbl.setText("Create New Code");
+      warningLbl.setVisible(false);
+    }
+    public void setupEdit(Code selectedCode){
+      setMode("edit");
+      titleLbl.setText("Edit Code");
+      warningLbl.setVisible(false);
+      if (selectedCode != null){
+        this.selectedCode = selectedCode;
+        nameTxt.setText(selectedCode.getName());
+        descrTxt.setText(selectedCode.getDescr());
       } else {
-        System.out.println("Error: No Account was selected.");
+        System.out.println("Error: No Code was selected.");
       }
     }
 
@@ -70,14 +90,26 @@ public class AcctEditController {
 
     @FXML
     void confirmClick(ActionEvent event) {
-      System.out.println("Account Edit clicked!");
-      // Change selected Account's name and descr
+      if (mode.equals("create")){
+        confirmCreate();
+      } else if (mode.equals("edit")){
+        confirmEdit();
+      }
+      thisStage.hide();
+      homeCtrl.refresh();
+    }
+    void confirmCreate(){
       String name = nameTxt.getText();
       String descr = descrTxt.getText();
-      selectedAcct.setName(name);
-      selectedAcct.setDescr(descr);
-      homeCtrl.refresh();
-      thisStage.hide();
+      model.addNewCode(name, descr);
+      System.out.println("New Account, " + name + " has been created!");
+    }
+    void confirmEdit(){
+      int id = selectedCode.getID();
+      // Change name and descr
+      String name = nameTxt.getText();
+      String descr = descrTxt.getText();
+      model.editCode(id, name, descr);
     }
 
     @FXML

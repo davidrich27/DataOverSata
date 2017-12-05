@@ -5,6 +5,8 @@ import model.manager.*;
 import model.master.*;
 
 import java.util.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -23,65 +25,71 @@ import javafx.scene.control.Alert.AlertType;
 
 public class TransCreateController {
 
-    @FXML
-    private TextField codeTxt;
+  @FXML
+  private Label prevAcctBalLbl;
 
-    @FXML
-    private Label prevAcctBalLbl;
+  @FXML
+  private Label newAcctBalLbl;
 
-    @FXML
-    private Label newAcctBalLbl;
+  @FXML
+  private Button cancelBtn;
 
-    @FXML
-    private Button cancelBtn;
+  @FXML
+  private Label transSubTotalLbl;
 
-    @FXML
-    private Label transSubTotalLbl;
+  @FXML
+  private ChoiceBox<Code> codeChoiceBx;
 
-    @FXML
-    private Button confirmBtn;
+  @FXML
+  private Button confirmBtn;
 
-    @FXML
-    private DatePicker datePicker;
+  @FXML
+  private DatePicker datePicker;
 
-    @FXML
-    private RadioButton depositChkBx;
+  @FXML
+  private ChoiceBox<Account> acctChoiceBx;
 
-    @FXML
-    private Button recalcBtn;
+  @FXML
+  private RadioButton depositChkBx;
 
-    @FXML
-    private Button feeInBtn;
+  @FXML
+  private Button recalcBtn;
 
-    @FXML
-    private Button feeOutBtn;
+  @FXML
+  private Button feeInBtn;
 
-    @FXML
-    private TextField otherPartyTxt;
+  @FXML
+  private Button feeOutBtn;
 
-    @FXML
-    private TextField amountTxt;
+  @FXML
+  private TextField otherPartyTxt;
 
-    @FXML
-    private Label feesTotalLbl;
+  @FXML
+  private TextField amountTxt;
 
-    @FXML
-    private ListView<?> feeOutList;
+  @FXML
+  private Label feesTotalLbl;
 
-    @FXML
-    private RadioButton expenseChkbx;
+  @FXML
+  private ListView<FeeType> feeOutList;
 
-    @FXML
-    private ChoiceBox<?> acctSelect;
+  @FXML
+  private RadioButton expenseChkbx;
 
-    @FXML
-    private Label transTotalLbl;
+  @FXML
+  private Label transTotalLbl;
 
-    @FXML
-    private ListView<?> feeInList;
+  @FXML
+  private ListView<FeeType> feeInList;
 
-    @FXML
-    private TextArea descrTxt;
+  @FXML
+  private TextArea descrTxt;
+
+  @FXML
+  private Label titleLbl;
+
+  @FXML
+  private Label warningLbl;
 
     // ************************** Model Variables *******************************
 
@@ -92,10 +100,16 @@ public class TransCreateController {
 
     User loginUser;
     Account selectedAcct;
+    ArrayList<Account> currentAccts;
+    String mode;
 
-    ArrayList<FeeType> feeTypeOut;
     ArrayList<FeeType> feeTypeIn;
 
+    Double prevAcctBal;
+    Double subTotal;
+    Double feeTotal;
+    Double transTotal;
+    Double postAcctBal;
 
     // ************************** Initialization and Wireup *********************
 
@@ -111,19 +125,79 @@ public class TransCreateController {
       this.homeStage = homeStage;
       this.homeCtrl = homeCtrl;
     }
-    public void populate(User loginUser, Account selectedAcct){
+    public void setMode(String mode){
+      this.mode = mode;
+    }
+    // public void setLists(ObservableList<Account> currentAccts){
+    //   this.currentAccts = currentAccts;
+    // }
+    void setupCreate(User loginUser, Account selectedAcct, ArrayList<Account> currentAccts){
       this.loginUser = loginUser;
+      this.currentAccts = currentAccts;
       this.selectedAcct = selectedAcct;
+      setMode("create");
 
-      String prevBal = selectedAcct.getBalance().toString();
-      prevAcctBalLbl.setText(prevBal);
+      titleLbl.setText("Create Transaction");
+      warningLbl.setVisible(false);
+
+      prevAcctBal = selectedAcct.getBalance();
+      prevAcctBalLbl.setText(prevAcctBal.toString());
+      transSubTotalLbl.setText("0.0");
+      feesTotalLbl.setText("0.0");
+      transTotalLbl.setText("0.0");
+      newAcctBalLbl.setText(prevAcctBal.toString());
+
+      popLists();
+    }
+    void setupEdit(){
+      setMode("edit");
+
+    }
+
+    void popLists(){
+      ArrayList<Code> codes = model.uaManager.getAllCodes();
+      ObservableList<Code> codesObservable = FXCollections.observableArrayList(codes);
+      codeChoiceBx.setItems(codesObservable);
+
+      feeTypeIn = new ArrayList<FeeType>();
+      ArrayList<FeeType> feeTypes = model.uaManager.getAllFeeTypes();
+      ObservableList<FeeType> feeTypesObservable = FXCollections.observableArrayList(feeTypes);
+      feeOutList.setItems(feeTypesObservable);
+
+      ObservableList<Account> acctsObservable = FXCollections.observableArrayList(currentAccts);
+      acctChoiceBx.setItems(acctsObservable);
     }
 
     // ************************** Other Events ************************************
 
     @FXML
     void confirmClick(ActionEvent event) {
-      System.out.println("Clicked Confirm!");
+      if (mode.equals("create")){
+        confirmCreate();
+      } else if (mode.equals("edit")){
+        confirmEdit();
+      }
+      thisStage.hide();
+      homeCtrl.refresh();
+    }
+
+    void confirmCreate(){
+      calcFees();
+      //int acctId = acctChoiceBx.getSelectionModel().getSelectedItem().getID();
+      int acctId = selectedAcct.getID();
+      int userId = loginUser.getID();
+      int codeId = codeChoiceBx.getSelectionModel().getSelectedItem().getID();
+      double acctTotal = postAcctBal;
+      String otherParty = otherPartyTxt.getText();
+      String descr = descrTxt.getText();
+      LocalDateTime dateEntry = LocalDateTime.now();
+      LocalDate dateSale = datePicker.getValue();
+      Boolean isExpense = expenseChkbx.isSelected();
+      Boolean paidFee = false;
+      model.addNewTrans(acctId, userId, codeId, subTotal, feeTotal, acctTotal, otherParty, descr, dateEntry, dateSale, isExpense, paidFee);
+    }
+
+    void confirmEdit(){
 
     }
 
@@ -134,16 +208,61 @@ public class TransCreateController {
 
     @FXML
     void feeOutClick(ActionEvent event) {
-
+      FeeType selectedFee = feeInList.getSelectionModel().getSelectedItem();
+      if (selectedFee != null){
+        for (int i=0; i<feeTypeIn.size(); i++){
+          if (feeTypeIn.get(i).equals(selectedFee)){
+            feeTypeIn.remove(i);
+            ObservableList<FeeType> feeInObservable = FXCollections.observableArrayList(feeTypeIn);
+            feeInList.setItems(feeInObservable);
+            break;
+          }
+        }
+      }
     }
 
     @FXML
     void feeInClick(ActionEvent event) {
-
+      FeeType selectedFee = feeOutList.getSelectionModel().getSelectedItem();
+      if (selectedFee != null){
+        if (feeTypeIn.contains(selectedFee) == false){
+          feeTypeIn.add(selectedFee);
+          ObservableList<FeeType> feeInObservable = FXCollections.observableArrayList(feeTypeIn);
+          feeInList.setItems(feeInObservable);
+        }
+      }
     }
 
     @FXML
     void recalcClick(ActionEvent event) {
+      calcFees();
+      prevAcctBalLbl.setText(prevAcctBal.toString());
+      transSubTotalLbl.setText(subTotal.toString());
+      feesTotalLbl.setText(feeTotal.toString());
+      transTotalLbl.setText(transTotal.toString());
+      newAcctBalLbl.setText(postAcctBal.toString());
+    }
 
+    boolean checkFields(){
+      return true;
+    }
+
+    void calcFees(){
+      subTotal = Double.parseDouble(amountTxt.getText());
+      feeTotal = 0.0;
+      for (FeeType fee : feeTypeIn){
+        if (fee.getIsPercent()) {
+          feeTotal += fee.getAmt() * subTotal * .01 * -1;
+        } else {
+          feeTotal += fee.getAmt();
+        }
+      }
+      if (expenseChkbx.isSelected()){
+        if (subTotal > 0){
+          subTotal = subTotal*-1;
+        }
+      }
+      transTotal = subTotal + feeTotal;
+      postAcctBal = prevAcctBal + transTotal;
     }
 }

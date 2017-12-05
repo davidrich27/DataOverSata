@@ -42,7 +42,7 @@ public class FeeType implements Comparable<FeeType>{
     return descr;
   }
   public void setDescr(String descr){
-    this.name = descr;
+    this.descr = descr;
   }
   public Double getAmt(){
     return amt;
@@ -83,6 +83,11 @@ public class FeeType implements Comparable<FeeType>{
     }
     return false;
   }
+
+  public String toString(){
+    return name;
+  }
+
   // PRINT DEMO
   public void printInfo(){
     System.out.println("FEE DETAILS:");

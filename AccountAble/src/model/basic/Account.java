@@ -94,6 +94,11 @@ public class Account implements Comparable<Account>{
     return false;
   }
 
+  // To String
+  public String toString(){
+    return name;
+  }
+
   // Print Demo
   public void printInfo(){
     System.out.println("ACCOUNT DETAILS:");

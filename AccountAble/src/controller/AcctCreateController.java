@@ -33,15 +33,25 @@ public class AcctCreateController {
     @FXML
     private TextArea descrTxt;
 
+    @FXML
+    private Label warningLbl;
+
+    @FXML
+    private Label titleLbl;
+
 
     // ************************** Model Variables *******************************
 
     ModelTXT model;
     Stage thisStage;
+
     Stage homeStage;
     AdminController homeCtrl;
 
     User loginUser;
+    Account selectedAcct;
+    // Determines whether in create, edit, view
+    String mode;
 
     // ************************** Initialization and Wireup *********************
 
@@ -55,17 +65,50 @@ public class AcctCreateController {
       this.homeStage = homeStage;
       this.homeCtrl = homeCtrl;
     }
+    public void setMode(String mode){
+      this.mode = mode;
+    }
+    public void setupCreate(){
+      setMode("create");
+      titleLbl.setText("Create New Account");
+      warningLbl.setVisible(false);
+    }
+    public void setupEdit(Account selectedAcct){
+      setMode("edit");
+      titleLbl.setText("Edit Account");
+      warningLbl.setVisible(false);
+      if (selectedAcct != null){
+        this.selectedAcct = selectedAcct;
+        nameTxt.setText(selectedAcct.getName());
+        descrTxt.setText(selectedAcct.getDescr());
+      } else {
+        System.out.println("Error: No Account was selected.");
+      }
+    }
 
     // ************************** Other Events ************************************
 
     @FXML
     void confirmClick(ActionEvent event) {
+      if (mode.equals("create")){
+        confirmCreate();
+      } else if (mode.equals("edit")){
+        confirmEdit();
+      }
+      thisStage.hide();
+      homeCtrl.refresh();
+    }
+    void confirmCreate(){
       String name = nameTxt.getText();
       String descr = descrTxt.getText();
       model.addNewAcct(name, descr);
-      System.out.println("New Account, " + name + " has been created!");
-      thisStage.hide();
-      homeCtrl.refresh();
+    }
+    void confirmEdit(){
+      int id = selectedAcct.getID();
+      // Change name and descr
+      String name = nameTxt.getText();
+      String descr = descrTxt.getText();
+      model.editAccount(id, name, descr);
     }
 
     @FXML

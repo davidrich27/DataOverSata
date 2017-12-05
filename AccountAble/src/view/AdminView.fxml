@@ -160,7 +160,7 @@
                            <left>
                               <VBox alignment="CENTER" prefHeight="323.0" prefWidth="300.0" BorderPane.alignment="CENTER">
                                  <children>
-                                    <Label text="Available Accounts:">
+                                    <Label text="Find Transaction by Account:">
                                        <VBox.margin>
                                           <Insets bottom="5.0" />
                                        </VBox.margin></Label>
@@ -241,7 +241,6 @@
                                           <Insets bottom="5.0" />
                                        </VBox.margin>
                                     </Label>
-                                    <ListView fx:id="acctsAllList" minHeight="-Infinity" prefHeight="300.0" prefWidth="203.0" />
                                     <Label text="Find Account:">
                                        <VBox.margin>
                                           <Insets bottom="5.0" top="5.0" />
@@ -253,17 +252,17 @@
                                           <Insets top="5.0" />
                                        </VBox.margin>
                                     </Button>
-                                    <Button fx:id="delAcctBtn" mnemonicParsing="false" text="Delete Account">
-                                       <VBox.margin>
-                                          <Insets top="5.0" />
-                                       </VBox.margin>
-                                    </Button>
                                     <Button fx:id="editAcctBtn" mnemonicParsing="false" onAction="#editAcctClick" text="Edit Account">
                                        <VBox.margin>
                                           <Insets top="5.0" />
                                        </VBox.margin>
                                     </Button>
                                     <Button fx:id="examAcctBtn" mnemonicParsing="false" text="Examine Account">
+                                       <VBox.margin>
+                                          <Insets top="5.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                    <Button fx:id="delAcctBtn" mnemonicParsing="false" text="Delete Account">
                                        <VBox.margin>
                                           <Insets top="5.0" />
                                        </VBox.margin>
@@ -302,7 +301,6 @@
                                           <Insets bottom="5.0" />
                                        </VBox.margin>
                                     </Label>
-                                    <ListView fx:id="feeList" minHeight="-Infinity" prefHeight="300.0" prefWidth="203.0" />
                                     <Label text="Find Fee:">
                                        <VBox.margin>
                                           <Insets bottom="5.0" top="5.0" />
@@ -314,17 +312,17 @@
                                           <Insets top="5.0" />
                                        </VBox.margin>
                                     </Button>
-                                    <Button fx:id="delFeeBtn" mnemonicParsing="false" text="Delete Fee">
-                                       <VBox.margin>
-                                          <Insets top="5.0" />
-                                       </VBox.margin>
-                                    </Button>
-                                    <Button fx:id="editFeeBtn" mnemonicParsing="false" text="Edit Fee">
+                                    <Button fx:id="editFeeBtn" mnemonicParsing="false" onAction="#editFeeClick" text="Edit Fee">
                                        <VBox.margin>
                                           <Insets top="5.0" />
                                        </VBox.margin>
                                     </Button>
                                     <Button fx:id="examFeeBtn" mnemonicParsing="false" text="Examine Fee">
+                                       <VBox.margin>
+                                          <Insets top="5.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                    <Button fx:id="delFeeBtn" mnemonicParsing="false" text="Delete Fee">
                                        <VBox.margin>
                                           <Insets top="5.0" />
                                        </VBox.margin>
@@ -363,7 +361,6 @@
                                           <Insets bottom="5.0" />
                                        </VBox.margin>
                                     </Label>
-                                    <ListView fx:id="userList" minHeight="-Infinity" prefHeight="300.0" prefWidth="203.0" />
                                     <Label text="Find User:">
                                        <VBox.margin>
                                           <Insets bottom="5.0" top="5.0" />
@@ -375,17 +372,17 @@
                                           <Insets top="5.0" />
                                        </VBox.margin>
                                     </Button>
-                                    <Button fx:id="delUserBtn" mnemonicParsing="false" text="Delete User">
-                                       <VBox.margin>
-                                          <Insets top="5.0" />
-                                       </VBox.margin>
-                                    </Button>
-                                    <Button fx:id="editUserBtn" mnemonicParsing="false" text="Edit User">
+                                    <Button fx:id="editUserBtn" mnemonicParsing="false" onAction="#editUserClick" text="Edit User">
                                        <VBox.margin>
                                           <Insets top="5.0" />
                                        </VBox.margin>
                                     </Button>
                                     <Button fx:id="examUserBtn" mnemonicParsing="false" text="Examine User">
+                                       <VBox.margin>
+                                          <Insets top="5.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                    <Button fx:id="delUserBtn" mnemonicParsing="false" text="Delete User">
                                        <VBox.margin>
                                           <Insets top="5.0" />
                                        </VBox.margin>
@@ -420,29 +417,28 @@
                                           <Insets bottom="5.0" />
                                        </VBox.margin>
                                     </Label>
-                                    <ListView fx:id="codeList" minHeight="-Infinity" prefHeight="300.0" prefWidth="203.0" />
                                     <Label text="Find Fee:">
                                        <VBox.margin>
                                           <Insets bottom="5.0" top="5.0" />
                                        </VBox.margin>
                                     </Label>
                                     <TextField fx:id="feeSearchTxt1" />
-                                    <Button fx:id="newCodeBtn" mnemonicParsing="false" text="Create Code">
+                                    <Button fx:id="newCodeBtn" mnemonicParsing="false" onAction="#newCodeClick" text="Create Code">
                                        <VBox.margin>
                                           <Insets top="5.0" />
                                        </VBox.margin>
                                     </Button>
-                                    <Button fx:id="delCodeBtn" mnemonicParsing="false" text="Delete Code">
-                                       <VBox.margin>
-                                          <Insets top="5.0" />
-                                       </VBox.margin>
-                                    </Button>
-                                    <Button fx:id="editCodeBtn" mnemonicParsing="false" text="Edit Code">
+                                    <Button fx:id="editCodeBtn" mnemonicParsing="false" onAction="#editCodeClick" text="Edit Code">
                                        <VBox.margin>
                                           <Insets top="5.0" />
                                        </VBox.margin>
                                     </Button>
                                     <Button fx:id="examCodeBtn" mnemonicParsing="false" text="Examine Code">
+                                       <VBox.margin>
+                                          <Insets top="5.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                    <Button fx:id="delCodeBtn" mnemonicParsing="false" text="Delete Code">
                                        <VBox.margin>
                                           <Insets top="5.0" />
                                        </VBox.margin>
@@ -482,12 +478,12 @@
                            <left>
                               <VBox alignment="CENTER" minWidth="-Infinity" prefHeight="323.0" prefWidth="300.0" BorderPane.alignment="CENTER">
                                  <children>
-                                    <Label text="All Transactions:">
+                                    <Label text="Sort Transactions by Account:">
                                        <VBox.margin>
                                           <Insets bottom="5.0" />
                                        </VBox.margin>
                                     </Label>
-                                    <ListView fx:id="transList" minHeight="-Infinity" prefHeight="300.0" prefWidth="203.0" />
+                                    <ListView fx:id="transAcctList" minHeight="-Infinity" prefHeight="300.0" prefWidth="203.0" />
                                     <Label text="Find Transaction:">
                                        <VBox.margin>
                                           <Insets bottom="5.0" top="5.0" />
@@ -537,31 +533,27 @@
                             <RowConstraints maxHeight="63.0" minHeight="10.0" prefHeight="63.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <ScrollPane fx:id="blockedList" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <ScrollPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
-                                <content>
-                                  <AnchorPane fx:id="allowedList" minHeight="0.0" minWidth="0.0" prefHeight="122.0" prefWidth="200.0" />
-                                </content>
-                              </ScrollPane>
-                              <Button fx:id="toAllowedBtn" mnemonicParsing="false" text="&gt;&gt;" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
-                              <Button fx:id="toBlockedBtn" mnemonicParsing="false" text="&lt;&lt;" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                              <Label prefHeight="17.0" prefWidth="112.0" text="Blocked Users" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                              <Button fx:id="toAllowedBtn" mnemonicParsing="false" onAction="#allowedBtnClick" text="&gt;&gt;" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
+                              <Button fx:id="toBlockedBtn" mnemonicParsing="false" onAction="#blockedBtnClick" text="&lt;&lt;" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                              <Label prefHeight="18.0" prefWidth="67.0" text="All Users" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <Label prefHeight="17.0" prefWidth="150.0" text="Allowed Users" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                              <Label prefHeight="18.0" prefWidth="99.0" text="Allowed Users" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <Label prefHeight="27.0" prefWidth="156.0" text="accountNameLbl" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                              <Label fx:id="permissionAcctLbl" prefHeight="27.0" prefWidth="216.0" text="Choose an Account" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <Button fx:id="selectAcct" mnemonicParsing="false" prefHeight="27.0" prefWidth="190.0" text="Select Account" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
-                              <ChoiceBox fx:id="dropdownAcct" prefHeight="27.0" prefWidth="221.0" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+                              <Button fx:id="acctPermissionBtn" mnemonicParsing="false" onAction="#acctPermissionClick" prefHeight="27.0" prefWidth="190.0" text="Select Account" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+                              <ChoiceBox fx:id="acctDropDown" prefHeight="27.0" prefWidth="221.0" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+                              <ListView fx:id="blockedList" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <ListView fx:id="allowedList" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
                            </children>
                         </GridPane>
                      </children>

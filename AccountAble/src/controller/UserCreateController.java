@@ -37,6 +37,9 @@ public class UserCreateController {
     private TextField lastnameTxt;
 
     @FXML
+    private Label titleLbl;
+
+    @FXML
     private TextField newPwdTxt1;
 
     @FXML
@@ -49,14 +52,22 @@ public class UserCreateController {
     private TextField emailTxt;
 
     @FXML
+    private Label warningLbl;
+
+    @FXML
     private CheckBox adminChkbx;
+
 
     // ************************** Model Variables *******************************
 
     ModelTXT model;
     Stage thisStage;
+
     Stage homeStage;
     AdminController homeCtrl;
+
+    String mode;
+    User selectedUser;
 
     // ************************** Initialization and Wireup *********************
 
@@ -71,11 +82,46 @@ public class UserCreateController {
       this.homeStage = homeStage;
       this.homeCtrl = homeCtrl;
     }
+    public void setMode(String mode){
+      this.mode = mode;
+    }
+    public void setupCreate(){
+      setMode("create");
+      titleLbl.setText("Create User");
+      warningLbl.setVisible(false);
+    }
+    public void setupEdit(User selectedUser){
+      setMode("edit");
+      this.selectedUser = selectedUser;
+      if (selectedUser != null){
+        titleLbl.setText("Edit User");
+        warningLbl.setVisible(false);
+
+        usernameTxt.setText(selectedUser.getUsername());
+        firstnameTxt.setText(selectedUser.getFirstName());
+        lastnameTxt.setText(selectedUser.getLastName());
+        phoneTxt.setText(selectedUser.getPhone());
+        emailTxt.setText(selectedUser.getEmail());
+
+      } else {
+        // Hide this window and/or open error window
+      }
+    }
 
     // ************************** Other Events ************************************
 
     @FXML
     void confirmClick(ActionEvent event) {
+      if (mode.equals("create")){
+        confirmCreate();
+      } else if (mode.equals("edit")){
+        confirmEdit();
+      }
+      // close window
+      thisStage.hide();
+      homeCtrl.refresh();
+    }
+    void confirmCreate(){
       // create new user
       String username = usernameTxt.getText();
       String pwd = newPwdTxt1.getText();
@@ -85,10 +131,20 @@ public class UserCreateController {
       String phone = phoneTxt.getText();
       Boolean admin = adminChkbx.isSelected();
       model.addNewUser(username, pwd, firstname, lastname, email, phone, admin);
-      System.out.println("New User, " + username + ", was created!");
-      // close window
-      thisStage.hide();
-      homeCtrl.repop();
+    }
+    void confirmEdit(){
+      int id = selectedUser.getID();
+      String username = usernameTxt.getText();
+      String pwd = newPwdTxt1.getText();
+      if (pwd.equals("")){
+        pwd = selectedUser.getPwd();
+      }
+      String firstname = firstnameTxt.getText();
+      String lastname = lastnameTxt.getText();
+      String email = emailTxt.getText();
+      String phone = phoneTxt.getText();
+      Boolean admin = adminChkbx.isSelected();
+      model.editUser(id, username, pwd, firstname, lastname, email, phone, admin);
     }
 
     @FXML

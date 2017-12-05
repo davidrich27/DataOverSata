@@ -42,5 +42,8 @@ public class ModelTestClient{
 
     boolean test = model.testLogin("davey123", "pwd");  // Should be true
     System.out.println("Test Login: " + test);
+
+    User user = model.uaManager.getUserByID(2);
+    user.printInfo();
   }
 }

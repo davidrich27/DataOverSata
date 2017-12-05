@@ -19,46 +19,51 @@ import javafx.event.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.Alert.AlertType;
 
-public class UserEditController {
+public class ChangeInfoController {
 
-    @FXML
-    private TextField phoneTxt;
+      @FXML
+      private TextField phoneTxt;
 
-    @FXML
-    private TextField oldPwdTxt;
+      @FXML
+      private TextField oldPwdTxt;
 
-    @FXML
-    private Button cancelBtn;
+      @FXML
+      private Button cancelBtn;
 
-    @FXML
-    private Label sorryLbl;
+      @FXML
+      private TextField usernameTxt;
 
-    @FXML
-    private TextField usernameTxt;
+      @FXML
+      private TextField firstnameTxt;
 
-    @FXML
-    private TextField firstnameTxt;
+      @FXML
+      private TextField lastnameTxt;
 
-    @FXML
-    private TextField lastnameTxt;
+      @FXML
+      private Label titleLbl;
 
-    @FXML
-    private TextField newPwdTxt1;
+      @FXML
+      private TextField newPwdTxt1;
 
-    @FXML
-    private TextField newPwdTxt2;
+      @FXML
+      private TextField newPwdTxt2;
 
-    @FXML
-    private Button confirmBtn;
+      @FXML
+      private Button confirmBtn;
 
-    @FXML
-    private TextField emailTxt;
+      @FXML
+      private TextField emailTxt;
+
+      @FXML
+      private Label warningLbl;
 
   // ************************** Model Variables *******************************
 
     ModelTXT model;
     Stage thisStage;
+
     Stage homeStage;
+    AdminController homeCtrl;
 
     User loginUser;
 
@@ -70,10 +75,11 @@ public class UserEditController {
     public void setStage(Stage thisStage){
       this.thisStage = thisStage;
     }
-    public void setHomeStage(Stage homeStage){
+    public void setHome(Stage homeStage, AdminController homeCtrl){
       this.homeStage = homeStage;
+      this.homeCtrl = homeCtrl;
     }
-    public void populate(User loginUser){
+    public void setupEdit(User loginUser){
       this.loginUser = loginUser;
       usernameTxt.setText(loginUser.getUsername());
       firstnameTxt.setText(loginUser.getName()[0]);
@@ -81,7 +87,7 @@ public class UserEditController {
       emailTxt.setText(loginUser.getEmail());
       phoneTxt.setText(loginUser.getPhone());
 
-      sorryLbl.setVisible(false);
+      warningLbl.setVisible(false);
     }
 
     // ************************** Other Events ************************************
@@ -89,17 +95,30 @@ public class UserEditController {
     @FXML
     void confirmClick(ActionEvent event) {
       String pwd = loginUser.getPwd();
-      if (pwd == oldPwdTxt.getText()){
+      if (!pwd.equals(oldPwdTxt.getText())){
+        warningLbl.setVisible(true);
+        warningLbl.setText("Sorry, that is the wrong password.");
+      } else if (!newPwdTxt1.getText().equals(newPwdTxt2.getText())){
+        warningLbl.setVisible(true);
+        warningLbl.setText("Sorry, your new password fields do not match.");
+      } else {
         // change User Info
-        String newPwd = newPwdTxt1.getText();
+        int id = loginUser.getID();
+        String username = loginUser.getUsername();             // don't change username
+        String newPwd = loginUser.getPwd();
+        if (!newPwdTxt1.getText().trim().isEmpty()){           // don't change pwd if left blank
+          newPwd = newPwdTxt1.getText();
+        }
         String firstname = firstnameTxt.getText();
         String lastname = lastnameTxt.getText();
         String email = emailTxt.getText();
         String phone = phoneTxt.getText();
+        boolean admin = loginUser.getAdmin();
+        model.editUser(id, username, newPwd, firstname, lastname, email, phone, admin);
         // close window
         thisStage.hide();
-      } else {
-        sorryLbl.setVisible(true);
+        warningLbl.setVisible(false);
+        homeCtrl.refresh();
       }
     }
 
