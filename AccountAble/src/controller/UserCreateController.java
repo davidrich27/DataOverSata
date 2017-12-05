@@ -120,18 +120,56 @@ public class UserCreateController {
       // close window
       thisStage.hide();
       homeCtrl.refresh();
+
     }
     void confirmCreate(){
       // create new user
       String username = usernameTxt.getText();
       String pwd = newPwdTxt1.getText();
+      Strind confirmPwd = newPwdTxt2.getText();
       String firstname = firstnameTxt.getText();
       String lastname = lastnameTxt.getText();
       String email = emailTxt.getText();
       String phone = phoneTxt.getText();
       Boolean admin = adminChkbx.isSelected();
-      model.addNewUser(username, pwd, firstname, lastname, email, phone, admin);
+      Boolean checker = checkCreate(username, pwd, confirmPwd, firstname, lastname, email, phone);
+      if(checker){
+        model.addNewUser(username, pwd, firstname, lastname, email, phone, admin);
+
+      }
+      else{
+        warningLbl.setVisible(true);
+      }
+
     }
+
+    public void checkCreate(username, pwd, confirmPwd, firstname, lastname, email, phone){
+      int finSay = 0;
+      if(username.matches("^.*[^a-zA-Z0-9].*$") || username.length() == 0){
+        return false;
+      }
+      if(pwd.contains(" ") || pwd.length() == 0){
+        return false;
+      }
+      if(!confirmPwd.equals(password) || confirmPwd.length() == 0){
+        return false;
+      }
+      if(firstname.matches("^.*[^a-zA-Z].*$") || firstname.length() == 0){
+        return false;
+      }
+      if(lastname.matches("^.*[^a-zA-Z].*$") || lastname.length() == 0){
+        return false;
+      }
+      if(!email.contains("@") || email.contains(" ")){
+        return false;
+      }
+      if(phone.length() != 10 || phone.matches("^.*[^0-9].*$")){
+        return false;
+      }
+      return true;
+    }
+
+
     void confirmEdit(){
       int id = selectedUser.getID();
       String username = usernameTxt.getText();
