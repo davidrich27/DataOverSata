@@ -126,48 +126,47 @@ public class UserCreateController {
       // create new user
       String username = usernameTxt.getText();
       String pwd = newPwdTxt1.getText();
-      Strind confirmPwd = newPwdTxt2.getText();
+      String confirmPwd = newPwdTxt2.getText();
       String firstname = firstnameTxt.getText();
       String lastname = lastnameTxt.getText();
       String email = emailTxt.getText();
       String phone = phoneTxt.getText();
       Boolean admin = adminChkbx.isSelected();
-      Boolean checker = checkCreate(username, pwd, confirmPwd, firstname, lastname, email, phone);
-      if(checker){
+      // Boolean checker = checkCreate(username, pwd, confirmPwd, firstname, lastname, email, phone);
+      // if(checker){
         model.addNewUser(username, pwd, firstname, lastname, email, phone, admin);
-
-      }
-      else{
+      // }
+      // else{
         warningLbl.setVisible(true);
-      }
+      // }
 
     }
 
-    public void checkCreate(username, pwd, confirmPwd, firstname, lastname, email, phone){
-      int finSay = 0;
-      if(username.matches("^.*[^a-zA-Z0-9].*$") || username.length() == 0){
-        return false;
-      }
-      if(pwd.contains(" ") || pwd.length() == 0){
-        return false;
-      }
-      if(!confirmPwd.equals(password) || confirmPwd.length() == 0){
-        return false;
-      }
-      if(firstname.matches("^.*[^a-zA-Z].*$") || firstname.length() == 0){
-        return false;
-      }
-      if(lastname.matches("^.*[^a-zA-Z].*$") || lastname.length() == 0){
-        return false;
-      }
-      if(!email.contains("@") || email.contains(" ")){
-        return false;
-      }
-      if(phone.length() != 10 || phone.matches("^.*[^0-9].*$")){
-        return false;
-      }
-      return true;
-    }
+    // public void checkCreate(String username, String pwd, String confirmPwd, String firstname, String lastname, String email, String phone){
+    //   int finSay = 0;
+    //   if(username.matches("^.*[^a-zA-Z0-9].*$") || username.length() == 0){
+    //     return false;
+    //   }
+    //   if(pwd.contains(" ") || pwd.length() == 0){
+    //     return false;
+    //   }
+    //   if(!confirmPwd.equals(password) || confirmPwd.length() == 0){
+    //     return false;
+    //   }
+    //   if(firstname.matches("^.*[^a-zA-Z].*$") || firstname.length() == 0){
+    //     return false;
+    //   }
+    //   if(lastname.matches("^.*[^a-zA-Z].*$") || lastname.length() == 0){
+    //     return false;
+    //   }
+    //   if(!email.contains("@") || email.contains(" ")){
+    //     return false;
+    //   }
+    //   if(phone.length() != 10 || phone.matches("^.*[^0-9].*$")){
+    //     return false;
+    //   }
+    //   return true;
+    // }
 
 
     void confirmEdit(){
