@@ -320,6 +320,33 @@ public class AdminController {
       @FXML
       private Label permissionAcctLbl;
 
+      @FXML
+      private Tab overviewTab;
+
+      @FXML
+      private Tab acctTab;
+
+      @FXML
+      private Tab acctAllTab;
+
+      @FXML
+      private Tab usersTab;
+
+      @FXML
+      private Tab feesTab;
+
+      @FXML
+      private Tab codesTab;
+
+      @FXML
+      private Tab transTab;
+
+      @FXML
+      private Tab permissionTab;
+
+      @FXML
+      private TabPane tabPane;
+
   // ************************** Model Variables *******************************
 
   ModelTXT model;
@@ -464,12 +491,31 @@ public class AdminController {
     blockedList.setItems(usersObservable);
   }
 
+  void toggleAdmin(Boolean admin){
+    if (!admin){
+      tabPane.getTabs().remove(usersTab);
+      tabPane.getTabs().remove(acctAllTab);
+      tabPane.getTabs().remove(feesTab);
+      tabPane.getTabs().remove(codesTab);
+      tabPane.getTabs().remove(transTab);
+      tabPane.getTabs().remove(permissionTab);
+    } else {
+      // tabPane.getTabs().add(usersTab);
+      // tabPane.getTabs().add(acctAllTab);
+      // tabPane.getTabs().add(feesTab);
+      // tabPane.getTabs().add(codesTab);
+      // tabPane.getTabs().add(transTab);
+      // tabPane.getTabs().add(permissionTab);
+    }
+  }
+
   // ************************** Other Events ************************************
 
   public void login(User loginUser){
     currentUser = loginUser;
     currentAccts = model.uaManager.getAllAccts();
 
+    toggleAdmin(currentUser.getAdmin());
     resetText();
     resetFactories();
     repop();

@@ -72,15 +72,9 @@ public class LoginController{
       System.out.println("Logging user in...");
       User loginUser = model.getUserByUsername(username);
       loginUser.printInfo();
-      if (loginUser.getAdmin() == true){
-        adminCtrl.login(loginUser);
-        adminStage.show();
-        thisStage.hide();
-      } else {
-        userCtrl.login(loginUser);
-        userStage.show();
-        thisStage.hide();
-      }
+      adminCtrl.login(loginUser);
+      adminStage.show();
+      thisStage.hide();
     } else {
       System.out.println("Incorrect creds...");
       warningLbl.setText("Sorry, try again.");
