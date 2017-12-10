@@ -374,12 +374,12 @@
                                           <Insets top="5.0" />
                                        </VBox.margin>
                                     </Button>
-                                    <Button fx:id="examFeeBtn" mnemonicParsing="false" text="Examine Fee">
+                                    <Button fx:id="examFeeBtn" mnemonicParsing="false" onAction="#examFeeClick" text="Examine Fee">
                                        <VBox.margin>
                                           <Insets top="5.0" />
                                        </VBox.margin>
                                     </Button>
-                                    <Button fx:id="delFeeBtn" mnemonicParsing="false" text="Delete Fee">
+                                    <Button fx:id="delFeeBtn" mnemonicParsing="false" onAction="#delFeeClick" text="Delete Fee">
                                        <VBox.margin>
                                           <Insets top="5.0" />
                                        </VBox.margin>
@@ -419,12 +419,12 @@
                                           <Insets top="5.0" />
                                        </VBox.margin>
                                     </Button>
-                                    <Button fx:id="examCodeBtn" mnemonicParsing="false" text="Examine Code">
+                                    <Button fx:id="examCodeBtn" mnemonicParsing="false" onAction="#examCodeClick" text="Examine Code">
                                        <VBox.margin>
                                           <Insets top="5.0" />
                                        </VBox.margin>
                                     </Button>
-                                    <Button fx:id="delCodeBtn" mnemonicParsing="false" text="Delete Code">
+                                    <Button fx:id="delCodeBtn" mnemonicParsing="false" onAction="#delCodeClick" text="Delete Code">
                                        <VBox.margin>
                                           <Insets top="5.0" />
                                        </VBox.margin>

@@ -10,17 +10,18 @@ DONE:
 + Code Class
 + "create" dialogs
 + "edit" dialogs
++ "delete" dialogs
 
 TO DO:
-- Edit methods for Model
-- Delete/Retirement methods for Model
-- Move permissions to dialog box in 'Accounts Overview' tab
+- Retirement methods for Model
+- Reconcile methods for Model
 - Make retirement/recovery tab
 - CSS stylesheet
 - Help Menu
 - Forgot Password?
 - Generate Reports in PDF
 - Encrypt data
+- Filter Transactions by Account and Date
 
 OTHER:
 - Currently need to comment out import and packages to run unit tests (fixable?)
@@ -31,3 +32,4 @@ OTHER:
 
 KNOWN ISSUES:
 - Doesn't check for uniqueness when editing usernames and account names
+- Doesn't update account totals after deleting transactions

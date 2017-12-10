@@ -275,6 +275,22 @@ public class ModelTXT {
     }
     return false;
   }
+  public boolean deleteCode(int codeID){
+    int index = uaManager.deleteCodeByID(codeID);
+    if (index > -1){
+      dataManager.writeManagerCodeToFile(uaManager);
+      return true;
+    }
+    return false;
+  }
+  public boolean deleteFeeType(int feeTypeID){
+    int index = uaManager.deleteFeeTypeByID(feeTypeID);
+    if (index > -1){
+      dataManager.writeManagerFeeTypeToFile(uaManager);
+      return true;
+    }
+    return false;
+  }
   public boolean deleteUser_Acct(int userID, int acctID){
     int index = uaManager.deleteUser_AcctByUserAcctID(userID, acctID);
     if (index > -1){
@@ -283,7 +299,6 @@ public class ModelTXT {
     }
     return false;
   }
-
 
   // CALCULATE FEES : return array (transSubTotal, feeTotal, transTotal, acctTotal)
   public double[] calcFees(double subTotal, ArrayList<FeeType> feeTypes, boolean isExpense){

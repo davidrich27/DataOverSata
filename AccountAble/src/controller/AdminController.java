@@ -632,6 +632,7 @@ public class AdminController {
 
   @FXML
   void editTransactionClick(ActionEvent event) throws Exception {
+
   }
 
   @FXML
@@ -748,29 +749,28 @@ public class AdminController {
 
   @FXML
   void delAcctClick(ActionEvent event) throws Exception {
-    Transaction selected = acctTbl.getSelectionModel().getSelectedItem();
-    if (selected == null){
-      return;
-    }
-    Alert alert = new Alert(AlertType.CONFIRMATION);
-    alert.setTitle("You are about to Delete a Transaction");
-    alert.setHeaderText("Warning: You are about to Delete a Transaction!");
-    alert.setContentText("This cannot be undone. Continue?");
+    Account selected = acctAllTbl.getSelectionModel().getSelectedItem();
+    if (selected != null){
+      Alert alert = new Alert(AlertType.CONFIRMATION);
+      alert.setTitle("You are about to Delete a Transaction");
+      alert.setHeaderText("Warning: You are about to Delete a Transaction!");
+      alert.setContentText("This cannot be undone. Continue?");
 
-    ButtonType delBtn = new ButtonType("Delete");
-    ButtonType cancelBtn = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+      ButtonType delBtn = new ButtonType("Delete");
+      ButtonType cancelBtn = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
 
-    alert.getButtonTypes().setAll(delBtn, cancelBtn);
+      alert.getButtonTypes().setAll(delBtn, cancelBtn);
 
-    Optional<ButtonType> result = alert.showAndWait();
-    if (result.get() == delBtn){
-        // ... user chose "One"
-        if (model.deleteTrans(selected.getID())){
-          System.out.println("Transaction #" + selected.getID() + " was deleted!");
-          refresh();
-        }
-    } else {
-        // ... user chose CANCEL or closed the dialog
+      Optional<ButtonType> result = alert.showAndWait();
+      if (result.get() == delBtn){
+          // ... user chose "One"
+          if (model.deleteAccount(selected.getID())){
+            System.out.println("Account #" + selected.getID() + " was deleted!");
+            refresh();
+          }
+      } else {
+          // ... user chose CANCEL or closed the dialog
+      }
     }
   }
 
@@ -908,6 +908,30 @@ public class AdminController {
 
   @FXML
   void delFeeClick(ActionEvent event) throws Exception {
+    FeeType selected = feeTypeTbl.getSelectionModel().getSelectedItem();
+    System.out.println(selected != null);
+    if (selected != null){
+      Alert alert = new Alert(AlertType.CONFIRMATION);
+      alert.setTitle("You are about to Delete a Fee Type");
+      alert.setHeaderText("Warning: You are about to Fee Type!");
+      alert.setContentText("This cannot be undone. Continue?");
+
+      ButtonType delBtn = new ButtonType("Delete");
+      ButtonType cancelBtn = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+
+      alert.getButtonTypes().setAll(delBtn, cancelBtn);
+
+      Optional<ButtonType> result = alert.showAndWait();
+      if (result.get() == delBtn){
+          // ... user chose "One"
+          if (model.deleteFeeType(selected.getID())){
+            System.out.println("Fee Type #" + selected.getID() + " was deleted!");
+            refresh();
+          }
+      } else {
+          // ... user chose CANCEL or closed the dialog
+      }
+    }
   }
 
   // ******************* Code Manager Tab ****************************************
@@ -954,6 +978,29 @@ public class AdminController {
 
   @FXML
   void delCodeClick(ActionEvent event) throws Exception {
+    Code selected = codeTbl.getSelectionModel().getSelectedItem();
+    if (selected != null){
+      Alert alert = new Alert(AlertType.CONFIRMATION);
+      alert.setTitle("You are about to Delete a Code");
+      alert.setHeaderText("Warning: You are about to Delete a Code!");
+      alert.setContentText("This cannot be undone. Continue?");
+
+      ButtonType delBtn = new ButtonType("Delete");
+      ButtonType cancelBtn = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+
+      alert.getButtonTypes().setAll(delBtn, cancelBtn);
+
+      Optional<ButtonType> result = alert.showAndWait();
+      if (result.get() == delBtn){
+          // ... user chose "One"
+          if (model.deleteCode(selected.getID())){
+            System.out.println("Code #" + selected.getID() + " was deleted!");
+            refresh();
+          }
+      } else {
+          // ... user chose CANCEL or closed the dialog
+      }
+    }
   }
 
   // ************************ Notifications *************************************

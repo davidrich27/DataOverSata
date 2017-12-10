@@ -330,6 +330,13 @@ public class UserAcctManagerTXT{
     if (index < 0){
       return -1;
     }
+    // change all transactions associated with user to default [deleted user]
+    //
+    // delete all user_acct links associated with user
+    ArrayList<Integer> userLinks = getAllUser_AcctByUserID(id);
+    for (Integer linkID : userLinks){
+      deleteUser_AcctByID(linkID);
+    }
     users.remove(index);
     return index;
   }
@@ -341,9 +348,14 @@ public class UserAcctManagerTXT{
       return -1;
     }
     // delete all transactions associated with acct
-    ArrayList<Integer> acctTrans = getAllTransByAcctID(index);
+    ArrayList<Integer> acctTrans = getAllTransByAcctID(id);
     for (Integer tranID : acctTrans){
       deleteTransByID(tranID);
+    }
+    // delete all user_acct links associated with acct
+    ArrayList<Integer> acctLinks = getAllUser_AcctByAcctID(id);
+    for (Integer linkID : acctLinks){
+      deleteUser_AcctByID(linkID);
     }
     accts.remove(index);
     return index;
@@ -357,11 +369,39 @@ public class UserAcctManagerTXT{
     trans.remove(index);
     return index;
   }
+  public int deleteCodeByID(int id){
+    Code testCode = new Code(id);
+    int index = Collections.binarySearch(codes, testCode);
+    if (index < 0){
+      return -1;
+    }
+    codes.remove(index);
+    return index;
+  }
+  public int deleteFeeTypeByID(int id){
+    FeeType testFeeType = new FeeType(id);
+    int index = Collections.binarySearch(feeTypes, testFeeType);
+    if (index < 0){
+      return -1;
+    }
+    feeTypes.remove(index);
+    return index;
+  }
+  public int deleteUser_AcctByID(int user_acctID){
+    Link testUser_Acct = new Link(user_acctID);
+    int index = Collections.binarySearch(user_acct, testUser_Acct);
+    if (index < 0){
+      return -1;
+    }
+    user_acct.remove(index);
+    return index;
+  }
   public int deleteUser_AcctByUserAcctID(int userID, int acctID){
     Link tempLink = new Link(-1, userID, acctID);
     for (int i = 0; i < user_acct.size(); i++){
       if (user_acct.get(i).equals(tempLink)) {
         user_acct.remove(i);
+        return i;
       }
     }
     return -1;
@@ -447,6 +487,26 @@ public class UserAcctManagerTXT{
       }
     }
     return allowedUsers;
+  }
+  // GET ALL USER_ACCT BY USERID
+  public ArrayList<Integer> getAllUser_AcctByUserID(int userID){
+    ArrayList<Integer> userLinks = new ArrayList<Integer>();
+    for (Link link : user_acct){
+      if (link.getIdA() == userID){
+        userLinks.add(link.getId());
+      }
+    }
+    return userLinks;
+  }
+  // GET ALL USER_ACCT BY ACCTID
+  public ArrayList<Integer> getAllUser_AcctByAcctID(int acctID){
+    ArrayList<Integer> acctLinks = new ArrayList<Integer>();
+    for (Link link : user_acct){
+      if (link.getIdB() == acctID){
+        acctLinks.add(link.getId());
+      }
+    }
+    return acctLinks;
   }
   // GET USER_ACCT BY USERID & ACCTID
   public Link getUser_AcctByUserAcctID(int userID, int acctID){
