@@ -102,6 +102,15 @@ public class ModelTXT {
     return uaManager.getUserByUsername(username);
   }
 
+  // RECONCILE BOOKS
+  public void reconcileAll(){
+    uaManager.reconcile();
+    saveAll();
+  }
+  public void reconcileAcct(Account acct){
+
+  }
+
   // CREATE NEW
   public boolean addNewUser(String username, String pwd, String firstName, String lastName, String email, String phone, boolean admin){
     int userId = uaManager.addUser(username, pwd, firstName, lastName, email, phone, admin);
@@ -214,6 +223,14 @@ public class ModelTXT {
     }
     return false;
   }
+  public boolean editTrans(int id, int acctId, int userId, int codeId, double subTotal, double feeTotal, double total, String otherParty, String descr, LocalDateTime dateEntry, LocalDate dateSale, boolean isExpense, boolean paidFee){
+    int transID = uaManager.editTransByID(id, acctId, userId, codeId, subTotal, feeTotal, total, otherParty, descr, dateEntry, dateSale, isExpense, paidFee);
+    if (transID > -1){
+      dataManager.writeManagerTransToFile(uaManager);
+      return true;
+    }
+    return false;
+  }
   public boolean editFeeType(int id, String name, String descr, double amt, boolean isPercent, boolean isAdditional, boolean isCustom){
     int feeTypeID = uaManager.editFeeTypeByID(id, name, descr, amt, isPercent, isAdditional, isCustom);
     if (feeTypeID > -1){
@@ -236,7 +253,24 @@ public class ModelTXT {
   public boolean deleteUser(int userID){
     int index = uaManager.deleteUserByID(userID);
     if (index > -1){
-      dataManager.writeManagerUser_AcctsToFile(uaManager);
+      dataManager.writeManagerUsersToFile(uaManager);
+      return true;
+    }
+    return false;
+  }
+  public boolean deleteAccount(int acctID){
+    int index = uaManager.deleteAcctByID(acctID);
+    if (index > -1){
+      dataManager.writeManagerAcctsToFile(uaManager);
+      dataManager.writeManagerTransToFile(uaManager);
+      return true;
+    }
+    return false;
+  }
+  public boolean deleteTrans(int transID){
+    int index = uaManager.deleteTransByID(transID);
+    if (index > -1){
+      dataManager.writeManagerTransToFile(uaManager);
       return true;
     }
     return false;

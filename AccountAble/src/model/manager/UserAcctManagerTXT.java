@@ -56,9 +56,26 @@ public class UserAcctManagerTXT{
     return ids;
   }
 
-  // RECONCILE (Goes trans-by-trans and calculates the total balance, fee balance, and )
+  // RECONCILE & CALC FEES (Goes trans-by-trans and calculates the total balance, fee balance, and )
   public void reconcile(){
+    // set masterAcct to zeroes
+    masterAcct.setBalance(0);
+    masterAcct.setFeesBalance(0);
+    masterAcct.setAvailBalance(0);
+    // set all other accts to zeroes
+    for (Account acct : accts){
+      acct.setBalance(0);
+      acct.setFeesBalance(0);
+      acct.setAvailBalance(0);
+    }
+    // run through all trans and add them to proper accts
+    for (Transaction tran : trans){
+      Account acct = getAcctByID(tran.getAcctID());
 
+    }
+  }
+  // recalc fees based on current fee properties
+  public void reconcileFees(Transaction trans){
   }
 
   // Add NEW (returns FALSE if isUnique=F and Add fails) (Returns ID given to NEW object)
@@ -316,6 +333,30 @@ public class UserAcctManagerTXT{
     users.remove(index);
     return index;
   }
+  public int deleteAcctByID(int id){
+    // find account
+    Account testAcct = new Account(id, "");
+    int index = Collections.binarySearch(accts, testAcct);
+    if (index < 0){
+      return -1;
+    }
+    // delete all transactions associated with acct
+    ArrayList<Integer> acctTrans = getAllTransByAcctID(index);
+    for (Integer tranID : acctTrans){
+      deleteTransByID(tranID);
+    }
+    accts.remove(index);
+    return index;
+  }
+  public int deleteTransByID(int id){
+    Transaction testTrans = new Transaction(id);
+    int index = Collections.binarySearch(trans, testTrans);
+    if (index < 0){
+      return -1;
+    }
+    trans.remove(index);
+    return index;
+  }
   public int deleteUser_AcctByUserAcctID(int userID, int acctID){
     Link tempLink = new Link(-1, userID, acctID);
     for (int i = 0; i < user_acct.size(); i++){
@@ -427,8 +468,8 @@ public class UserAcctManagerTXT{
     }
     return null;
   }
-  // GET ALL TRANSACTIONS BY ACCOUNT
-  public ArrayList<Integer> getAllTransByAcct(int acctID){
+  // GET ALL TRANSACTIONS BY ACCOUNT ID
+  public ArrayList<Integer> getAllTransByAcctID(int acctID){
     ArrayList<Integer> transactions = new ArrayList<Integer>();
     for (Link link : acct_trans){
       if (link.getIdA() == acctID){

@@ -18,50 +18,53 @@
 
 <VBox prefHeight="400.0" prefWidth="640.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TransCreateController">
   <children>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="439.0" prefWidth="640.0" VBox.vgrow="ALWAYS">
       <children>
-            <Label layoutX="19.0" layoutY="68.0" text="Amount:" />
-            <Label layoutX="20.0" layoutY="101.0" text="Account:" />
-            <Label layoutX="21.0" layoutY="135.0" text="Code:" />
-            <Label layoutX="311.0" layoutY="66.0" text="Other Party:" />
-            <Label layoutX="311.0" layoutY="97.0" text="Description:" />
+            <Label layoutX="20.0" layoutY="68.0" text="Amount:" />
+            <Label layoutX="21.0" layoutY="102.0" text="Account:" />
+            <Label layoutX="20.0" layoutY="136.0" text="Code:" />
+            <Label layoutX="316.0" layoutY="97.0" text="Other Party:" />
+            <Label layoutX="316.0" layoutY="128.0" text="Description:" />
             <TextField fx:id="amountTxt" layoutX="112.0" layoutY="63.0" />
-            <TextField fx:id="otherPartyTxt" layoutX="404.0" layoutY="63.0" prefHeight="27.0" prefWidth="205.0" />
-            <Button fx:id="confirmBtn" layoutX="250.0" layoutY="359.0" mnemonicParsing="false" onAction="#confirmClick" text="Confirm" />
-            <Button fx:id="cancelBtn" layoutX="325.0" layoutY="359.0" mnemonicParsing="false" onAction="#cancelClick" text="Cancel" />
+            <TextField fx:id="otherPartyTxt" layoutX="409.0" layoutY="94.0" prefHeight="27.0" prefWidth="205.0" />
+            <Button fx:id="confirmBtn" layoutX="494.0" layoutY="359.0" mnemonicParsing="false" onAction="#confirmClick" text="Confirm" />
+            <Button fx:id="cancelBtn" layoutX="568.0" layoutY="359.0" mnemonicParsing="false" onAction="#cancelClick" text="Cancel" />
             <Label fx:id="titleLbl" layoutX="215.0" layoutY="12.0" text="Create New Transaction">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
             <DatePicker fx:id="datePicker" layoutX="112.0" layoutY="162.0" prefHeight="27.0" prefWidth="167.0" />
-            <TextArea fx:id="descrTxt" layoutX="404.0" layoutY="96.0" prefHeight="60.0" prefWidth="205.0" />
-            <Label layoutX="23.0" layoutY="166.0" text="Date:" />
-            <RadioButton fx:id="expenseChkbx" layoutX="117.0" layoutY="201.0" mnemonicParsing="false" text="Expense" />
-            <RadioButton fx:id="depositChkBx" layoutX="201.0" layoutY="201.0" mnemonicParsing="false" text="Deposit" />
+            <TextArea fx:id="descrTxt" layoutX="409.0" layoutY="127.0" prefHeight="60.0" prefWidth="205.0" />
+            <Label layoutX="20.0" layoutY="167.0" text="Date:" />
+            <RadioButton fx:id="expenseRadio" layoutX="408.0" layoutY="67.0" mnemonicParsing="false" text="Expense" />
+            <RadioButton fx:id="depositRadio" layoutX="492.0" layoutY="68.0" mnemonicParsing="false" text="Deposit" />
             <ChoiceBox fx:id="acctChoiceBx" layoutX="112.0" layoutY="96.0" prefHeight="27.0" prefWidth="167.0" />
-            <ListView fx:id="feeOutList" layoutX="18.0" layoutY="246.0" prefHeight="103.0" prefWidth="128.0" />
-            <Label layoutX="21.0" layoutY="227.0" text="Fee Types:" />
-            <ListView fx:id="feeInList" layoutX="194.0" layoutY="246.0" prefHeight="103.0" prefWidth="128.0" />
-            <Button fx:id="feeOutBtn" layoutX="153.0" layoutY="247.0" mnemonicParsing="false" onAction="#feeOutClick" text="&lt;&lt;" />
-            <Button fx:id="feeInBtn" layoutX="153.0" layoutY="278.0" mnemonicParsing="false" onAction="#feeInClick" text="&gt;&gt;" />
-            <Button fx:id="recalcBtn" layoutX="423.0" layoutY="180.0" mnemonicParsing="false" onAction="#recalcClick" text="Recalculate Totals" />
-            <Label layoutX="333.0" layoutY="227.0" text="Prev. Account Balance:" />
-            <Label layoutX="343.0" layoutY="253.0" text="Transaction SubTotal:" />
-            <Label fx:id="prevAcctBalLbl" layoutX="504.0" layoutY="227.0" text="prevAcctBalLbl" />
-            <Label fx:id="transSubTotalLbl" layoutX="504.0" layoutY="252.0" text="transSubTotalLbl" />
-            <Label layoutX="410.0" layoutY="279.0" text="Fees Total:" />
-            <Label fx:id="feesTotalLbl" layoutX="504.0" layoutY="279.0" text="feeTotalLbl" />
-            <Label fx:id="transTotalLbl" layoutX="506.0" layoutY="306.0" text="transTotalLbl" />
-            <Label layoutX="365.0" layoutY="305.0" text="Transaction Total:" />
-            <Label layoutX="338.0" layoutY="331.0" text="New Account Balance:" />
-            <Label fx:id="newAcctBalLbl" layoutX="507.0" layoutY="331.0" text="newAcctBalLbl" />
+            <ListView fx:id="feeOutList" layoutX="74.0" layoutY="202.0" prefHeight="78.0" prefWidth="248.0" />
+            <Label layoutX="23.0" layoutY="227.0" text="Fees:" />
+            <ListView fx:id="feeInList" layoutX="74.0" layoutY="308.0" prefHeight="78.0" prefWidth="248.0" />
+            <Button fx:id="feeOutBtn" layoutX="5.0" layoutY="280.0" mnemonicParsing="false" onAction="#feeOutClick" rotate="90.0" text="&lt;&lt;" />
+            <Button fx:id="feeInBtn" layoutX="36.0" layoutY="280.0" mnemonicParsing="false" onAction="#feeInClick" rotate="90.0" text="&gt;&gt;" />
+            <Button fx:id="recalcBtn" layoutX="355.0" layoutY="359.0" mnemonicParsing="false" onAction="#recalcClick" text="Recalculate Totals" />
+            <Label layoutX="336.0" layoutY="212.0" text="Prev. Account Balance:" />
+            <Label layoutX="346.0" layoutY="238.0" text="Transaction SubTotal:" />
+            <Label fx:id="prevAcctBalLbl" layoutX="507.0" layoutY="212.0" text="prevAcctBalLbl" />
+            <Label fx:id="transSubTotalLbl" layoutX="507.0" layoutY="237.0" text="transSubTotalLbl" />
+            <Label layoutX="413.0" layoutY="264.0" text="Fees Total:" />
+            <Label fx:id="feesTotalLbl" layoutX="507.0" layoutY="264.0" text="feeTotalLbl" />
+            <Label fx:id="transTotalLbl" layoutX="509.0" layoutY="291.0" text="transTotalLbl" />
+            <Label layoutX="368.0" layoutY="290.0" text="Transaction Total:" />
+            <Label layoutX="341.0" layoutY="316.0" text="New Account Balance:" />
+            <Label fx:id="newAcctBalLbl" layoutX="510.0" layoutY="316.0" text="newAcctBalLbl" />
             <ChoiceBox fx:id="codeChoiceBx" layoutX="113.0" layoutY="130.0" prefHeight="27.0" prefWidth="167.0" />
             <Label fx:id="warningLbl" layoutX="178.0" layoutY="37.0" text="ERROR: Please enter a valid entry into field." textFill="RED">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
+            <Label layoutX="315.0" layoutY="68.0" text="Trans. Type:" />
+            <Label layoutX="144.0" layoutY="286.0" text="APPLIED FEES" />
+            <Label layoutX="235.0" layoutY="287.0" rotate="90.0" text="=&gt;" />
       </children>
     </AnchorPane>
   </children>

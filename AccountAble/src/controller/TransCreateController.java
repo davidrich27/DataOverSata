@@ -50,7 +50,7 @@ public class TransCreateController {
   private ChoiceBox<Account> acctChoiceBx;
 
   @FXML
-  private RadioButton depositChkBx;
+  private RadioButton depositRadio;
 
   @FXML
   private Button recalcBtn;
@@ -74,7 +74,7 @@ public class TransCreateController {
   private ListView<FeeType> feeOutList;
 
   @FXML
-  private RadioButton expenseChkbx;
+  private RadioButton expenseRadio;
 
   @FXML
   private Label transTotalLbl;
@@ -90,6 +90,8 @@ public class TransCreateController {
 
   @FXML
   private Label warningLbl;
+
+  private ToggleGroup expenseGroup;
 
     // ************************** Model Variables *******************************
 
@@ -114,6 +116,11 @@ public class TransCreateController {
     // ************************** Initialization and Wireup *********************
 
     public void initialize() {
+      expenseGroup = new ToggleGroup();
+      expenseRadio.setToggleGroup(expenseGroup);
+      depositRadio.setToggleGroup(expenseGroup);
+
+      expenseRadio.setSelected(true);
     }
     public void setModel(ModelTXT model){
       this.model = model;
@@ -194,7 +201,7 @@ public class TransCreateController {
       String descr = descrTxt.getText();
       LocalDateTime dateEntry = LocalDateTime.now();
       LocalDate dateSale = datePicker.getValue();
-      Boolean isExpense = expenseChkbx.isSelected();
+      Boolean isExpense = expenseRadio.isSelected();
       Boolean paidFee = false;
       model.addNewTrans(acctId, userId, codeId, subTotal, feeTotal, acctTotal, otherParty, descr, dateEntry, dateSale, isExpense, paidFee);
     }
@@ -259,7 +266,7 @@ public class TransCreateController {
           feeTotal += fee.getAmt();
         }
       }
-      if (expenseChkbx.isSelected()){
+      if (expenseRadio.isSelected()){
         if (subTotal > 0){
           subTotal = subTotal*-1;
         }

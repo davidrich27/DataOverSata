@@ -68,15 +68,28 @@ public class AcctCreateController {
     public void setMode(String mode){
       this.mode = mode;
     }
+
     public void setupCreate(){
       setMode("create");
       titleLbl.setText("Create New Account");
       warningLbl.setVisible(false);
     }
     public void setupEdit(Account selectedAcct){
+      this.selectedAcct = selectedAcct;
       setMode("edit");
       titleLbl.setText("Edit Account");
       warningLbl.setVisible(false);
+      populateFields();
+    }
+    public void setupExam(Account selectedAcct){
+      this.selectedAcct = selectedAcct;
+      setMode("exam");
+      titleLbl.setText("Examine Account");
+      populateFields();
+      setUneditable();
+    }
+
+    void populateFields(){
       if (selectedAcct != null){
         this.selectedAcct = selectedAcct;
         nameTxt.setText(selectedAcct.getName());
@@ -85,7 +98,12 @@ public class AcctCreateController {
         System.out.println("Error: No Account was selected.");
       }
     }
-
+    void setUneditable(){
+      nameTxt.setDisable(true);
+      descrTxt.setDisable(true);
+      confirmBtn.setVisible(false);
+      cancelBtn.setText("Close");
+    }
     // ************************** Other Events ************************************
 
     @FXML

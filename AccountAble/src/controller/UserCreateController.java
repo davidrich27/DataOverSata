@@ -102,10 +102,12 @@ public class UserCreateController {
         lastnameTxt.setText(selectedUser.getLastName());
         phoneTxt.setText(selectedUser.getPhone());
         emailTxt.setText(selectedUser.getEmail());
-
       } else {
         // Hide this window and/or open error window
       }
+    }
+    public void setupExam(User selected){
+      
     }
 
     // ************************** Other Events ************************************

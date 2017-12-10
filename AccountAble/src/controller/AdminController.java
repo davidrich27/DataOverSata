@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.util.*;
 import java.time.LocalDateTime;
 import java.time.LocalDate;
+import java.io.File;
+import java.awt.Desktop;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -347,6 +349,12 @@ public class AdminController {
       @FXML
       private TabPane tabPane;
 
+      @FXML
+      private DatePicker transHistStartPicker;
+
+      @FXML
+      private DatePicker transHistEndPicker;
+
   // ************************** Model Variables *******************************
 
   ModelTXT model;
@@ -422,20 +430,6 @@ public class AdminController {
     codeColID.setCellValueFactory(new PropertyValueFactory<Code, Integer>("ID"));
     codeColName.setCellValueFactory(new PropertyValueFactory<Code, String>("Name"));
     codeColDescr.setCellValueFactory(new PropertyValueFactory<Code, String>("Descr"));
-
-    // Set All Transaction Factory
-    transColID.setCellValueFactory(new PropertyValueFactory<Transaction, Integer>("ID"));
-    transColAcctID.setCellValueFactory(new PropertyValueFactory<Transaction, Integer>("AcctID"));
-    transColUserID.setCellValueFactory(new PropertyValueFactory<Transaction, Integer>("UserID"));
-    transColCode.setCellValueFactory(new PropertyValueFactory<Transaction, Integer>("CodeID"));
-    transColDate.setCellValueFactory(new PropertyValueFactory<Transaction, LocalDateTime>("Date"));
-    transColSubTotal.setCellValueFactory(new PropertyValueFactory<Transaction, Double>("SubTotal"));
-    transColFeeTotal.setCellValueFactory(new PropertyValueFactory<Transaction, Double>("FeeTotal"));
-    transColTotal.setCellValueFactory(new PropertyValueFactory<Transaction, Double>("Total"));
-    transColDescr.setCellValueFactory(new PropertyValueFactory<Transaction, String>("Descr"));
-    transColOtherParty.setCellValueFactory(new PropertyValueFactory<Transaction, String>("OtherParty"));
-    transColIsExpense.setCellValueFactory(new PropertyValueFactory<Transaction, String>("IsExpense"));
-    transColPaidFee.setCellValueFactory(new PropertyValueFactory<Transaction, String>("PaidFee"));
   }
 
   // Populate Tables
@@ -455,10 +449,6 @@ public class AdminController {
     ArrayList<FeeType> feeTypes = model.uaManager.getAllFeeTypes();
     ObservableList<FeeType> feeTypesObservable = FXCollections.observableArrayList(feeTypes);
     feeTypeTbl.setItems(feeTypesObservable);
-
-    ArrayList<Transaction> trans = model.uaManager.getAllTransactions();
-    ObservableList<Transaction> transObservable = FXCollections.observableArrayList(trans);
-    transTbl.setItems(transObservable);
 
     ArrayList<Code> codes = model.uaManager.getAllCodes();
     ObservableList<Code> codesObservable = FXCollections.observableArrayList(codes);
@@ -484,13 +474,9 @@ public class AdminController {
     // Populate All Lists
     ObservableList<Account> acctsObservable = FXCollections.observableArrayList(currentAccts);
     acctList.setItems(acctsObservable);
-    acctDropDown.setItems(acctsObservable);
-
-    ArrayList<User> users = model.uaManager.getAllUsers();
-    ObservableList<User> usersObservable = FXCollections.observableArrayList(users);
-    blockedList.setItems(usersObservable);
   }
 
+  // NOTE: can't log out of account and log in to admin in same session
   void toggleAdmin(Boolean admin){
     if (!admin){
       tabPane.getTabs().remove(usersTab);
@@ -509,8 +495,6 @@ public class AdminController {
     }
   }
 
-  // ************************** Other Events ************************************
-
   public void login(User loginUser){
     currentUser = loginUser;
     currentAccts = model.uaManager.getAllAccts();
@@ -520,6 +504,8 @@ public class AdminController {
     resetFactories();
     repop();
   }
+
+  // *********************** Refresh *********************************************
 
   // Refresh all dataViews
   public void refresh(){
@@ -531,12 +517,11 @@ public class AdminController {
     feeTypeTbl.refresh();
     codeTbl.refresh();
     acctAllTbl.refresh();
-    transTbl.refresh();
     // refresh all lists
     acctList.refresh();
   }
 
-  // ************************** FX Events ***************************************
+  // ************************** Menu Events ***************************************
 
   @FXML
   void logoutClick(ActionEvent event) {
@@ -544,6 +529,57 @@ public class AdminController {
     loginCtrl.clear();
     loginStage.show();
     thisStage.hide();
+  }
+  @FXML
+  void saveClick(ActionEvent event) {
+    model.saveAll();
+  }
+  @FXML
+  void reconcileClick(ActionEvent event) {
+    model.reconcileAll();
+  }
+  @FXML
+  void closeClick(ActionEvent event) {
+    System.exit(0);
+  }
+
+  @FXML
+  void statementClick(ActionEvent event) {
+  }
+
+  @FXML
+  void benCalcClick(ActionEvent event) throws Exception {
+	//  System.out.println("benCalc clicked!");
+    Stage newStage = new Stage();
+    FXMLLoader newLoader = new FXMLLoader(getClass().getResource("../view/BCview.fxml"));
+    Parent newRoot = newLoader.load();
+    Scene newScene = new Scene(newRoot);
+    newStage.setScene(newScene);
+    BCcontroller newCtrl = newLoader.<BCcontroller>getController();
+    newCtrl.setStage(newStage);
+    newStage.show();
+  }
+  @FXML
+  void colorClick(ActionEvent event) {
+  }
+
+  @FXML
+  void helpClick(ActionEvent event) {
+  }
+  @FXML
+  void docClick(ActionEvent event) {
+    if (Desktop.isDesktopSupported()) {
+      try {
+          File myFile = new File("../docs/test.pdf");
+          Desktop.getDesktop().open(myFile);
+      } catch (IOException ex) {
+          // no application registered for PDFs
+          System.out.println("ERROR: Desktop not supported.");
+      }
+    }
+  }
+  @FXML
+  void aboutClick(ActionEvent event) {
   }
 
     // ************************ Overview Tab *************************************
@@ -564,7 +600,181 @@ public class AdminController {
     newStage.show();
   }
 
-    // *********************** Users Overview Tab *********************************
+    // ****************** Account Tab ********************************************
+
+  @FXML
+  void setAcctClick(ActionEvent event) throws Exception {
+  }
+
+  @FXML
+  void acctHistoryClick(ActionEvent event) throws Exception {
+  }
+
+  @FXML
+  void addTransactionClick(ActionEvent event) throws Exception {
+    Account selectedAcct = acctList.getSelectionModel().getSelectedItem();
+    if (selectedAcct != null) {
+      Stage newStage = new Stage();
+      FXMLLoader newLoader = new FXMLLoader(getClass().getResource("../view/ViewCreateTrans.fxml"));
+      Parent newRoot = newLoader.load();
+      Scene newScene = new Scene(newRoot);
+      newStage.setScene(newScene);
+      TransCreateController newCtrl = newLoader.<TransCreateController>getController();
+      newCtrl.setStage(newStage);
+      newCtrl.setHome(thisStage, this);
+      newCtrl.setModel(model);
+      newCtrl.setupCreate(currentUser, selectedAcct, currentAccts);
+      newStage.show();
+    } else {
+      System.out.println("ERROR: Must select Account for Transaction to be entered.");
+    }
+  }
+
+  @FXML
+  void editTransactionClick(ActionEvent event) throws Exception {
+  }
+
+  @FXML
+  void examTransactionClick(ActionEvent event) throws Exception {
+  }
+
+  @FXML
+  void delTransactionClick(ActionEvent event) throws Exception {
+    Transaction selected = acctTbl.getSelectionModel().getSelectedItem();
+    if (selected == null){
+      return;
+    }
+    Alert alert = new Alert(AlertType.CONFIRMATION);
+    alert.setTitle("You are about to Delete a Transaction");
+    alert.setHeaderText("Warning: You are about to Delete a Transaction!");
+    alert.setContentText("This cannot be undone. Continue?");
+
+    ButtonType delBtn = new ButtonType("Delete");
+    ButtonType cancelBtn = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+
+    alert.getButtonTypes().setAll(delBtn, cancelBtn);
+
+    Optional<ButtonType> result = alert.showAndWait();
+    if (result.get() == delBtn){
+        // ... user chose "One"
+        if (model.deleteTrans(selected.getID())){
+          System.out.println("Transaction #" + selected.getID() + " was deleted!");
+          refresh();
+        }
+    } else {
+        // ... user chose CANCEL or closed the dialog
+    }
+  }
+
+    // ******************* All Accounts Manager Tab *****************************
+
+  @FXML
+  void newAcctClick(ActionEvent event) throws Exception {
+    Stage newStage = new Stage();
+    FXMLLoader newLoader = new FXMLLoader(getClass().getResource("../view/ViewCreateAcct.fxml"));
+    Parent newRoot = newLoader.load();
+    Scene newScene = new Scene(newRoot);
+    newStage.setScene(newScene);
+    AcctCreateController newCtrl = newLoader.<AcctCreateController>getController();
+    newCtrl.setStage(newStage);
+    newCtrl.setHome(thisStage, this);
+    newCtrl.setModel(model);
+    newCtrl.setupCreate();
+    newStage.show();
+  }
+
+  @FXML
+  void editAcctClick(ActionEvent event) throws Exception {
+    // Pass selected account to controller
+    Account selected = acctAllTbl.getSelectionModel().getSelectedItem();
+    if (selected != null){
+      Stage newStage = new Stage();
+      FXMLLoader newLoader = new FXMLLoader(getClass().getResource("../view/ViewCreateAcct.fxml"));
+      Parent newRoot = newLoader.load();
+      Scene newScene = new Scene(newRoot);
+      newStage.setScene(newScene);
+      AcctCreateController newCtrl = newLoader.<AcctCreateController>getController();
+      newCtrl.setStage(newStage);
+      newCtrl.setHome(thisStage, this);
+      newCtrl.setModel(model);
+      newCtrl.setupEdit(selected);
+      newStage.show();
+    } else {
+      System.out.println("ERROR: Must select an Account to edit.");
+    }
+  }
+
+  @FXML
+  void permissionClick(ActionEvent event) throws Exception {
+    // Pass selected account to controller
+    Account selected = acctAllTbl.getSelectionModel().getSelectedItem();
+    if (selected != null){
+      Stage newStage = new Stage();
+      FXMLLoader newLoader = new FXMLLoader(getClass().getResource("../view/ViewAcctPermissions.fxml"));
+      Parent newRoot = newLoader.load();
+      Scene newScene = new Scene(newRoot);
+      newStage.setScene(newScene);
+      AcctPermissionsController newCtrl = newLoader.<AcctPermissionsController>getController();
+      newCtrl.setStage(newStage);
+      newCtrl.setHome(thisStage, this);
+      newCtrl.setModel(model);
+      newCtrl.setup(selected);
+      newStage.show();
+    } else {
+      System.out.println("ERROR: Must select an Account to see permissions.");
+    }
+  }
+
+  @FXML
+  void examAcctClick(ActionEvent event) throws Exception {
+    // Pass selected account to controller
+    Account selected = acctAllTbl.getSelectionModel().getSelectedItem();
+    if (selected != null){
+      Stage newStage = new Stage();
+      FXMLLoader newLoader = new FXMLLoader(getClass().getResource("../view/ViewCreateAcct.fxml"));
+      Parent newRoot = newLoader.load();
+      Scene newScene = new Scene(newRoot);
+      newStage.setScene(newScene);
+      AcctCreateController newCtrl = newLoader.<AcctCreateController>getController();
+      newCtrl.setStage(newStage);
+      newCtrl.setHome(thisStage, this);
+      newCtrl.setModel(model);
+      newCtrl.setupExam(selected);
+      newStage.show();
+    } else {
+      System.out.println("ERROR: Must select an Account to edit.");
+    }
+  }
+
+  @FXML
+  void delAcctClick(ActionEvent event) throws Exception {
+    Transaction selected = acctTbl.getSelectionModel().getSelectedItem();
+    if (selected == null){
+      return;
+    }
+    Alert alert = new Alert(AlertType.CONFIRMATION);
+    alert.setTitle("You are about to Delete a Transaction");
+    alert.setHeaderText("Warning: You are about to Delete a Transaction!");
+    alert.setContentText("This cannot be undone. Continue?");
+
+    ButtonType delBtn = new ButtonType("Delete");
+    ButtonType cancelBtn = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+
+    alert.getButtonTypes().setAll(delBtn, cancelBtn);
+
+    Optional<ButtonType> result = alert.showAndWait();
+    if (result.get() == delBtn){
+        // ... user chose "One"
+        if (model.deleteTrans(selected.getID())){
+          System.out.println("Transaction #" + selected.getID() + " was deleted!");
+          refresh();
+        }
+    } else {
+        // ... user chose CANCEL or closed the dialog
+    }
+  }
+
+    // *********************** Users Manager Tab *********************************
 
   @FXML
   void newUserClick(ActionEvent event) throws Exception {
@@ -604,6 +814,23 @@ public class AdminController {
 
   @FXML
   void examUserClick(ActionEvent event) throws Exception {
+    // Pass selected user to controller
+    User selected = userTbl.getSelectionModel().getSelectedItem();
+    if (selected != null){
+      Stage newStage = new Stage();
+      FXMLLoader newLoader = new FXMLLoader(getClass().getResource("../view/ViewCreateUser.fxml"));
+      Parent newRoot = newLoader.load();
+      Scene newScene = new Scene(newRoot);
+      newStage.setScene(newScene);
+      UserCreateController newCtrl = newLoader.<UserCreateController>getController();
+      newCtrl.setStage(newStage);
+      newCtrl.setHome(thisStage, this);
+      newCtrl.setModel(model);
+      newCtrl.setupExam(selected);
+      newStage.show();
+    } else {
+      System.out.println("ERROR: Must select an User to edit.");
+    }
   }
 
   @FXML
@@ -613,8 +840,8 @@ public class AdminController {
       return;
     }
     Alert alert = new Alert(AlertType.CONFIRMATION);
-    alert.setTitle("You are about to Delete or Retire An Account");
-    alert.setHeaderText("Warning: You are about to Delete or Retire an Account");
+    alert.setTitle("You are about to Delete or Retire a User Account");
+    alert.setHeaderText("Warning: You are about to Delete or Retire a User Account!");
     alert.setContentText("Choose carefully - Retiring a User will allow it to be recovered if you ever need to do so, but deleting cannot be undone. Continue?");
 
     ButtonType delBtn = new ButtonType("Delete");
@@ -626,84 +853,18 @@ public class AdminController {
     Optional<ButtonType> result = alert.showAndWait();
     if (result.get() == delBtn){
         // ... user chose "One"
-        System.out.println(model.deleteUser(selected.getID()));
-        refresh();
+        if (model.deleteUser(selected.getID())){
+          System.out.println("User Account #" + selected.getID() + " was deleted!");
+          refresh();
+        }
     } else if (result.get() == retireBtn) {
         // ... user chose "Two"
     } else {
         // ... user chose CANCEL or closed the dialog
     }
-      }
-
-    // ****************** Transaction Overview Tab ********************************
-
-  @FXML
-  void addTransactionClick(ActionEvent event) throws Exception {
-    Account selectedAcct = acctList.getSelectionModel().getSelectedItem();
-    if (selectedAcct != null) {
-      Stage newStage = new Stage();
-      FXMLLoader newLoader = new FXMLLoader(getClass().getResource("../view/ViewCreateTrans.fxml"));
-      Parent newRoot = newLoader.load();
-      Scene newScene = new Scene(newRoot);
-      newStage.setScene(newScene);
-      TransCreateController newCtrl = newLoader.<TransCreateController>getController();
-      newCtrl.setStage(newStage);
-      newCtrl.setHome(thisStage, this);
-      newCtrl.setModel(model);
-      newCtrl.setupCreate(currentUser, selectedAcct, currentAccts);
-      newStage.show();
-    } else {
-      System.out.println("ERROR: Must select Account for Transaction to be entered.");
-    }
   }
 
-  @FXML
-  void acctHistoryClick(ActionEvent event) throws Exception {
-  }
-
-  @FXML
-  void editTransactionClick(ActionEvent event) throws Exception {
-  }
-
-    // ******************* All Accounts Overview Tab *****************************
-
-  @FXML
-  void newAcctClick(ActionEvent event) throws Exception {
-    Stage newStage = new Stage();
-    FXMLLoader newLoader = new FXMLLoader(getClass().getResource("../view/ViewCreateAcct.fxml"));
-    Parent newRoot = newLoader.load();
-    Scene newScene = new Scene(newRoot);
-    newStage.setScene(newScene);
-    AcctCreateController newCtrl = newLoader.<AcctCreateController>getController();
-    newCtrl.setStage(newStage);
-    newCtrl.setHome(thisStage, this);
-    newCtrl.setModel(model);
-    newCtrl.setupCreate();
-    newStage.show();
-  }
-
-  @FXML
-  void editAcctClick(ActionEvent event) throws Exception {
-    // Pass selected account to controller
-    Account selected = acctAllTbl.getSelectionModel().getSelectedItem();
-    if (selected != null){
-      Stage newStage = new Stage();
-      FXMLLoader newLoader = new FXMLLoader(getClass().getResource("../view/ViewCreateAcct.fxml"));
-      Parent newRoot = newLoader.load();
-      Scene newScene = new Scene(newRoot);
-      newStage.setScene(newScene);
-      AcctCreateController newCtrl = newLoader.<AcctCreateController>getController();
-      newCtrl.setStage(newStage);
-      newCtrl.setHome(thisStage, this);
-      newCtrl.setModel(model);
-      newCtrl.setupEdit(selected);
-      newStage.show();
-    } else {
-      System.out.println("ERROR: Must select an Account to edit.");
-    }
-  }
-
-    // ******************* Fees Overview Tab *************************************
+    // ******************* Fees Manager Tab *************************************
 
   @FXML
   void newFeeClick(ActionEvent event) throws Exception {
@@ -741,7 +902,15 @@ public class AdminController {
     }
   }
 
-  // ******************* Code Overview Tab *************************************
+  @FXML
+  void examFeeClick(ActionEvent event) throws Exception {
+  }
+
+  @FXML
+  void delFeeClick(ActionEvent event) throws Exception {
+  }
+
+  // ******************* Code Manager Tab ****************************************
 
   @FXML
   void newCodeClick(ActionEvent event) throws Exception {
@@ -779,63 +948,12 @@ public class AdminController {
     }
   }
 
-  // ***************** Permissions ***********************************************
-
-  ArrayList<Integer> allowedUserIDs;
-  ArrayList<User> allowedUsers;
-  Account permissionAcct;
-
   @FXML
-  void acctPermissionClick(ActionEvent event) throws Exception {
-    permissionAcct = acctDropDown.getSelectionModel().getSelectedItem();
-    permissionAcctLbl.setText(permissionAcct.getName());
-    allowedUserIDs = model.uaManager.getAllUserByAcct(permissionAcct.getID());
-    allowedUsers = new ArrayList<User>();
-    for (int i : allowedUserIDs){
-      User allowedUser = model.uaManager.getUserByID(i);
-      allowedUsers.add(allowedUser);
-    }
-    ObservableList<User> allowedObservable = FXCollections.observableArrayList(allowedUsers);
-    allowedList.setItems(allowedObservable);
+  void examCodeClick(ActionEvent event) throws Exception {
   }
 
   @FXML
-  void allowedBtnClick(ActionEvent event) throws Exception {
-    User selectedUser = blockedList.getSelectionModel().getSelectedItem();
-    if (selectedUser != null && permissionAcct != null){
-      if (allowedUsers.contains(selectedUser) == false){
-        model.addNewUser_Acct(selectedUser.getID(), permissionAcct.getID());
-        allowedUsers.add(selectedUser);
-        ObservableList<User> allowedObservable = FXCollections.observableArrayList(allowedUsers);
-        allowedList.setItems(allowedObservable);
-      }
-    }
-  }
-
-  @FXML
-  void blockedBtnClick(ActionEvent event) throws Exception {
-    User selectedUser = allowedList.getSelectionModel().getSelectedItem();
-    if (selectedUser != null && permissionAcct != null){
-      model.deleteUser_Acct(selectedUser.getID(), permissionAcct.getID());
-      allowedUsers.remove(selectedUser);
-      ObservableList<User> allowedObservable = FXCollections.observableArrayList(allowedUsers);
-      allowedList.setItems(allowedObservable);
-    }
-  }
-
-  // ***************** Benefits Calculator ***************************************
-
-  @FXML
-  void benCalcClick(ActionEvent event) throws Exception {
-	//  System.out.println("benCalc clicked!");
-    Stage newStage = new Stage();
-    FXMLLoader newLoader = new FXMLLoader(getClass().getResource("../view/BCview.fxml"));
-    Parent newRoot = newLoader.load();
-    Scene newScene = new Scene(newRoot);
-    newStage.setScene(newScene);
-    BCcontroller newCtrl = newLoader.<BCcontroller>getController();
-    newCtrl.setStage(newStage);
-    newStage.show();
+  void delCodeClick(ActionEvent event) throws Exception {
   }
 
   // ************************ Notifications *************************************

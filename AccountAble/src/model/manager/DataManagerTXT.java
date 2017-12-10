@@ -477,59 +477,22 @@ public class DataManagerTXT {
     return false;
   }
 
-  // Print Demo
-  public void printInfo(){
+  //****************** ENCRYPTION / DECRYPTION **********************************
 
+  public String encrypt(String input){
+    return "";
+  }
+
+  public String decrypt(String input){
+    return "";
+  }
+
+  //****************** DEMOS & UNIT TESTS ***************************************
+
+  public void printInfo(){
   }
 
   // UNIT TEST
-  public static void main(String[] args){ /*
-    LocalDateTime ldt = LocalDateTime.now();
-    UserAcctManagerTXT uaManager = new UserAcctManagerTXT();
-      uaManager.addUser("davey123", "pwd", "Dave", "Rich", "dave@gmail.com", "(406)555-1209", false);
-      uaManager.addUser("trish123", "pwd", "Patricia", "Duce", "p.Duce@gmail.com", "(406)555-1234", false);
-      uaManager.addUser("admin", "pwd", "Robyn", "Berg", "robyn@gmail.com", "(406)777-4567", true);
-      uaManager.addUser("davey123", "pwd", "Dave", "Rich", "dave@gmail.com", "(406)555-1209", false);
-      uaManager.addAcct("Master Account", "Where all the Money Goes...", 10.00);
-      uaManager.addAcct("Offshore, Account", "Shhh...", 10000.00);
-      uaManager.addUser_Acct(1, 1);
-      uaManager.addUser_Acct(2, 1);
-      uaManager.addUser_Acct(2, 2);
-      uaManager.addTrans(1, 2, 50105, 10.00, 100.00, 10.0, 10.0, "Some Dude", "Loaned a guy ten bucks", ldt, true, false);
-      uaManager.addFeeType("Standard Credit Card Charge", "Use when making or recieving payments by Credit Card.", 4.00, true, true, false);
-      uaManager.addAcct_Trans(4, 5);
-      uaManager.addAcct_Trans(2, 3);
-
-    String userPath = "../data/testUsers.txt";
-    String acctPath = "../data/testAccounts.txt";
-    String transPath = "../data/testTrans.txt";
-    String feeTypePath = "../data/testFeeType.txt";
-    String user_acctPath = "../data/testUser_acct.txt";
-    String acct_transPath = "../data/testAcct_trans.txt";
-    String idPath = "../data/testIDs.txt";
-
-    DataManagerTXT dataManager = new DataManagerTXT(userPath, acctPath, transPath, feeTypePath, user_acctPath, acct_transPath, idPath);
-    ArrayList<User> testUsers = uaManager.getAllUsers();
-      dataManager.writeAllUsersToFile(testUsers);
-    ArrayList<Account> testAccts = uaManager.getAllAccts();
-      dataManager.writeAllAcctsToFile(testAccts);
-    ArrayList<Transaction> testTrans = uaManager.getAllTransactions();
-      dataManager.writeAllTransToFile(testTrans);
-    ArrayList<FeeType> testFeeTypes = uaManager.getAllFeeTypes();
-      dataManager.writeAllFeeTypesToFile(testFeeTypes);
-    ArrayList<Link> user_accts = uaManager.getAllUser_Accts();
-      dataManager.writeAllUser_AcctsToFile(user_accts);
-    ArrayList<Link> acct_trans = uaManager.getAllAcct_Trans();
-      dataManager.writeAllAcct_TransToFile(acct_trans);
-
-    UserAcctManagerTXT uaManager2 = new UserAcctManagerTXT();
-    //dataManager.readIDFileToManager(uaManager2);
-    dataManager.readUserFileToManager(uaManager2);
-    dataManager.readAcctFileToManager(uaManager2);
-    dataManager.readTransFileToManager(uaManager2);
-    dataManager.readFeeTypeFileToManager(uaManager2);
-    dataManager.readUser_AcctFileToManager(uaManager2);
-    dataManager.readAcct_TransFileToManager(uaManager2);
-    uaManager2.printInfo(); */
+  public static void main(String[] args){
   }
 }

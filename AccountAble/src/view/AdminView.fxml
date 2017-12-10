@@ -172,25 +172,43 @@
                            <left>
                               <VBox alignment="CENTER" prefHeight="323.0" prefWidth="300.0" BorderPane.alignment="CENTER">
                                  <children>
-                                    <Label text="Find Transaction by Account:">
+                                    <Label text="Find Transactions by Account:">
                                        <VBox.margin>
-                                          <Insets bottom="5.0" />
+                                          <Insets top="5.0" />
                                        </VBox.margin></Label>
-                                    <ListView fx:id="acctList" minHeight="-Infinity" prefHeight="300.0" prefWidth="203.0" />
-                                    <Label text="Find Account:">
+                                    <ListView fx:id="acctList" minHeight="-Infinity" prefHeight="300.0" prefWidth="203.0">
                                        <VBox.margin>
-                                          <Insets bottom="5.0" top="5.0" />
-                                       </VBox.margin></Label>
-                                    <TextField fx:id="acctSearchTxt" />
-                                    <Button fx:id="acctHistoryBtn" mnemonicParsing="false" onAction="#acctHistoryClick" text="View History">
+                                          <Insets top="5.0" />
+                                       </VBox.margin></ListView>
+                                    <Button fx:id="setAcctBtn" mnemonicParsing="false" onAction="#setAcctClick" text="Set Account">
+                                       <VBox.margin>
+                                          <Insets top="5.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                    <DatePicker fx:id="transHistStartPicker">
+                                       <VBox.margin>
+                                          <Insets top="5.0" />
+                                       </VBox.margin>
+                                    </DatePicker>
+                                    <DatePicker fx:id="transHistEndPicker">
+                                       <VBox.margin>
+                                          <Insets top="5.0" />
+                                       </VBox.margin>
+                                    </DatePicker>
+                                    <Button fx:id="acctHistoryBtn" mnemonicParsing="false" onAction="#acctHistoryClick" text="Set Date Range">
                                        <VBox.margin>
                                           <Insets top="5.0" />
                                        </VBox.margin></Button>
-                                    <Button fx:id="addTransactionBtn" mnemonicParsing="false" onAction="#addTransactionClick" text="Add New Transaction">
+                                    <Button fx:id="addTransactionBtn" mnemonicParsing="false" onAction="#addTransactionClick" text="Create Transaction">
                                        <VBox.margin>
                                           <Insets top="5.0" />
                                        </VBox.margin></Button>
                                     <Button fx:id="editTransactionBtn" mnemonicParsing="false" onAction="#editTransactionClick" text="Edit Transaction">
+                                       <VBox.margin>
+                                          <Insets top="5.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                    <Button fx:id="delTransactionBtn" mnemonicParsing="false" onAction="#delTransactionClick" text="Delete Transaction">
                                        <VBox.margin>
                                           <Insets top="5.0" />
                                        </VBox.margin>
@@ -213,7 +231,7 @@
                                     <TableColumn fx:id="acctColDescr" prefWidth="300.0" text="Description" />
                                     <TableColumn fx:id="acctColOtherParty" prefWidth="125.0" text="Other Party" />
                                     <TableColumn fx:id="acctColBal" prefWidth="75.0" text="Balance" />
-                                    <TableColumn fx:id="acctColIsExpense" minWidth="3.0" prefWidth="50.0" text="Expense?" />
+                                    <TableColumn fx:id="acctColIsExpense" minWidth="3.0" prefWidth="50.0" text="Add New Transaction" />
                                     <TableColumn fx:id="acctColPaidFee" minWidth="3.0" prefWidth="50.0" text="Paid Fee?" />
                                  </columns>
                               </TableView>
@@ -223,7 +241,7 @@
                   </AnchorPane>
             </content>
           </Tab>
-            <Tab fx:id="acctAllTab" text="Accounts Overview">
+            <Tab fx:id="acctAllTab" text="Accounts Manager">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -243,17 +261,6 @@
                            <left>
                               <VBox alignment="CENTER" minWidth="-Infinity" prefHeight="323.0" prefWidth="300.0" BorderPane.alignment="CENTER">
                                  <children>
-                                    <Label text="All Accounts:">
-                                       <VBox.margin>
-                                          <Insets bottom="5.0" />
-                                       </VBox.margin>
-                                    </Label>
-                                    <Label text="Find Account:">
-                                       <VBox.margin>
-                                          <Insets bottom="5.0" top="5.0" />
-                                       </VBox.margin>
-                                    </Label>
-                                    <TextField fx:id="acctAllSearchTxt" />
                                     <Button fx:id="newAcctBtn" mnemonicParsing="false" onAction="#newAcctClick" text="Create Account">
                                        <VBox.margin>
                                           <Insets top="5.0" />
@@ -264,72 +271,17 @@
                                           <Insets top="5.0" />
                                        </VBox.margin>
                                     </Button>
-                                    <Button fx:id="examAcctBtn" mnemonicParsing="false" text="Examine Account">
+                                    <Button fx:id="permissionBtn" mnemonicParsing="false" onAction="#permissionClick" text="Manage Permissions">
                                        <VBox.margin>
                                           <Insets top="5.0" />
                                        </VBox.margin>
                                     </Button>
-                                    <Button fx:id="delAcctBtn" mnemonicParsing="false" text="Delete Account">
+                                    <Button fx:id="examAcctBtn" mnemonicParsing="false" onAction="#examAcctClick" text="Examine Account">
                                        <VBox.margin>
                                           <Insets top="5.0" />
                                        </VBox.margin>
                                     </Button>
-                                 </children>
-                              </VBox>
-                           </left>
-                        </BorderPane>
-                     </children>
-                  </AnchorPane>
-               </content>
-            </Tab>
-            <Tab fx:id="feesTab" text="Fees Overview">
-               <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <BorderPane layoutX="61.0" layoutY="29.0" prefHeight="323.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <center>
-                              <TableView fx:id="feeTypeTbl" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                                 <columns>
-                                    <TableColumn fx:id="feeTypeColID" minWidth="3.0" prefWidth="46.0" text="ID" />
-                                    <TableColumn fx:id="feeTypeColName" prefWidth="150.0" text="Name" />
-                                    <TableColumn fx:id="feeTypeColDescr" prefWidth="250.0" text="Description" />
-                                    <TableColumn fx:id="feeTypeColAmt" prefWidth="101.0" text="Amount" />
-                                    <TableColumn fx:id="feeTypeColIsPer" prefWidth="100.0" text="Is Percent?" />
-                                    <TableColumn fx:id="feeTypeColIsAdd" prefWidth="100.0" text="Is Additional?" />
-                                    <TableColumn fx:id="feeTypeColIsCustom" prefWidth="100.0" text="Is Custom?" />
-                                 </columns>
-                              </TableView>
-                           </center>
-                           <left>
-                              <VBox alignment="CENTER" minWidth="-Infinity" prefHeight="323.0" prefWidth="300.0" BorderPane.alignment="CENTER">
-                                 <children>
-                                    <Label text="All Fees:">
-                                       <VBox.margin>
-                                          <Insets bottom="5.0" />
-                                       </VBox.margin>
-                                    </Label>
-                                    <Label text="Find Fee:">
-                                       <VBox.margin>
-                                          <Insets bottom="5.0" top="5.0" />
-                                       </VBox.margin>
-                                    </Label>
-                                    <TextField fx:id="feeSearchTxt" />
-                                    <Button fx:id="newFeeBtn" mnemonicParsing="false" onAction="#newFeeClick" text="Create Fee">
-                                       <VBox.margin>
-                                          <Insets top="5.0" />
-                                       </VBox.margin>
-                                    </Button>
-                                    <Button fx:id="editFeeBtn" mnemonicParsing="false" onAction="#editFeeClick" text="Edit Fee">
-                                       <VBox.margin>
-                                          <Insets top="5.0" />
-                                       </VBox.margin>
-                                    </Button>
-                                    <Button fx:id="examFeeBtn" mnemonicParsing="false" text="Examine Fee">
-                                       <VBox.margin>
-                                          <Insets top="5.0" />
-                                       </VBox.margin>
-                                    </Button>
-                                    <Button fx:id="delFeeBtn" mnemonicParsing="false" text="Delete Fee">
+                                    <Button fx:id="delAcctBtn" mnemonicParsing="false" onAction="#delAcctClick" text="Delete Account">
                                        <VBox.margin>
                                           <Insets top="5.0" />
                                        </VBox.margin>
@@ -342,7 +294,7 @@
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab fx:id="usersTab" text="Users Overview">
+            <Tab fx:id="usersTab" text="Users Manager">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -363,17 +315,6 @@
                            <left>
                               <VBox alignment="CENTER" minWidth="-Infinity" prefHeight="323.0" prefWidth="300.0" BorderPane.alignment="CENTER">
                                  <children>
-                                    <Label text="All Users:">
-                                       <VBox.margin>
-                                          <Insets bottom="5.0" />
-                                       </VBox.margin>
-                                    </Label>
-                                    <Label text="Find User:">
-                                       <VBox.margin>
-                                          <Insets bottom="5.0" top="5.0" />
-                                       </VBox.margin>
-                                    </Label>
-                                    <TextField fx:id="userSearchTxt" />
                                     <Button fx:id="newUserBtn" mnemonicParsing="false" onAction="#newUserClick" text="Create User">
                                        <VBox.margin>
                                           <Insets top="5.0" />
@@ -402,7 +343,56 @@
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab fx:id="codesTab" text="Codes Overview">
+            <Tab fx:id="feesTab" text="Fees Manager">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <BorderPane layoutX="61.0" layoutY="29.0" prefHeight="323.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <center>
+                              <TableView fx:id="feeTypeTbl" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                 <columns>
+                                    <TableColumn fx:id="feeTypeColID" minWidth="3.0" prefWidth="46.0" text="ID" />
+                                    <TableColumn fx:id="feeTypeColName" prefWidth="150.0" text="Name" />
+                                    <TableColumn fx:id="feeTypeColDescr" prefWidth="250.0" text="Description" />
+                                    <TableColumn fx:id="feeTypeColAmt" prefWidth="101.0" text="Amount" />
+                                    <TableColumn fx:id="feeTypeColIsPer" prefWidth="100.0" text="Is Percent?" />
+                                    <TableColumn fx:id="feeTypeColIsAdd" prefWidth="100.0" text="Is Additional?" />
+                                    <TableColumn fx:id="feeTypeColIsCustom" prefWidth="100.0" text="Is Custom?" />
+                                 </columns>
+                              </TableView>
+                           </center>
+                           <left>
+                              <VBox alignment="CENTER" minWidth="-Infinity" prefHeight="323.0" prefWidth="300.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <Button fx:id="newFeeBtn" mnemonicParsing="false" onAction="#newFeeClick" text="Create Fee">
+                                       <VBox.margin>
+                                          <Insets top="5.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                    <Button fx:id="editFeeBtn" mnemonicParsing="false" onAction="#editFeeClick" text="Edit Fee">
+                                       <VBox.margin>
+                                          <Insets top="5.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                    <Button fx:id="examFeeBtn" mnemonicParsing="false" text="Examine Fee">
+                                       <VBox.margin>
+                                          <Insets top="5.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                    <Button fx:id="delFeeBtn" mnemonicParsing="false" text="Delete Fee">
+                                       <VBox.margin>
+                                          <Insets top="5.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                 </children>
+                              </VBox>
+                           </left>
+                        </BorderPane>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab fx:id="codesTab" text="Codes Manager">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -419,17 +409,6 @@
                            <left>
                               <VBox alignment="CENTER" minWidth="-Infinity" prefHeight="323.0" prefWidth="300.0" BorderPane.alignment="CENTER">
                                  <children>
-                                    <Label text="All Codes:">
-                                       <VBox.margin>
-                                          <Insets bottom="5.0" />
-                                       </VBox.margin>
-                                    </Label>
-                                    <Label text="Find Fee:">
-                                       <VBox.margin>
-                                          <Insets bottom="5.0" top="5.0" />
-                                       </VBox.margin>
-                                    </Label>
-                                    <TextField fx:id="feeSearchTxt1" />
                                     <Button fx:id="newCodeBtn" mnemonicParsing="false" onAction="#newCodeClick" text="Create Code">
                                        <VBox.margin>
                                           <Insets top="5.0" />
@@ -458,115 +437,6 @@
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab fx:id="transTab" text="Transactions Overview">
-               <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <BorderPane layoutX="61.0" layoutY="29.0" prefHeight="323.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <center>
-                              <TableView fx:id="transTbl" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                                 <columns>
-                                    <TableColumn fx:id="transColID" minWidth="3.0" prefWidth="50.0" text="ID" />
-                                    <TableColumn fx:id="transColAcctID" minWidth="3.0" prefWidth="50.0" text="Acct ID" />
-                                    <TableColumn fx:id="transColUserID" prefWidth="50.0" text="User ID" />
-                                    <TableColumn fx:id="transColDate" minWidth="3.0" prefWidth="50.0" text="Date" />
-                                    <TableColumn fx:id="transColCode" minWidth="3.0" prefWidth="75.0" text="Code" />
-                                    <TableColumn fx:id="transColSubTotal" prefWidth="75.0" text="SubTotal" />
-                                    <TableColumn fx:id="transColFeeTotal" prefWidth="75.0" text="FeeTotal" />
-                                    <TableColumn fx:id="transColTotal" prefWidth="75.0" text="Total" />
-                                    <TableColumn fx:id="transColDescr" prefWidth="300.0" text="Description" />
-                                    <TableColumn fx:id="transColOtherParty" prefWidth="125.0" text="Other Party" />
-                                    <TableColumn fx:id="transColBal" prefWidth="75.0" text="Balance" />
-                                    <TableColumn fx:id="transColIsExpense" minWidth="3.0" prefWidth="50.0" text="Expense?" />
-                                    <TableColumn fx:id="transColPaidFee" minWidth="3.0" prefWidth="50.0" text="Paid Fee?" />
-                                 </columns>
-                              </TableView>
-                           </center>
-                           <left>
-                              <VBox alignment="CENTER" minWidth="-Infinity" prefHeight="323.0" prefWidth="300.0" BorderPane.alignment="CENTER">
-                                 <children>
-                                    <Label text="Sort Transactions by Account:">
-                                       <VBox.margin>
-                                          <Insets bottom="5.0" />
-                                       </VBox.margin>
-                                    </Label>
-                                    <ListView fx:id="transAcctList" minHeight="-Infinity" prefHeight="300.0" prefWidth="203.0" />
-                                    <Label text="Find Transaction:">
-                                       <VBox.margin>
-                                          <Insets bottom="5.0" top="5.0" />
-                                       </VBox.margin>
-                                    </Label>
-                                    <TextField fx:id="transSearchTxt" />
-                                    <Button fx:id="delTransBtn1" mnemonicParsing="false" text="Delete/Reverse Transaction">
-                                       <VBox.margin>
-                                          <Insets top="5.0" />
-                                       </VBox.margin>
-                                    </Button>
-                                    <Button fx:id="editTransBtn1" mnemonicParsing="false" text="Edit Transaction">
-                                       <VBox.margin>
-                                          <Insets top="5.0" />
-                                       </VBox.margin>
-                                    </Button>
-                                    <Button fx:id="examTransBtn1" mnemonicParsing="false" text="Examine Transaction">
-                                       <VBox.margin>
-                                          <Insets top="5.0" />
-                                       </VBox.margin>
-                                    </Button>
-                                 </children>
-                              </VBox>
-                           </left>
-                        </BorderPane>
-                     </children>
-                  </AnchorPane>
-               </content>
-            </Tab>
-            <Tab fx:id="permissionTab" text="Permissions">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <GridPane layoutX="-6.0" prefHeight="304.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                          <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="145.0" minWidth="0.0" prefWidth="31.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="299.0" minWidth="10.0" prefWidth="221.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="222.0" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="317.0" minWidth="10.0" prefWidth="225.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="264.0" minWidth="10.0" prefWidth="27.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                              <RowConstraints maxHeight="97.0" minHeight="10.0" prefHeight="46.0" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="97.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="153.0" minHeight="10.0" prefHeight="124.0" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="132.0" minHeight="10.0" prefHeight="39.0" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="63.0" minHeight="10.0" prefHeight="63.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
-                           <children>
-                              <Button fx:id="toAllowedBtn" mnemonicParsing="false" onAction="#allowedBtnClick" text="&gt;&gt;" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
-                              <Button fx:id="toBlockedBtn" mnemonicParsing="false" onAction="#blockedBtnClick" text="&lt;&lt;" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                              <Label prefHeight="18.0" prefWidth="67.0" text="All Users" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
-                              <Label prefHeight="18.0" prefWidth="99.0" text="Allowed Users" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="permissionAcctLbl" prefHeight="27.0" prefWidth="216.0" text="Choose an Account" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Label>
-                              <Button fx:id="acctPermissionBtn" mnemonicParsing="false" onAction="#acctPermissionClick" prefHeight="27.0" prefWidth="190.0" text="Select Account" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
-                              <ChoiceBox fx:id="acctDropDown" prefHeight="27.0" prefWidth="221.0" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
-                              <ListView fx:id="blockedList" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <ListView fx:id="allowedList" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                           </children>
-                        </GridPane>
-                     </children>
-                  </AnchorPane>
-              </content>
-            </Tab>
         </tabs>
       </TabPane>
    </center>
@@ -589,16 +459,27 @@
                     <menus>
                       <Menu mnemonicParsing="false" text="File">
                         <items>
-                          <MenuItem mnemonicParsing="false" text="Close" />
+                              <MenuItem fx:id="saveMenuItem" mnemonicParsing="false" onAction="#saveClick" text="Save" />
+                              <MenuItem fx:id="reconcileMenuItem" mnemonicParsing="false" onAction="#reconcileClick" text="Reconcile" />
+                              <MenuItem fx:id="logoutMenuItem" mnemonicParsing="false" onAction="#logoutClick" text="Logout" />
+                          <MenuItem fx:id="closeMenuItem" mnemonicParsing="false" onAction="#closeClick" text="Close" />
                         </items>
                       </Menu>
-                      <Menu mnemonicParsing="false" text="Benefits Calc">
+                      <Menu mnemonicParsing="false" text="Tools">
                            <items>
                               <MenuItem fx:id="benCalcMenuItem" mnemonicParsing="false" onAction="#benCalcClick" text="Benefits Calc" />
+                              <MenuItem fx:id="colorMenuItem" mnemonicParsing="false" onAction="#colorClick" text="Color Schemes" />
                            </items></Menu>
+                        <Menu mnemonicParsing="false" text="Reports">
+                          <items>
+                            <MenuItem fx:id="statementMenuItem" mnemonicParsing="false" onAction="#statementClick" text="Income Statement" />
+                          </items>
+                        </Menu>
                       <Menu mnemonicParsing="false" text="Help">
                         <items>
-                          <MenuItem mnemonicParsing="false" text="About" />
+                              <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#helpClick" text="Help" />
+                              <MenuItem fx:id="docMenuItem" mnemonicParsing="false" onAction="#docClick" text="Documentation" />
+                          <MenuItem fx:id="aboutMenuItem" mnemonicParsing="false" onAction="#aboutClick" text="About" />
                         </items>
                       </Menu>
                     </menus>

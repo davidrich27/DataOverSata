@@ -6,14 +6,28 @@ DONE:
 + Fee Class
 + UserAcctManagerTXT Class
 + DataManagerTXT Class
-+ ModelTXT
++ ModelTXT Class
++ Code Class
++ "create" dialogs
++ "edit" dialogs
 
 TO DO:
 - Edit methods for Model
-- Delete methods for Model
+- Delete/Retirement methods for Model
+- Move permissions to dialog box in 'Accounts Overview' tab
+- Make retirement/recovery tab
+- CSS stylesheet
+- Help Menu
+- Forgot Password?
+- Generate Reports in PDF
+- Encrypt data
 
 OTHER:
 - Currently need to comment out import and packages to run unit tests (fixable?)
-- Getting All Accts by User and All Transactions by Account are O(n) operations
-- Generic Uniqueness Test doesn't search but iterates over all, so O(n) operation.  Could make binary search.
-- Implementing BSTs might be more efficient than ArrayLists
+- Getting All Accts by User and All Transactions by Account are O(n) operations.  Will be O(lg n) with sorting can be binary search.
+- Generic Uniqueness Test doesn't search but iterates over all, so O(n) operation.  Will be O(lg n) with binary search.
+- Implementing BSTs (Hash Table) might be more efficient than ArrayLists
+- Possibly make transactions write to different files for each account?
+
+KNOWN ISSUES:
+- Doesn't check for uniqueness when editing usernames and account names
