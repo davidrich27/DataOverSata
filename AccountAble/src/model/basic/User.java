@@ -2,6 +2,13 @@ package model.basic;
 
 import java.util.*;
 
+import javax.crypto.spec.PBEKeySpec;
+import javax.crypto.SecretKeyFactory;
+import java.security.spec.InvalidKeySpecException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.math.BigInteger;
+
 public class User implements Comparable<User> {
   private int id;
   private String username, pwd;
@@ -39,13 +46,13 @@ public class User implements Comparable<User> {
   public void setUsername(String username){
     this.username = username;
   }
-  public boolean testPwd(String test){
+  public boolean testPwd(String test) throws NoSuchAlgorithmException, InvalidKeySpecException{
     return (test.equals(pwd));
   }
   public String getPwd(){
     return pwd;
   }
-  public void setPwd(String pwd){
+  public void setPwd(String pwd) throws NoSuchAlgorithmException, InvalidKeySpecException{
     this.pwd = pwd;
   }
   public String[] getName(){
@@ -133,7 +140,7 @@ public class User implements Comparable<User> {
   }
 
   // Login
-  public boolean login(String username, String pwd){
+  public boolean login(String username, String pwd) throws InvalidKeySpecException, NoSuchAlgorithmException{
     username = username.toLowerCase();
     if (this.username.equals(username)){
       return testPwd(pwd);
@@ -144,6 +151,48 @@ public class User implements Comparable<User> {
   public String toString(){
     return username;
   }
+
+  // ************************ Password Hashing *******************************************
+
+  /* Example
+  String originalPassword = "password";
+  String generatedSecuredPasswordHash = generateStrongPasswordHash(originalPassword);
+  System.out.println(generatedSecuredPasswordHash);
+  */
+
+  public static String generateStrongPasswordHash(String password) throws NoSuchAlgorithmException, InvalidKeySpecException
+  {
+      int iterations = 1000;
+      char[] chars = password.toCharArray();
+      byte[] salt = getSalt();
+
+      PBEKeySpec spec = new PBEKeySpec(chars, salt, iterations, 64 * 8);
+      SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+      byte[] hash = skf.generateSecret(spec).getEncoded();
+      return iterations + ":" + toHex(salt) + ":" + toHex(hash);
+  }
+  private static byte[] getSalt() throws NoSuchAlgorithmException
+  {
+      SecureRandom sr = SecureRandom.getInstance("SHA1PRNG");
+      byte[] salt = new byte[16];
+      sr.nextBytes(salt);
+      return salt;
+  }
+
+  private static String toHex(byte[] array) throws NoSuchAlgorithmException
+  {
+      BigInteger bi = new BigInteger(1, array);
+      String hex = bi.toString(16);
+      int paddingLength = (array.length * 2) - hex.length();
+      if(paddingLength > 0)
+      {
+          return String.format("%0"  +paddingLength + "d", 0) + hex;
+      } else {
+          return hex;
+      }
+  }
+
+  // ************************** Demos / Unit Tests *******************************
 
   // Print Demo
   public void printInfo(){
@@ -157,41 +206,5 @@ public class User implements Comparable<User> {
 
   // Unit Test
   public static void main(String[] args){
-    User testUser = new User(1, "John123", "12345", "Johnny", "Rotten", "jr@pistols.com", "(406)393-2091", true);
-    testUser.printInfo();
-    // Test equality and compare
-    User testUser2 = new User(-1, "john123");
-    System.out.println("Are they equal? " + testUser.equals(testUser2));
-    System.out.println("How do they compare (default ID)? " + testUser.compareTo(testUser2));
-    System.out.println("");
-
-    ArrayList<User> testList = new ArrayList<User>();
-      User tempUser;
-      tempUser = new User(7, "davey123", "pwd", "Dave", "Rich", "dave@gmail.com", "(406)555-1209", false);
-      testList.add(tempUser);
-      tempUser = new User(22, "trish123", "pwd", "Patricia", "Duce", "p.Duce@gmail.com", "(406)555-1234", false);
-      testList.add(tempUser);
-      tempUser = new User(32, "admin", "pwd", "Robyn", "Berg", "robyn@gmail.com", "(406)777-4567", true);
-      testList.add(tempUser);
-    // Sorting Tests
-    System.out.println("INPUT ORDER:");
-    for (User user : testList){
-      user.printInfo();
-    }
-    System.out.println("DEFAULT SORT (ID):");
-    Collections.sort(testList);
-    for (User user : testList){
-      user.printInfo();
-    }
-    System.out.println("USERNAME SORT:");
-    Collections.sort(testList, User.BY_USERNAME());
-    for (User user : testList){
-      user.printInfo();
-    }
-    System.out.println("NAME SORT:");
-    Collections.sort(testList, User.BY_NAME());
-    for (User user : testList){
-      user.printInfo();
-    }
   }
 }

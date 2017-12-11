@@ -6,6 +6,8 @@ import model.manager.*;
 import java.util.*;
 import java.time.LocalDateTime;
 import java.time.LocalDate;
+import java.security.spec.InvalidKeySpecException;
+import java.security.NoSuchAlgorithmException;
 
 public class ModelTXT {
   public UserAcctManagerTXT uaManager;
@@ -91,7 +93,7 @@ public class ModelTXT {
   }
 
   // LOGIN
-  public boolean testLogin(String username, String pwd){
+  public boolean testLogin(String username, String pwd) throws NoSuchAlgorithmException, InvalidKeySpecException{
     User tempUser = uaManager.getUserByUsername(username);
     if (tempUser != null){
       System.out.println("Found user...");
@@ -208,7 +210,7 @@ public class ModelTXT {
     return false;
   }
   // EDIT
-  public boolean editUser(int id, String username, String pwd, String firstName, String lastName, String email, String phone, boolean admin){
+  public boolean editUser(int id, String username, String pwd, String firstName, String lastName, String email, String phone, boolean admin) throws InvalidKeySpecException, NoSuchAlgorithmException{
     int userID = uaManager.editUserByID(id, username, pwd, firstName, lastName, email, phone, admin);
     if (userID > -1){
       dataManager.writeManagerUsersToFile(uaManager);
@@ -344,26 +346,6 @@ public class ModelTXT {
     dataManager.printInfo();
   }
 
-  public static void main(String[] args){
-    ModelTXT model = new ModelTXT();
-
-    model.printInfo();
-
-    model.addNewUser("davey123", "pwd", "Dave", "Rich", "dave@gmail.com", "(406)555-1209", false);
-    model.addNewUser("trish123", "pwd", "Patricia", "Duce", "p.Duce@gmail.com", "(406)555-1234", false);
-    model.addNewUser("admin", "pwd", "Robyn", "Berg", "robyn@gmail.com", "(406)777-4567", true);
-    model.addNewUser("csadmin", "cs323", "Default", "Default", "csadmin323@umt.edu", "(790)604-4060", true);
-
-    // model.addNewAcct("Master Account", "Where all the Money Goes...", 1000, 50);
-    // model.addNewAcct("Offshore Account", "Shhh...", 9999999.99, 9999999.99);
-    //
-    // model.addNewAccess(1, 1);
-    // model.addNewAccess(2, 1);
-
-    model.printInfo();
-    model.saveAll();
-
-    boolean test = model.testLogin("davey123", "pwd");
-    System.out.println(test);
+  public static void main(String[] args) throws InvalidKeySpecException, NoSuchAlgorithmException{
   }
 }

@@ -4,9 +4,22 @@ import model.master.*;
 
 import java.time.LocalDateTime;
 import java.time.LocalDate;
+import java.security.spec.InvalidKeySpecException;
+import java.security.NoSuchAlgorithmException;
 
 public class ModelTestClient{
-  public static void main(String[] args){
+  public static void main(String[] args) throws InvalidKeySpecException, NoSuchAlgorithmException{
+    String pwd1 = User.generateStrongPasswordHash("this is a test");
+    String pwd2 = User.generateStrongPasswordHash("this is a test");
+
+    if (pwd1.equals(pwd2)) {
+      System.out.println("They are equal!");
+    } else {
+      System.out.println("They are not equal...");
+    }
+  }
+
+  static void unitTest1() throws InvalidKeySpecException, NoSuchAlgorithmException {
     ModelTXT model = new ModelTXT();
 
     model.printInfo();

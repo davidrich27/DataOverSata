@@ -4,6 +4,9 @@ import model.basic.*;
 import model.manager.*;
 import model.master.*;
 
+import java.security.spec.InvalidKeySpecException;
+import java.security.NoSuchAlgorithmException;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -107,13 +110,13 @@ public class UserCreateController {
       }
     }
     public void setupExam(User selected){
-      
+
     }
 
     // ************************** Other Events ************************************
 
     @FXML
-    void confirmClick(ActionEvent event) {
+    void confirmClick(ActionEvent event) throws InvalidKeySpecException, NoSuchAlgorithmException {
       if (mode.equals("create")){
         confirmCreate();
       } else if (mode.equals("edit")){
@@ -173,7 +176,7 @@ public class UserCreateController {
     }
 
 
-    void confirmEdit(){
+    void confirmEdit() throws InvalidKeySpecException, NoSuchAlgorithmException{
       int id = selectedUser.getID();
       String username = usernameTxt.getText();
       String pwd = newPwdTxt1.getText();

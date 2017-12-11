@@ -5,6 +5,8 @@ import model.basic.*;
 import java.util.*;
 import java.time.LocalDateTime;
 import java.time.LocalDate;
+import java.security.spec.InvalidKeySpecException;
+import java.security.NoSuchAlgorithmException;
 
 public class UserAcctManagerTXT{
   private int userIDgen, acctIDgen, transIDgen, feeTypeIDgen, codeIDgen, user_acctIDgen, acct_transIDgen;   // Generates unique IDs for all arraylist entries
@@ -269,7 +271,7 @@ public class UserAcctManagerTXT{
   }
 
   // EDIT (BY ID)
-  public int editUserByID(int id, String username, String pwd, String firstName, String lastName, String email, String phone, boolean admin){
+  public int editUserByID(int id, String username, String pwd, String firstName, String lastName, String email, String phone, boolean admin) throws InvalidKeySpecException, NoSuchAlgorithmException{
     User gotUser = getUserByID(id);
     if (gotUser == null){
       System.out.println("Error: User does not exist.");

@@ -4,6 +4,9 @@ import model.basic.*;
 import model.manager.*;
 import model.master.*;
 
+import java.security.spec.InvalidKeySpecException;
+import java.security.NoSuchAlgorithmException;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -93,7 +96,7 @@ public class ChangeInfoController {
     // ************************** Other Events ************************************
 
     @FXML
-    void confirmClick(ActionEvent event) {
+    void confirmClick(ActionEvent event) throws InvalidKeySpecException, NoSuchAlgorithmException {
       String pwd = loginUser.getPwd();
       if (!pwd.equals(oldPwdTxt.getText())){
         warningLbl.setVisible(true);

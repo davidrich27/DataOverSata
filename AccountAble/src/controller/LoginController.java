@@ -4,6 +4,8 @@ import model.manager.*;
 import model.master.*;
 
 import java.util.*;
+import java.security.spec.InvalidKeySpecException;
+import java.security.NoSuchAlgorithmException;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -64,7 +66,7 @@ public class LoginController{
   //************************* Button Events *********************************************
 
   @FXML
-  private void handleLogin(ActionEvent event) {
+  private void handleLogin(ActionEvent event) throws InvalidKeySpecException, NoSuchAlgorithmException{
     String username = usernameTxt.getText();
     String pwd = pwdTxt.getText();
     boolean success = model.testLogin(username, pwd);

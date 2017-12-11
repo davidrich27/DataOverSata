@@ -649,7 +649,7 @@ public class AdminController {
   void docClick(ActionEvent event) {
     if (Desktop.isDesktopSupported()) {
       try {
-          File myFile = new File("../docs/test.pdf");
+          File myFile = new File("../docs/System_Documentation.pdf");
           Desktop.getDesktop().open(myFile);
       } catch (IOException ex) {
           // no application registered for PDFs

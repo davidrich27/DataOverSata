@@ -22,6 +22,8 @@ public class DataManagerTXT {
     this.user_acctPath = "../data/User_Account.txt";
     this.acct_transPath = "../data/Account_Transaction.txt";
     this.idPath = "../data/ID.txt";
+
+    initCipher();
   }
   // Custom Paths
   public DataManagerTXT(String userPath, String acctPath, String transPath, String feeTypePath, String codePath, String user_acctPath, String acct_transPath, String idPath){
@@ -481,6 +483,10 @@ public class DataManagerTXT {
   }
 
   //****************** ENCRYPTION / DECRYPTION **********************************
+
+  public void initCipher(){
+
+  }
 
   public String encrypt(String input){
     return "";
