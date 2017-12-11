@@ -26,11 +26,11 @@ public class UserAcctManagerTXT{
     codes = new ArrayList<Code>();
     user_acct = new ArrayList<Link>();
     acct_trans = new ArrayList<Link>();
-    userIDgen = 0;
-    acctIDgen = 0;
-    user_acctIDgen = 0;
-    acct_transIDgen = 0;
-    masterAcct = new Account(-1, "Master Account", "Running Total of All Transactions from All Accounts.");
+    userIDgen = 1000;
+    acctIDgen = 1000;
+    user_acctIDgen = 1000;
+    acct_transIDgen = 1000;
+    masterAcct = new Account(-0, "Master Account", "Running Total of All Transactions from All Accounts.");
   }
   // SETTERS & GETTERS
   // Sets current value for
@@ -70,12 +70,27 @@ public class UserAcctManagerTXT{
     }
     // run through all trans and add them to proper accts
     for (Transaction tran : trans){
+      // Find associated account
       Account acct = getAcctByID(tran.getAcctID());
-
+      // Add trans subTotal (before fees) to main balance
+      Double subTotal = tran.getSubTotal();
+      Double feeTotal = tran.getFeeTotal();
+      // newBal = oldBal + transSubTotal
+      acct.setBalance(acct.getBalance() + subTotal);
+      masterAcct.setBalance(masterAcct.getBalance() + subTotal);
+      // newAvailBal = oldAvailBal + transSubTotal + feeTotal
+      acct.setAvailBalance(acct.getAvailBalance() + subTotal);
+      masterAcct.setAvailBalance(masterAcct.getAvailBalance() + subTotal);
+      // If fee not paid, add it to fee balance and available balance
+      if (!tran.getPaidFee()){
+        acct.setAvailBalance(acct.getAvailBalance() + feeTotal);
+        masterAcct.setAvailBalance(masterAcct.getAvailBalance() + feeTotal);
+        acct.setFeesBalance(acct.getFeesBalance() + feeTotal);
+        masterAcct.setFeesBalance(masterAcct.getFeesBalance() + feeTotal);
+      }
+      // Update trans to have new postAcctBal (running balance)
+      tran.setAcctBal(acct.getBalance());
     }
-  }
-  // recalc fees based on current fee properties
-  public void reconcileFees(Transaction trans){
   }
 
   // Add NEW (returns FALSE if isUnique=F and Add fails) (Returns ID given to NEW object)
@@ -278,7 +293,7 @@ public class UserAcctManagerTXT{
     gotAcct.setDescr(descr);
     return id;
   }
-  public int editTransByID(int id, int acctId, int userId, int codeId, double subTotal, double feeTotal, double total, String otherParty, String descr, LocalDateTime dateEntry, LocalDate dateSale, boolean isExpense, boolean paidFee){
+  public int editTransByID(int id, int acctId, int userId, int codeId, double subTotal, double feeTotal, double acctBal, String otherParty, String descr, LocalDateTime dateEntry, LocalDate dateSale, boolean isExpense, boolean paidFee){
     Transaction gotTrans = getTransByID(id);
     if (gotTrans == null){
       System.out.println("Error: Transaction does not exist.");
@@ -289,7 +304,7 @@ public class UserAcctManagerTXT{
     gotTrans.setCodeID(codeId);
     gotTrans.setSubTotal(subTotal);
     gotTrans.setFeeTotal(feeTotal);
-    gotTrans.setFeeTotal(total);
+    gotTrans.setAcctBal(acctBal);
     gotTrans.setOtherParty(otherParty);
     gotTrans.setDescr(descr);
     gotTrans.setDateEntry(dateEntry);
@@ -330,9 +345,6 @@ public class UserAcctManagerTXT{
     if (index < 0){
       return -1;
     }
-    // change all transactions associated with user to default [deleted user]
-    //
-    // delete all user_acct links associated with user
     ArrayList<Integer> userLinks = getAllUser_AcctByUserID(id);
     for (Integer linkID : userLinks){
       deleteUser_AcctByID(linkID);
@@ -531,10 +543,9 @@ public class UserAcctManagerTXT{
   // GET ALL TRANSACTIONS BY ACCOUNT ID
   public ArrayList<Integer> getAllTransByAcctID(int acctID){
     ArrayList<Integer> transactions = new ArrayList<Integer>();
-    for (Link link : acct_trans){
-      if (link.getIdA() == acctID){
-        Integer tran = link.getIdB();
-        transactions.add(tran);
+    for (Transaction tran : trans){
+      if (tran.getAcctID().equals(acctID)){
+        transactions.add(tran.getID());
       }
     }
     return transactions;

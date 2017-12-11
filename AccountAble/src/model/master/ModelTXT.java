@@ -19,6 +19,7 @@ public class ModelTXT {
     dataManager = new DataManagerTXT(userPath, acctPath, transPath, feeTypePath, codePath, user_acctPath, acct_transPath, idPath);
 
     loadAll();
+    reconcileAll();
   }
   // Default Paths
   public ModelTXT(){
@@ -176,8 +177,8 @@ public class ModelTXT {
     return false;
   }
   // For FEE CALCULATED BEFOREHAND
-  public boolean addNewTrans(int acctId, int userId, int codeId, double subTotal, double feeTotal, double acctTotal, String otherParty, String descr, LocalDateTime dateEntry, LocalDate dateSale, boolean isExpense, boolean paidFee){
-    int transID = uaManager.addTrans(acctId, userId, codeId, subTotal, feeTotal, acctTotal, otherParty, descr, dateEntry, dateSale, isExpense, paidFee);
+  public boolean addNewTrans(int acctId, int userId, int codeId, double subTotal, double feeTotal, double acctBal, String otherParty, String descr, LocalDateTime dateEntry, LocalDate dateSale, boolean isExpense, boolean paidFee){
+    int transID = uaManager.addTrans(acctId, userId, codeId, subTotal, feeTotal, acctBal, otherParty, descr, dateEntry, dateSale, isExpense, paidFee);
     if (transID > -1){
       Transaction trans = uaManager.getTransByID(transID);
       saveTrans(trans);
@@ -223,8 +224,8 @@ public class ModelTXT {
     }
     return false;
   }
-  public boolean editTrans(int id, int acctId, int userId, int codeId, double subTotal, double feeTotal, double total, String otherParty, String descr, LocalDateTime dateEntry, LocalDate dateSale, boolean isExpense, boolean paidFee){
-    int transID = uaManager.editTransByID(id, acctId, userId, codeId, subTotal, feeTotal, total, otherParty, descr, dateEntry, dateSale, isExpense, paidFee);
+  public boolean editTrans(int id, int acctId, int userId, int codeId, double subTotal, double feeTotal, double acctBal, String otherParty, String descr, LocalDateTime dateEntry, LocalDate dateSale, boolean isExpense, boolean paidFee){
+    int transID = uaManager.editTransByID(id, acctId, userId, codeId, subTotal, feeTotal, acctBal, otherParty, descr, dateEntry, dateSale, isExpense, paidFee);
     if (transID > -1){
       dataManager.writeManagerTransToFile(uaManager);
       return true;

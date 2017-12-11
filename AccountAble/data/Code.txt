@@ -1,2 +1,10 @@
-1,50001,Test Code 1
-2,50002,Test Code 2
+1001,50109,INCOME: Other Income
+1002,50287,INCOME: Credit Card Sales
+1003,61123,EXPENSE: Contract Faculty
+1004,61225,EXPENSE: Student
+1005,62210,EXPENSE: Minor Equipment
+1006,62241,EXPENSE: Office Supplies
+1007,62245,EXPENSE: Computer Equipment <$5:::000
+1008,62249,EXPENSE: Minor Software <$100:::000
+1009,62255,EXPENSE: Promotional Aids
+1010,62280,EXPENSE: Program Expense

@@ -91,7 +91,15 @@ public class TransCreateController {
   @FXML
   private Label warningLbl;
 
+  @FXML
+  private RadioButton feeYesRadio;
+
+  @FXML
+  private RadioButton feeNoRadio;
+
   private ToggleGroup expenseGroup;
+
+  private ToggleGroup feeGroup;
 
     // ************************** Model Variables *******************************
 
@@ -102,6 +110,7 @@ public class TransCreateController {
 
     User loginUser;
     Account selectedAcct;
+    Transaction selectedTrans;
     ArrayList<Account> currentAccts;
     String mode;
 
@@ -119,8 +128,12 @@ public class TransCreateController {
       expenseGroup = new ToggleGroup();
       expenseRadio.setToggleGroup(expenseGroup);
       depositRadio.setToggleGroup(expenseGroup);
-
       expenseRadio.setSelected(true);
+
+      feeGroup = new ToggleGroup();
+      feeYesRadio.setToggleGroup(feeGroup);
+      feeNoRadio.setToggleGroup(feeGroup);
+      feeNoRadio.setSelected(true);
     }
     public void setModel(ModelTXT model){
       this.model = model;
@@ -158,9 +171,50 @@ public class TransCreateController {
 
       popLists();
     }
-    void setupEdit(){
+    void setupEdit(Transaction selectedTrans){
+      this.selectedTrans = selectedTrans;
       setMode("edit");
+      titleLbl.setText("Edit Transaction");
 
+      // For editing, transaction cannot change accounts
+      selectedAcct = model.uaManager.getAcctByID(selectedTrans.getAcctID());
+      currentAccts = new ArrayList<Account>();
+      currentAccts.add(selectedAcct);
+      popLists();
+      // Find code in list and preselect
+      ArrayList<Code> codes = model.uaManager.getAllCodes();
+      for (int i=0; i<codes.size(); i++){
+        if (codes.get(i).getID().equals(selectedTrans.getCodeID())){
+          codeChoiceBx.getSelectionModel().select(i);
+        }
+      }
+      amountTxt.setText(selectedTrans.getSubTotal().toString());
+      descrTxt.setText(selectedTrans.getDescr());
+      otherPartyTxt.setText(selectedTrans.getOtherParty());
+      if (selectedTrans.getIsExpense()){
+        expenseRadio.setSelected(true);
+      } else {
+        depositRadio.setSelected(true);
+      }
+      if(selectedTrans.getPaidFee()){
+        feeYesRadio.setSelected(true);
+      } else {
+        feeNoRadio.setSelected(true);
+      }
+      datePicker.setValue(selectedTrans.getDateSale());
+
+      prevAcctBal = selectedTrans.getPrevAcctBal();
+      subTotal = selectedTrans.getSubTotal();
+      feeTotal = selectedTrans.getFeeTotal();
+      transTotal = selectedTrans.getTotal();
+      postAcctBal = selectedTrans.getAcctBal();
+      prevAcctBalLbl.setText(prevAcctBal.toString());
+      transSubTotalLbl.setText(subTotal.toString());
+      feesTotalLbl.setText(feeTotal.toString());
+      transTotalLbl.setText(transTotal.toString());
+      newAcctBalLbl.setText(postAcctBal.toString());
+
+      warningLbl.setText("NOTE: To make changes, you must re-input proper fees.");
     }
 
     void popLists(){
@@ -175,9 +229,15 @@ public class TransCreateController {
 
       ObservableList<Account> acctsObservable = FXCollections.observableArrayList(currentAccts);
       acctChoiceBx.setItems(acctsObservable);
+      for (int i=0; i<currentAccts.size(); i++){
+        if (currentAccts.get(i).equals(selectedAcct)){
+          acctChoiceBx.getSelectionModel().select(i);
+          break;
+        }
+      }
     }
 
-    // ************************** Other Events ************************************
+    // ************************** Button Events ************************************
 
     @FXML
     void confirmClick(ActionEvent event) {
@@ -192,22 +252,39 @@ public class TransCreateController {
 
     void confirmCreate(){
       calcFees();
-      //int acctId = acctChoiceBx.getSelectionModel().getSelectedItem().getID();
-      int acctId = selectedAcct.getID();
+      int acctId = acctChoiceBx.getSelectionModel().getSelectedItem().getID();
       int userId = loginUser.getID();
       int codeId = codeChoiceBx.getSelectionModel().getSelectedItem().getID();
-      double acctTotal = postAcctBal;
+      double acctBal = postAcctBal;
       String otherParty = otherPartyTxt.getText();
       String descr = descrTxt.getText();
       LocalDateTime dateEntry = LocalDateTime.now();
       LocalDate dateSale = datePicker.getValue();
       Boolean isExpense = expenseRadio.isSelected();
-      Boolean paidFee = false;
-      model.addNewTrans(acctId, userId, codeId, subTotal, feeTotal, acctTotal, otherParty, descr, dateEntry, dateSale, isExpense, paidFee);
+      Boolean paidFee = feeYesRadio.isSelected();
+      model.addNewTrans(acctId, userId, codeId, subTotal, feeTotal, acctBal, otherParty, descr, dateEntry, dateSale, isExpense, paidFee);
+
+      homeCtrl.reconcile();
+      homeCtrl.refresh();
     }
 
     void confirmEdit(){
+      calcFees();
+      int transID = selectedTrans.getID();
+      int acctId = acctChoiceBx.getSelectionModel().getSelectedItem().getID();
+      int userId = selectedTrans.getUserID();
+      int codeId = codeChoiceBx.getSelectionModel().getSelectedItem().getID();
+      double acctBal = postAcctBal;
+      String otherParty = otherPartyTxt.getText();
+      String descr = descrTxt.getText();
+      LocalDateTime dateEntry = LocalDateTime.now();
+      LocalDate dateSale = datePicker.getValue();
+      Boolean isExpense = expenseRadio.isSelected();
+      Boolean paidFee = feeYesRadio.isSelected();
+      model.editTrans(transID, acctId, userId, codeId, subTotal, feeTotal, acctBal, otherParty, descr, dateEntry, dateSale, isExpense, paidFee);
 
+      homeCtrl.reconcile();
+      homeCtrl.refresh();
     }
 
     @FXML
@@ -252,6 +329,8 @@ public class TransCreateController {
       newAcctBalLbl.setText(postAcctBal.toString());
     }
 
+    // ********************* Helper Functions ***********************************
+
     boolean checkFields(){
       return true;
     }
@@ -261,14 +340,21 @@ public class TransCreateController {
       feeTotal = 0.0;
       for (FeeType fee : feeTypeIn){
         if (fee.getIsPercent()) {
-          feeTotal += fee.getAmt() * subTotal * .01 * -1;
+          feeTotal += fee.getAmt() * subTotal * .01;
         } else {
           feeTotal += fee.getAmt();
+        }
+        if (feeTotal > 0){
+          feeTotal = feeTotal * -1;
         }
       }
       if (expenseRadio.isSelected()){
         if (subTotal > 0){
-          subTotal = subTotal*-1;
+          subTotal = subTotal * -1;
+        }
+      } else {
+        if (subTotal < 0){
+          subTotal = subTotal * -1;
         }
       }
       transTotal = subTotal + feeTotal;

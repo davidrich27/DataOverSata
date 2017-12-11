@@ -208,6 +208,11 @@
                                           <Insets top="5.0" />
                                        </VBox.margin>
                                     </Button>
+                                    <Button fx:id="examTransactionBtn" mnemonicParsing="false" onAction="#examTransactionClick" text="Examine Transaction">
+                                       <VBox.margin>
+                                          <Insets top="5.0" />
+                                       </VBox.margin>
+                                    </Button>
                                     <Button fx:id="delTransactionBtn" mnemonicParsing="false" onAction="#delTransactionClick" text="Delete Transaction">
                                        <VBox.margin>
                                           <Insets top="5.0" />
@@ -221,18 +226,18 @@
                                  <columns>
                                     <TableColumn fx:id="acctColID" minWidth="3.0" prefWidth="50.0" text="ID" />
                                     <TableColumn fx:id="acctColAcctID" minWidth="3.0" prefWidth="50.0" text="Acct ID" />
-                                    <TableColumn fx:id="acctColUserID" prefWidth="50.0" text="User ID" />
-                                    <TableColumn fx:id="acctColDateEntry" minWidth="3.0" prefWidth="50.0" text="Entry Date" />
-                                    <TableColumn fx:id="acctColDateSale" minWidth="3.0" prefWidth="50.0" text="Sale Date" />
-                                    <TableColumn fx:id="acctColCode" minWidth="3.0" prefWidth="75.0" text="Code" />
-                                    <TableColumn fx:id="acctColSubTotal" prefWidth="75.0" text="SubTotal" />
-                                    <TableColumn fx:id="acctColFeeTotal" prefWidth="75.0" text="FeeTotal" />
-                                    <TableColumn fx:id="acctColTotal" prefWidth="75.0" text="Total" />
-                                    <TableColumn fx:id="acctColDescr" prefWidth="300.0" text="Description" />
+                                    <TableColumn fx:id="acctColDateSale" minWidth="3.0" prefWidth="85.0" text="Sale Date" />
                                     <TableColumn fx:id="acctColOtherParty" prefWidth="125.0" text="Other Party" />
+                                    <TableColumn fx:id="acctColDescr" prefWidth="300.0" text="Description" />
+                                    <TableColumn fx:id="acctColSubTotal" prefWidth="75.0" text="Total" />
                                     <TableColumn fx:id="acctColBal" prefWidth="75.0" text="Balance" />
-                                    <TableColumn fx:id="acctColIsExpense" minWidth="3.0" prefWidth="50.0" text="Add New Transaction" />
-                                    <TableColumn fx:id="acctColPaidFee" minWidth="3.0" prefWidth="50.0" text="Paid Fee?" />
+                                    <TableColumn fx:id="acctColFeeTotal" prefWidth="75.0" text="Fee Total" />
+                                    <TableColumn fx:id="acctColTotal" prefWidth="75.0" text="Net Total" />
+                                    <TableColumn fx:id="acctColCode" minWidth="3.0" prefWidth="75.0" text="Code" />
+                                    <TableColumn fx:id="acctColUserID" prefWidth="75.0" text="User ID" />
+                                    <TableColumn fx:id="acctColDateEntry" minWidth="3.0" prefWidth="125.0" text="Entry Date" />
+                                    <TableColumn fx:id="acctColIsExpense" minWidth="3.0" prefWidth="85.0" text="Is Expense?" />
+                                    <TableColumn fx:id="acctColPaidFee" minWidth="3.0" prefWidth="75.0" text="Paid Fee?" />
                                  </columns>
                               </TableView>
                            </center>

@@ -272,6 +272,9 @@ public class AdminController {
       private TableColumn<Transaction, Double> acctColTotal;
 
       @FXML
+      private TableColumn<Transaction, Double> acctColBal;
+
+      @FXML
       private TableColumn<Transaction, Double> acctColAcctTotal;
 
       @FXML
@@ -358,14 +361,24 @@ public class AdminController {
   // ************************** Model Variables *******************************
 
   ModelTXT model;
-  Account master;
-
-  User currentUser;
-  ArrayList<Account> currentAccts;
+  Account masterAcct;
 
   Stage thisStage;
   Stage loginStage;
   LoginController loginCtrl;
+
+  User currentUser;
+  ArrayList<Account> currentAccts;
+  ArrayList<Transaction> currentTrans;
+
+  // filter mechanisms
+  LocalDate filterStartDate;
+  LocalDate filterEndDate;
+  Account filterAcct;
+  Account allAcct;
+  ArrayList<Transaction> filteredTrans;
+
+  // NOTE: May be able to declare ObservableLists at the beginning (no repop?)
 
   // ************************** Initialization and Wireup *********************
 
@@ -403,6 +416,7 @@ public class AdminController {
     acctColDateSale.setCellValueFactory(new PropertyValueFactory<Transaction, LocalDate>("DateSale"));
     acctColSubTotal.setCellValueFactory(new PropertyValueFactory<Transaction, Double>("SubTotal"));
     acctColFeeTotal.setCellValueFactory(new PropertyValueFactory<Transaction, Double>("FeeTotal"));
+    acctColBal.setCellValueFactory(new PropertyValueFactory<Transaction, Double>("AcctBal"));
     acctColTotal.setCellValueFactory(new PropertyValueFactory<Transaction, Double>("Total"));
     acctColDescr.setCellValueFactory(new PropertyValueFactory<Transaction, String>("Descr"));
     acctColOtherParty.setCellValueFactory(new PropertyValueFactory<Transaction, String>("OtherParty"));
@@ -432,32 +446,74 @@ public class AdminController {
     codeColDescr.setCellValueFactory(new PropertyValueFactory<Code, String>("Descr"));
   }
 
+  // *************************** Login ******************************************
+
+  public void login(User loginUser){
+    model.reconcileAll();
+
+    currentUser = loginUser;
+    currentAccts = model.uaManager.getAllAccts();
+    masterAcct = model.uaManager.getMasterAccount();
+
+    toggleAdminView();
+    resetText();
+    resetFactories();
+    getAcctAndTransLists();
+    repop();
+  }
+
+  // NOTE: Not efficient algorithm
+  public void getAcctAndTransLists(){
+    if (currentUser.getAdmin()){
+      currentAccts = model.uaManager.getAllAccts();
+      currentTrans = model.uaManager.getAllTransactions();
+    } else {
+      ArrayList<Integer> acctIDs = model.uaManager.getAllAcctByUserID(currentUser.getID());
+      ArrayList<Integer> transIDs = new ArrayList<Integer>();
+      currentAccts = new ArrayList<Account>();
+      currentTrans = new ArrayList<Transaction>();
+      for (int i=0; i<acctIDs.size(); i++){
+        System.out.println("Adding account #" + i);
+        currentAccts.add(model.uaManager.getAcctByID(acctIDs.get(i)));
+        ArrayList<Integer> tempTransIDs = model.uaManager.getAllTransByAcctID(acctIDs.get(i));
+        for (int j=0; j<tempTransIDs.size(); j++){
+          System.out.println("Adding trans #" + j);
+          transIDs.add(tempTransIDs.get(j));
+        }
+      }
+      for (int i=0; i<transIDs.size(); i++){
+        currentTrans.add(model.uaManager.getTransByID(transIDs.get(i)));
+      }
+    }
+
+  }
+
   // Populate Tables
   public void repop(){
-    ArrayList<User> users = model.uaManager.getAllUsers();
-    ObservableList<User> usersObservable = FXCollections.observableArrayList(users);
-    userTbl.setItems(usersObservable);
-
-    ArrayList<Transaction> acctTrans = model.uaManager.getAllTransactions();
-    ObservableList<Transaction> acctTransObservable = FXCollections.observableArrayList(acctTrans);
+    ObservableList<Transaction> acctTransObservable = FXCollections.observableArrayList(currentTrans);
     acctTbl.setItems(acctTransObservable);
 
-    ArrayList<Account> accts = model.uaManager.getAllAccts();
-    ObservableList<Account> acctsObservable = FXCollections.observableArrayList(accts);
+    ObservableList<Account> acctsObservable = FXCollections.observableArrayList(currentAccts);
+    acctsObservable.add(0, masterAcct);
     acctAllTbl.setItems(acctsObservable);
 
-    ArrayList<FeeType> feeTypes = model.uaManager.getAllFeeTypes();
-    ObservableList<FeeType> feeTypesObservable = FXCollections.observableArrayList(feeTypes);
-    feeTypeTbl.setItems(feeTypesObservable);
+    if (currentUser.getAdmin()){
+      ArrayList<User> users = model.uaManager.getAllUsers();
+      ObservableList<User> usersObservable = FXCollections.observableArrayList(users);
+      userTbl.setItems(usersObservable);
 
-    ArrayList<Code> codes = model.uaManager.getAllCodes();
-    ObservableList<Code> codesObservable = FXCollections.observableArrayList(codes);
-    codeTbl.setItems(codesObservable);
+      ArrayList<FeeType> feeTypes = model.uaManager.getAllFeeTypes();
+      ObservableList<FeeType> feeTypesObservable = FXCollections.observableArrayList(feeTypes);
+      feeTypeTbl.setItems(feeTypesObservable);
+
+      ArrayList<Code> codes = model.uaManager.getAllCodes();
+      ObservableList<Code> codesObservable = FXCollections.observableArrayList(codes);
+      codeTbl.setItems(codesObservable);
+    }
   }
 
   // Reset Texts
   public void resetText(){
-
     // Populate Text on Overview Tab
     greetingLbl.setText("Welcome Back, " + currentUser.getName()[0] + "!");
     usernameLbl.setText(currentUser.getUsername());
@@ -466,19 +522,20 @@ public class AdminController {
     emailLbl.setText(currentUser.getEmail());
     phoneLbl.setText(currentUser.getPhone());
     // Master Account Balances
-    master = model.uaManager.getMasterAccount();
-    masterBalanceLbl.setText(master.getBalance().toString());
-    feeBalanceLbl.setText(master.getFeesBalance().toString());
-    availBalanceLbl.setText(master.getAvailBalance().toString());
-
+    masterAcct = model.uaManager.getMasterAccount();
+    masterBalanceLbl.setText(masterAcct.getBalance().toString());
+    feeBalanceLbl.setText(masterAcct.getFeesBalance().toString());
+    availBalanceLbl.setText(masterAcct.getAvailBalance().toString());
     // Populate All Lists
     ObservableList<Account> acctsObservable = FXCollections.observableArrayList(currentAccts);
+    allAcct = new Account(-1, "ALL ACCOUNT TRANSACTIONS");
+    acctsObservable.add(0, allAcct);
     acctList.setItems(acctsObservable);
   }
 
   // NOTE: can't log out of account and log in to admin in same session
-  void toggleAdmin(Boolean admin){
-    if (!admin){
+  void toggleAdminView(){
+    if (!currentUser.getAdmin()){
       tabPane.getTabs().remove(usersTab);
       tabPane.getTabs().remove(acctAllTab);
       tabPane.getTabs().remove(feesTab);
@@ -495,16 +552,6 @@ public class AdminController {
     }
   }
 
-  public void login(User loginUser){
-    currentUser = loginUser;
-    currentAccts = model.uaManager.getAllAccts();
-
-    toggleAdmin(currentUser.getAdmin());
-    resetText();
-    resetFactories();
-    repop();
-  }
-
   // *********************** Refresh *********************************************
 
   // Refresh all dataViews
@@ -519,6 +566,26 @@ public class AdminController {
     acctAllTbl.refresh();
     // refresh all lists
     acctList.refresh();
+  }
+  // Reconcile Accounts to get Proper Balances
+  public void reconcile(){
+    model.reconcileAll();
+  }
+  // Filter Transactions by
+  public void filterTransactions(){
+    ArrayList<Transaction> trans = currentTrans;
+    filteredTrans = new ArrayList<Transaction>();
+    for (Transaction tran : trans){
+      if (filterAcct == null || filterAcct.getID().equals(tran.getAcctID())){
+        if (filterEndDate == null || (tran.getDateSale().isBefore(filterEndDate) || tran.getDateSale().equals(filterEndDate))){
+          if (filterStartDate == null || (tran.getDateSale().isAfter(filterStartDate) || tran.getDateSale().equals(filterStartDate))){
+            filteredTrans.add(tran);
+          }
+        }
+      }
+    }
+    ObservableList<Transaction> transObservable = FXCollections.observableArrayList(filteredTrans);
+    acctTbl.setItems(transObservable);
   }
 
   // ************************** Menu Events ***************************************
@@ -537,6 +604,8 @@ public class AdminController {
   @FXML
   void reconcileClick(ActionEvent event) {
     model.reconcileAll();
+    resetText();
+    repop();
   }
   @FXML
   void closeClick(ActionEvent event) {
@@ -565,6 +634,16 @@ public class AdminController {
 
   @FXML
   void helpClick(ActionEvent event) {
+    if (Desktop.isDesktopSupported()) {
+      try {
+          // Name of PDF File here (save in docs)
+          File myFile = new File("../docs/test.pdf");
+          Desktop.getDesktop().open(myFile);
+      } catch (IOException ex) {
+          // no application registered for PDFs
+          System.out.println("ERROR: Desktop not supported.");
+      }
+    }
   }
   @FXML
   void docClick(ActionEvent event) {
@@ -604,10 +683,18 @@ public class AdminController {
 
   @FXML
   void setAcctClick(ActionEvent event) throws Exception {
+    filterAcct = acctList.getSelectionModel().getSelectedItem();
+    if (filterAcct == null || filterAcct.equals(allAcct)){
+      filterAcct = null;
+    }
+    filterTransactions();
   }
 
   @FXML
   void acctHistoryClick(ActionEvent event) throws Exception {
+    filterStartDate = transHistStartPicker.getValue();
+    filterEndDate = transHistEndPicker.getValue();
+    filterTransactions();
   }
 
   @FXML
@@ -632,7 +719,22 @@ public class AdminController {
 
   @FXML
   void editTransactionClick(ActionEvent event) throws Exception {
-
+    Transaction selectedTrans = acctTbl.getSelectionModel().getSelectedItem();
+    if (selectedTrans != null) {
+      Stage newStage = new Stage();
+      FXMLLoader newLoader = new FXMLLoader(getClass().getResource("../view/ViewCreateTrans.fxml"));
+      Parent newRoot = newLoader.load();
+      Scene newScene = new Scene(newRoot);
+      newStage.setScene(newScene);
+      TransCreateController newCtrl = newLoader.<TransCreateController>getController();
+      newCtrl.setStage(newStage);
+      newCtrl.setHome(thisStage, this);
+      newCtrl.setModel(model);
+      newCtrl.setupEdit(selectedTrans);
+      newStage.show();
+    } else {
+      System.out.println("ERROR: Must select Account for Transaction to be entered.");
+    }
   }
 
   @FXML
@@ -660,6 +762,7 @@ public class AdminController {
         // ... user chose "One"
         if (model.deleteTrans(selected.getID())){
           System.out.println("Transaction #" + selected.getID() + " was deleted!");
+          reconcile();
           refresh();
         }
     } else {
@@ -752,11 +855,12 @@ public class AdminController {
     Account selected = acctAllTbl.getSelectionModel().getSelectedItem();
     if (selected != null){
       Alert alert = new Alert(AlertType.CONFIRMATION);
-      alert.setTitle("You are about to Delete a Transaction");
+      alert.setTitle("Deleting the '" + selected.getName() + "' Account");
       alert.setHeaderText("Warning: You are about to Delete a Transaction!");
-      alert.setContentText("This cannot be undone. Continue?");
+      alert.setContentText("Choose carefully - Deleting an account will also delete all Transactions for that account.  Retiring an account will make it no longer editable, but will stay in the system.");
 
       ButtonType delBtn = new ButtonType("Delete");
+      ButtonType retireBtn = new ButtonType("Retire");
       ButtonType cancelBtn = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
 
       alert.getButtonTypes().setAll(delBtn, cancelBtn);
@@ -768,6 +872,8 @@ public class AdminController {
             System.out.println("Account #" + selected.getID() + " was deleted!");
             refresh();
           }
+      } else if (result.get() == retireBtn) {
+          // ... user chose "Two"
       } else {
           // ... user chose CANCEL or closed the dialog
       }

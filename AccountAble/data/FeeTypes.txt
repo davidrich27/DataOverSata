@@ -1,2 +1,2 @@
-1,Standard Credit Card Fee,Use when accepting money by VISA or Mastercard.,4.0,true,true,false
-2,Standard UM Charge,Use for all income.,8.0,true,true,false
+1001,8% Standard UM Fee,For All Transactions.,8.0,true,false,false
+1002,4% Credit Card Fee,For All Credit Card Transactions,4.0,true,false,false

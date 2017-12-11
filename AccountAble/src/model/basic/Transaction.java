@@ -6,40 +6,22 @@ import java.time.LocalDate;
 
 public class Transaction implements Comparable<Transaction>{
   private int id, acctId, userId, codeId;
-  private double subTotal, feeTotal, total;
-  private double acctTotal;
+  private double subTotal, feeTotal;
+  private double acctBal;
   private String otherParty, descr;
   private LocalDateTime dateEntry;
   private LocalDate dateSale;
   private boolean isExpense, paidFee;
 
   // CONSTRUCTORS
-  // With no Fees
-  public Transaction(int id, int acctId, int userId, int codeId, double subTotal, double acctTotal, String otherParty, String descr, LocalDateTime dateEntry, LocalDate dateSale, boolean isExpense){
-    this.id = id;
-    this.acctId = acctId;
-    this.userId = userId;
-    this.codeId = codeId;
-    this.subTotal = subTotal;
-    this.feeTotal = 0;
-    this.total = subTotal;
-    this.otherParty = otherParty;
-    this.descr = descr;
-    this.dateEntry = dateEntry;
-    this.dateSale = dateSale;
-    this.isExpense = isExpense;
-    this.paidFee = true;
-  }
-  // With Fees
-  public Transaction(int id, int acctId, int userId, int codeId, double subTotal, double feeTotal, double acctTotal, String otherParty, String descr, LocalDateTime dateEntry, LocalDate dateSale, boolean isExpense, boolean paidFee){
+  public Transaction(int id, int acctId, int userId, int codeId, double subTotal, double feeTotal, double acctBal, String otherParty, String descr, LocalDateTime dateEntry, LocalDate dateSale, boolean isExpense, boolean paidFee){
     this.id = id;
     this.acctId = acctId;
     this.userId = userId;
     this.codeId = codeId;
     this.subTotal = subTotal;
     this.feeTotal = feeTotal;
-    this.total = subTotal + feeTotal;
-    this.acctTotal = acctTotal;
+    this.acctBal = acctBal;
     this.otherParty = otherParty;
     this.descr = descr;
     this.dateEntry = dateEntry;
@@ -64,47 +46,47 @@ public class Transaction implements Comparable<Transaction>{
   public void setAcctID(int acctId){
     this.acctId = acctId;
   }
-  public int getUserID(){
+  public Integer getUserID(){
     return userId;
   }
   public void setUserID(int userId){
     this.userId = userId;
   }
-  public int getCodeID(){
+  public Integer getCodeID(){
     return codeId;
   }
   public void setCodeID(int codeId){
     this.codeId = codeId;
   }
-  public double getSubTotal(){
+  public Double getSubTotal(){
     return subTotal;
   }
   public void setSubTotal(double subTotal){
     this.subTotal = subTotal;
   }
-  public double getFeeTotal(){
+  public Double getFeeTotal(){
     return feeTotal;
   }
-  public void setFeeTotal(double subTotal){
-    this.subTotal = feeTotal;
+  public void setFeeTotal(double feeTotal){
+    this.feeTotal = feeTotal;
   }
-  public double getTotal(){
-    return total;
+  public Double getTotal(){
+    return subTotal + feeTotal;
   }
-  public void setTotal(double total){
-    this.total = total;
+  public Double getAcctBal(){
+    return acctBal;
   }
-  public double getAcctTotal(){
-    return acctTotal;
+  public void setAcctBal(double acctBal){
+    this.acctBal = acctBal;
   }
-  public void setAcctTotal(double acctTotal){
-    this.acctTotal = acctTotal;
+  public Double getPrevAcctBal(){
+    return acctBal - subTotal;
   }
   public String getOtherParty(){
     return otherParty;
   }
   public void setOtherParty(String otherParty){
-    this.total = total;
+    this.otherParty = otherParty;
   }
   public String getDescr(){
     return descr;
@@ -124,13 +106,13 @@ public class Transaction implements Comparable<Transaction>{
   public void setDateSale(LocalDate date){
     this.dateSale = dateSale;
   }
-  public boolean getIsExpense(){
+  public Boolean getIsExpense(){
     return isExpense;
   }
   public void setIsExpense(boolean isExpense){
     this.isExpense = isExpense;
   }
-  public boolean getPaidFee(){
+  public Boolean getPaidFee(){
     return paidFee;
   }
   public void setPaidFee(boolean paidFee){
@@ -175,7 +157,7 @@ public class Transaction implements Comparable<Transaction>{
   public void printInfo(){
     System.out.println("TRANSACTION DETAILS:");
     System.out.println("ID: " + id + ", Account ID: " + acctId + ", User ID: " + userId + ", Code ID: " + codeId);
-    System.out.println("SubTotal: " + subTotal + ", Fee: " + feeTotal + ", Total: " + total);
+    System.out.println("SubTotal: " + subTotal + ", Fee: " + feeTotal + ", Total: " + getTotal() + ", Account Balance: " + acctBal);
     System.out.println("Other Party: " + otherParty + ", Descr: " + descr);
     System.out.println("Date of Sale: " + dateSale + ", Date of Entry: " + dateEntry + ", Is it an Expense?: " + isExpense + ", Has the fee been paid?: " + paidFee);
     System.out.println("---");
@@ -183,47 +165,5 @@ public class Transaction implements Comparable<Transaction>{
 
   // UNIT TEST
   public static void main(String[] args){
-    LocalDateTime ldt = LocalDateTime.now();
-    LocalDate ld = LocalDate.now();
-    ArrayList<Transaction> testList = new ArrayList<Transaction>();
-      Transaction testTrans = new Transaction(1, 1, 1, 50105, 10.00, 1000.00, 10.0, "Some Guy", "Loaned him $10", ldt, ld, true, false);
-      testList.add(testTrans);
-      testTrans = new Transaction(5, 3, 7, 50105, 5.00, 10000.0, 10.0, "Other Guy", "Earliest - Loaned him $5", ldt.minusDays(3), ld, true, false);
-      testList.add(testTrans);
-      testTrans = new Transaction(2, 3, 1, 50105, 80.00, 500.0, 10.0, "Some Guy", "Loaned him $80", ldt.minusHours(5), ld, true, false);
-      testList.add(testTrans);
-      testTrans = new Transaction(4, 3, 1, 50105, 10.00, 600.0, 10.0, "University", "Latest - Fees on Loans", ldt.plusMonths(2), ld, true, true);
-      testList.add(testTrans);
-
-    System.out.println("---");
-    System.out.println("INPUT ORDER");
-    for (Transaction trans : testList){
-      trans.printInfo();
-    }
-    System.out.println("");
-
-    Collections.sort(testList);
-    System.out.println("---");
-    System.out.println("NATURAL ORDER (TRANS ID)");
-    for (Transaction trans : testList){
-      trans.printInfo();
-    }
-    System.out.println("");
-
-    Collections.sort(testList, Transaction.BY_DATESALE_EARLIEST());
-    System.out.println("---");
-    System.out.println("DATE ORDER (EARLIEST FIRST)");
-    for (Transaction trans : testList){
-      trans.printInfo();
-    }
-    System.out.println("");
-
-    Collections.sort(testList, Transaction.BY_DATESALE_OLDEST());
-    System.out.println("---");
-    System.out.println("DATE ORDER (OLDEST FIRST)");
-    for (Transaction trans : testList){
-      trans.printInfo();
-    }
-    System.out.println("");
   }
 }

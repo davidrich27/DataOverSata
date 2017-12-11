@@ -110,7 +110,7 @@ public class DataManagerTXT {
       trans.getCodeID() + "," +
       trans.getSubTotal() + "," +
       trans.getFeeTotal() + "," +
-      trans.getAcctTotal() + "," +
+      trans.getAcctBal() + "," +
       trans.getOtherParty().replaceAll(",", ":::") + "," +
       trans.getDescr().replaceAll(",", ":::") + "," +
       trans.getDateEntry().toString() + "," +
@@ -175,8 +175,11 @@ public class DataManagerTXT {
   // Read in all current IDs
   public void readIDFileToManager(UserAcctManagerTXT manager){
     ArrayList<String> idList = readFileToList(idPath);
+    // If fresh data files, create default admin accounts and initial id values
     if (idList.isEmpty()){
-      manager.setIDs(0,0,0,0,0,0,0);
+      manager.setIDs(1000,1000,1000,1000,1000,1000,1000);
+      manager.addUser("admin", "pwd", "DEFAULT", "DEFAULT", "", "", true);
+      manager.addUser("csadmin", "csci323", "DEFAULT", "DEFAULT", "", "", true);
     } else {
       String[] ids = idList.get(0).split(",");
       System.out.println(ids[0]);

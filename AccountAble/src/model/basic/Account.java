@@ -30,7 +30,7 @@ public class Account implements Comparable<Account>{
   }
 
   // Getters & Setters
-  public int getID(){
+  public Integer getID(){
     return id;
   }
   public void setID(int id){

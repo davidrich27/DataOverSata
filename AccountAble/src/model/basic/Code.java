@@ -50,7 +50,7 @@ public class Code implements Comparable<Code>{
   }
 
   public String toString(){
-    return name;
+    return name + " - " + descr;
   }
 
   // PRINT DEMO

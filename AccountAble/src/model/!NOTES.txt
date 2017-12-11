@@ -11,17 +11,17 @@ DONE:
 + "create" dialogs
 + "edit" dialogs
 + "delete" dialogs
++ Reconcile methods for Model
++ Filter Transactions by Account and Date
 
 TO DO:
 - Retirement methods for Model
-- Reconcile methods for Model
 - Make retirement/recovery tab
 - CSS stylesheet
 - Help Menu
 - Forgot Password?
 - Generate Reports in PDF
 - Encrypt data
-- Filter Transactions by Account and Date
 
 OTHER:
 - Currently need to comment out import and packages to run unit tests (fixable?)
