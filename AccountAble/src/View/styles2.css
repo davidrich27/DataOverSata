@@ -1,21 +1,22 @@
-/* Color Hex Codes */
+/* HexCodes */
+/* #FFFFFF,  */
 
 .root {
 	/*Background panes */
-	-fx-background-color: #424958;
+	-fx-background-color: blue;
     
     /*non open tabs and menu bar */
     -fx-base: black;
     
     /*Main tab pane and selected tab */
-    -fx-background: #424958;
+    -fx-background: orange;
    
     -fx-text-fill: yellow;
 }
 
 .button {
 	
-	-fx-background-color: #455A64;
+	-fx-background-color: red;
 }
 
 /*All label colors */
