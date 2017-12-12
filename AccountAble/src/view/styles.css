@@ -1,11 +1,26 @@
+
+
 .root {
-	-fx-background-color: lightgray;
+	/*Background panes */
+	-fx-background-color: #424958;
+    -fx-font-size: 14pt;
+    
+    /*non open tabs and menu bar */
+    -fx-base: black;
+    
+    /*Main tab pane and selected tab */
+    -fx-background: #424958;
+   
+    -fx-text-fill: yellow;
 }
 
-#loginBtn {
-	-fx-background-color: #006699;
-}
 .button {
 	
-	-fx-background-color: #006699;
+	-fx-background-color: #455A64;
 }
+
+/*All label colors */
+.label{
+	-fx-text-fill: yellow;
+}
+
