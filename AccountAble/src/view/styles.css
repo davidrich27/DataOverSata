@@ -1,9 +1,8 @@
-
+/* Color Hex Codes */
 
 .root {
 	/*Background panes */
 	-fx-background-color: #424958;
-
     
     /*non open tabs and menu bar */
     -fx-base: black;

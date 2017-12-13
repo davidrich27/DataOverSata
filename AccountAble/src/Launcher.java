@@ -16,6 +16,8 @@ public class Launcher extends Application {
 
     @Override
     public void start(Stage loginStage) throws Exception {
+    	
+      String styleDefaultPath = "view/Styles.css";      
 
       // Create an instance of the DB / Model
       ModelTXT model = new ModelTXT();
@@ -29,7 +31,7 @@ public class Launcher extends Application {
       loginStage.setScene(scene);
       loginStage.show();
       // Include Stylesheet
-      //scene.getStylesheets().add(getClass().getResource("view/style.css").toExternalForm());
+      scene.getStylesheets().add(styleDefaultPath);
 
       // Set stage for Admin Screen
       Stage adminStage = new Stage();
@@ -38,6 +40,7 @@ public class Launcher extends Application {
       Scene adminScene = new Scene(adminRoot);
       adminStage.setScene(adminScene);
       adminStage.setMaximized(true);
+      adminScene.getStylesheets().add(styleDefaultPath);
       adminStage.hide();
 
       // Set stage for Normal User Screen
@@ -47,6 +50,7 @@ public class Launcher extends Application {
       Scene userScene = new Scene(userRoot);
       userStage.setScene(userScene);
       userStage.setMaximized(true);
+      userScene.getStylesheets().add(styleDefaultPath);
       userStage.hide();
 
       // Link the the model to both controllers

@@ -377,6 +377,8 @@ public class AdminController {
   Account filterAcct;
   Account allAcct;
   ArrayList<Transaction> filteredTrans;
+  
+  String stylePath;
 
   // NOTE: May be able to declare ObservableLists at the beginning (no repop?)
 
@@ -449,6 +451,7 @@ public class AdminController {
   // *************************** Login ******************************************
 
   public void login(User loginUser){
+	stylePath = "view/styles.css";
     model.reconcileAll();
 
     currentUser = loginUser;
@@ -616,6 +619,7 @@ public class AdminController {
   void statementClick(ActionEvent event) {
   }
 
+  /* Benefits Calculator*/
   @FXML
   void benCalcClick(ActionEvent event) throws Exception {
 	//  System.out.println("benCalc clicked!");
@@ -626,10 +630,14 @@ public class AdminController {
     newStage.setScene(newScene);
     BCcontroller newCtrl = newLoader.<BCcontroller>getController();
     newCtrl.setStage(newStage);
+    newScene.getStylesheets().add(stylePath);
     newStage.show();
   }
+  
   @FXML
-  void colorClick(ActionEvent event) {
+  void colorClick(ActionEvent event) throws Exception{
+	  stylePath = "view/styles2.css";
+	  thisStage.getScene().getStylesheets().add(stylePath);
   }
 
   @FXML
@@ -676,7 +684,9 @@ public class AdminController {
     newCtrl.setHome(thisStage, this);
     newCtrl.setModel(model);
     newCtrl.setupEdit(currentUser);
+    newScene.getStylesheets().add(stylePath);
     newStage.show();
+    
   }
 
     // ****************** Account Tab ********************************************
@@ -711,6 +721,7 @@ public class AdminController {
       newCtrl.setHome(thisStage, this);
       newCtrl.setModel(model);
       newCtrl.setupCreate(currentUser, selectedAcct, currentAccts);
+      newScene.getStylesheets().add(stylePath);
       newStage.show();
     } else {
       System.out.println("ERROR: Must select Account for Transaction to be entered.");
@@ -731,6 +742,7 @@ public class AdminController {
       newCtrl.setHome(thisStage, this);
       newCtrl.setModel(model);
       newCtrl.setupEdit(selectedTrans);
+      newScene.getStylesheets().add(stylePath);
       newStage.show();
     } else {
       System.out.println("ERROR: Must select Account for Transaction to be entered.");
@@ -783,6 +795,7 @@ public class AdminController {
     newCtrl.setStage(newStage);
     newCtrl.setHome(thisStage, this);
     newCtrl.setModel(model);
+    newScene.getStylesheets().add(stylePath);
     newCtrl.setupCreate();
     newStage.show();
   }
@@ -801,6 +814,7 @@ public class AdminController {
       newCtrl.setStage(newStage);
       newCtrl.setHome(thisStage, this);
       newCtrl.setModel(model);
+      newScene.getStylesheets().add(stylePath);
       newCtrl.setupEdit(selected);
       newStage.show();
     } else {
@@ -822,6 +836,7 @@ public class AdminController {
       newCtrl.setStage(newStage);
       newCtrl.setHome(thisStage, this);
       newCtrl.setModel(model);
+      newScene.getStylesheets().add(stylePath);
       newCtrl.setup(selected);
       newStage.show();
     } else {
@@ -843,6 +858,7 @@ public class AdminController {
       newCtrl.setStage(newStage);
       newCtrl.setHome(thisStage, this);
       newCtrl.setModel(model);
+      newScene.getStylesheets().add(stylePath);
       newCtrl.setupExam(selected);
       newStage.show();
     } else {
@@ -893,6 +909,7 @@ public class AdminController {
     newCtrl.setStage(newStage);
     newCtrl.setHome(thisStage, this);
     newCtrl.setModel(model);
+    newScene.getStylesheets().add(stylePath);
     newCtrl.setupCreate();
     newStage.show();
   }
@@ -911,6 +928,7 @@ public class AdminController {
       newCtrl.setStage(newStage);
       newCtrl.setHome(thisStage, this);
       newCtrl.setModel(model);
+      newScene.getStylesheets().add(stylePath);
       newCtrl.setupEdit(selected);
       newStage.show();
     } else {
@@ -932,6 +950,7 @@ public class AdminController {
       newCtrl.setStage(newStage);
       newCtrl.setHome(thisStage, this);
       newCtrl.setModel(model);
+      newScene.getStylesheets().add(stylePath);
       newCtrl.setupExam(selected);
       newStage.show();
     } else {
@@ -983,6 +1002,7 @@ public class AdminController {
     newCtrl.setStage(newStage);
     newCtrl.setHome(thisStage, this);
     newCtrl.setModel(model);
+    newScene.getStylesheets().add(stylePath);
     newCtrl.setupCreate();
     newStage.show();
   }
@@ -1001,6 +1021,7 @@ public class AdminController {
       newCtrl.setStage(newStage);
       newCtrl.setHome(thisStage, this);
       newCtrl.setModel(model);
+      newScene.getStylesheets().add(stylePath);
       newCtrl.setupEdit(selected);
       newStage.show();
     } else {
@@ -1053,6 +1074,7 @@ public class AdminController {
     newCtrl.setStage(newStage);
     newCtrl.setHome(thisStage, this);
     newCtrl.setModel(model);
+    newScene.getStylesheets().add(stylePath);
     newCtrl.setupCreate();
     newStage.show();
   }
@@ -1071,6 +1093,7 @@ public class AdminController {
       newCtrl.setStage(newStage);
       newCtrl.setHome(thisStage, this);
       newCtrl.setModel(model);
+      newScene.getStylesheets().add(stylePath);
       newCtrl.setupEdit(selected);
       newStage.show();
     } else {
