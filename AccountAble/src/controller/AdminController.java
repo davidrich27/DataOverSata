@@ -637,7 +637,7 @@ public class AdminController {
     if (Desktop.isDesktopSupported()) {
       try {
           // Name of PDF File here (save in docs)
-          File myFile = new File("../docs/test.pdf");
+          File myFile = new File("../docs/User_Guide.pdf");
           Desktop.getDesktop().open(myFile);
       } catch (IOException ex) {
           // no application registered for PDFs
