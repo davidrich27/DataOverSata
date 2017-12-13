@@ -1,11 +1,31 @@
 package model.manager;
 // local packages
 import model.basic.*;
+import model.security.*;
+
+// encryption libraries
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.KeyGenerator;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.SecretKey;
 
 import java.io.*;
 import java.util.*;
 import java.time.LocalDateTime;
 import java.time.LocalDate;
+
+import javax.crypto.spec.PBEKeySpec;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.SecretKeySpec;
+import java.security.spec.InvalidKeySpecException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.math.BigInteger;
 
 public class DataManagerTXT {
   String userPath, acctPath, transPath, feeTypePath, codePath;
@@ -61,7 +81,8 @@ public class DataManagerTXT {
     return data;
   }
   // User (int id, String username, String pwd, String firstName, String lastName, String email, String phone, boolean admin)
-  public static User DATA_TO_USER(String data){
+  public static User DATA_TO_USER(String data)
+  throws NoSuchAlgorithmException, InvalidKeySpecException, PasswordHasher.InvalidHashException, PasswordHasher.CannotPerformOperationException {
     String[] dataArr = data.split(",");
     for(String str : dataArr){
       str.replaceAll(":::", ",");
@@ -175,13 +196,15 @@ public class DataManagerTXT {
 // *********************  READERS & WRITERS  *******************************
   // ID
   // Read in all current IDs
-  public void readIDFileToManager(UserAcctManagerTXT manager){
+  public void readIDFileToManager(UserAcctManagerTXT manager)
+  throws NoSuchAlgorithmException, InvalidKeySpecException, PasswordHasher.InvalidHashException, PasswordHasher.CannotPerformOperationException {
     ArrayList<String> idList = readFileToList(idPath);
     // If fresh data files, create default admin accounts and initial id values
     if (idList.isEmpty()){
       manager.setIDs(1000,1000,1000,1000,1000,1000,1000);
       manager.addUser("admin", "pwd", "DEFAULT", "DEFAULT", "", "", true);
       manager.addUser("csadmin", "csci323", "DEFAULT", "DEFAULT", "", "", true);
+      writeManagerUsersToFile(manager);
     } else {
       String[] ids = idList.get(0).split(",");
       System.out.println(ids[0]);
@@ -210,7 +233,8 @@ public class DataManagerTXT {
 
   // USER
   // Reads in all Users from Users.txt
-  public void readUserFileToManager(UserAcctManagerTXT manager){
+  public void readUserFileToManager(UserAcctManagerTXT manager)
+  throws NoSuchAlgorithmException, InvalidKeySpecException, PasswordHasher.InvalidHashException, PasswordHasher.CannotPerformOperationException {
     ArrayList<String> userList = readFileToList(userPath);
     // makes User entry for every line in txt file
     for (String userStr : userList){
@@ -412,7 +436,8 @@ public class DataManagerTXT {
         BufferedReader bufferedReader = new BufferedReader(fileReader);
         // Loop through every line in file
         while((line = bufferedReader.readLine()) != null) {
-            lineList.add(line);
+          String decryptedLine = decrypt(line);
+          lineList.add(decryptedLine);
         }
         // Always close files.
         bufferedReader.close();
@@ -432,10 +457,11 @@ public class DataManagerTXT {
     try {
       boolean overwrite = true;
 			FileWriter fileWriter = new FileWriter(filePath, !overwrite);
-      // Loop through every String in array and write to file
+      // Loop through every String in array, encrypt and write to file
       BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
       for (String line : lineList){
-        bufferedWriter.write(line);
+        String encryptedLine = encrypt(line);
+        bufferedWriter.write(encryptedLine);
         bufferedWriter.newLine();
       }
 			bufferedWriter.flush();
@@ -454,7 +480,8 @@ public class DataManagerTXT {
 			FileWriter fileWriter = new FileWriter(filePath, !overwrite);
       // Loop through every String in array and write to file
       BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-      bufferedWriter.write(line);
+      String encryptedLine = encrypt(line);
+      bufferedWriter.write(encryptedLine);
       bufferedWriter.newLine();
 			bufferedWriter.flush();
 			bufferedWriter.close();
@@ -470,7 +497,8 @@ public class DataManagerTXT {
 			FileWriter fileWriter = new FileWriter(filePath, !overwrite);
       // Loop through every String in array and write to file
       BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-      bufferedWriter.write(line);
+      String encryptedLine = encrypt(line);
+      bufferedWriter.write(encryptedLine);
       bufferedWriter.newLine();
 			bufferedWriter.flush();
 			bufferedWriter.close();
@@ -484,16 +512,63 @@ public class DataManagerTXT {
 
   //****************** ENCRYPTION / DECRYPTION **********************************
 
-  public void initCipher(){
+  SecretKey desKey;
+  Cipher cipherEncrypt;
+  Cipher cipherDecrypt;
 
+  public void initCipher(){
+    // try {
+		//     Cipher desCipher;
+    //     // Initialize encryption and decryption ciphers
+    //     cipherEncrypt = Cipher.getInstance("DES/ECB/PKCS5Padding");
+    //     cipherDecrypt = Cipher.getInstance("DES/ECB/PKCS5Padding");
+    //
+    //     // Key is currently a constant
+    //     byte[] keybyte = "[B@649d209a";
+    //     desKey = new SecretKeySpec(keybyte, 0, 16, "AES");
+    //
+    //     cipherEncrypt.init(Cipher.ENCRYPT_MODE, desKey);
+    //     cipherDecrypt.init(Cipher.DECRYPT_MODE, desKey);
+    //
+		// }catch(NoSuchAlgorithmException e){
+		// 	e.printStackTrace();
+		// }catch(NoSuchPaddingException e){
+		// 	e.printStackTrace();
+		// }catch(InvalidKeyException e){
+		// 	e.printStackTrace();
+		// }
   }
 
   public String encrypt(String input){
-    return "";
+    // try {
+    //
+    //   byte[] inputBytes = input.getBytes();
+    //   byte[] encryptedBytes = cipherEncrypt.doFinal(inputBytes);
+    //   String encryptedOutput = new String(encryptedBytes);
+    //   return encryptedOutput;
+    //
+    // } catch(IllegalBlockSizeException e){
+		// 	e.printStackTrace();
+		// } catch(BadPaddingException e){
+		// 	e.printStackTrace();
+		// }
+    return input;
   }
 
   public String decrypt(String input){
-    return "";
+    // try {
+    //
+    //   byte[] inputBytes = input.getBytes();
+    //   byte[] decryptedBytes = cipherDecrypt.doFinal(inputBytes);
+    //   String decryptedOutput = new String(decryptedBytes);
+    //   return decryptedOutput;
+    //
+    // } catch(IllegalBlockSizeException e){
+		// 	e.printStackTrace();
+		// } catch(BadPaddingException e){
+		// 	e.printStackTrace();
+		// }
+    return input;
   }
 
   //****************** DEMOS & UNIT TESTS ***************************************

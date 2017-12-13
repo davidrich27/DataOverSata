@@ -1,25 +1,113 @@
 import model.basic.*;
 import model.manager.*;
 import model.master.*;
+import model.security.*;
 
 import java.time.LocalDateTime;
 import java.time.LocalDate;
 import java.security.spec.InvalidKeySpecException;
+import java.security.SecureRandom;
+import javax.crypto.spec.PBEKeySpec;
+import javax.crypto.SecretKeyFactory;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+import javax.xml.bind.DatatypeConverter;
+
+// encryption libraries
+import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
-public class ModelTestClient{
-  public static void main(String[] args) throws InvalidKeySpecException, NoSuchAlgorithmException{
-    String pwd1 = User.generateStrongPasswordHash("this is a test");
-    String pwd2 = User.generateStrongPasswordHash("this is a test");
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.KeyGenerator;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.SecretKey;
 
-    if (pwd1.equals(pwd2)) {
-      System.out.println("They are equal!");
-    } else {
-      System.out.println("They are not equal...");
+public class ModelTestClient{
+  public static void main(String[] args)
+  throws InvalidKeySpecException, NoSuchAlgorithmException, InvalidKeySpecException, PasswordHasher.InvalidHashException, PasswordHasher.CannotPerformOperationException{
+    encryptionTest1();
+  }
+
+  static void convertByteStrByte() {
+    try{
+
+      KeyGenerator keygenerator = KeyGenerator.getInstance("DES");
+      SecretKey myDesKey = keygenerator.generateKey();
+
+    } catch(NoSuchAlgorithmException e){
+      e.printStackTrace();
     }
   }
 
-  static void unitTest1() throws InvalidKeySpecException, NoSuchAlgorithmException {
+  static void encryptionTest1() {
+
+    try{
+
+		    KeyGenerator keygenerator = KeyGenerator.getInstance("DES");
+        SecretKey myDesKey = keygenerator.generateKey();
+        System.out.println("My DES Key is: " + myDesKey);
+
+		    Cipher desCipher;
+
+		    // Create the cipher
+		    desCipher = Cipher.getInstance("DES/ECB/PKCS5Padding");
+
+		    // Initialize the cipher for encryption
+		    desCipher.init(Cipher.ENCRYPT_MODE, myDesKey);
+
+		    //sensitive information
+		    byte[] text = "No body can see me".getBytes();
+
+		    System.out.println("Text [Byte Format] : " + text);
+		    System.out.println("Text : " + new String(text));
+
+		    // Encrypt the text
+		    byte[] textEncrypted = desCipher.doFinal(text);
+
+		    System.out.println("Text Encryted : " + textEncrypted);
+
+		    // Initialize the same cipher for decryption
+		    desCipher.init(Cipher.DECRYPT_MODE, myDesKey);
+
+		    // Decrypt the text
+		    byte[] textDecrypted = desCipher.doFinal(textEncrypted);
+
+		    System.out.println("Text Decryted : " + new String(textDecrypted));
+
+		}catch(NoSuchAlgorithmException e){
+			e.printStackTrace();
+		}catch(NoSuchPaddingException e){
+			e.printStackTrace();
+		}catch(InvalidKeyException e){
+			e.printStackTrace();
+		}catch(IllegalBlockSizeException e){
+			e.printStackTrace();
+		}catch(BadPaddingException e){
+			e.printStackTrace();
+		}
+
+  }
+
+  static void passwordTest1()
+  throws NoSuchAlgorithmException, InvalidKeySpecException, PasswordHasher.InvalidHashException, PasswordHasher.CannotPerformOperationException{
+    String pwd1 = "pwd";
+    String pwd2 = "this is a test";
+
+    String pwd1Hash = PasswordHasher.createHash(pwd1);
+    System.out.println("pwd1 is: " + pwd1);
+    System.out.println("pwd1Hash is: " + pwd1Hash);
+
+    boolean test1 = PasswordHasher.verifyPassword(pwd1, pwd1Hash);
+    System.out.println("testing pwd1 against pwd1Hash: " + test1);
+
+    boolean test2 = PasswordHasher.verifyPassword(pwd2, pwd1Hash);
+    System.out.println("testing pwd2 against pwd1Hash: " + test2);
+  }
+
+  static void modelTest1()
+  throws NoSuchAlgorithmException, InvalidKeySpecException, PasswordHasher.InvalidHashException, PasswordHasher.CannotPerformOperationException {
     ModelTXT model = new ModelTXT();
 
     model.printInfo();

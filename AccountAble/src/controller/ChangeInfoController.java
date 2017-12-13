@@ -3,9 +3,14 @@ package controller;
 import model.basic.*;
 import model.manager.*;
 import model.master.*;
+import model.security.*;
 
+import javax.crypto.spec.PBEKeySpec;
+import javax.crypto.SecretKeyFactory;
 import java.security.spec.InvalidKeySpecException;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.math.BigInteger;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -96,9 +101,10 @@ public class ChangeInfoController {
     // ************************** Other Events ************************************
 
     @FXML
-    void confirmClick(ActionEvent event) throws InvalidKeySpecException, NoSuchAlgorithmException {
-      String pwd = loginUser.getPwd();
-      if (!pwd.equals(oldPwdTxt.getText())){
+    void confirmClick(ActionEvent event)
+    throws NoSuchAlgorithmException, InvalidKeySpecException, PasswordHasher.InvalidHashException, PasswordHasher.CannotPerformOperationException {
+      String oldPwd = oldPwdTxt.getText();
+      if (!loginUser.testPwd(oldPwd)){
         warningLbl.setVisible(true);
         warningLbl.setText("Sorry, that is the wrong password.");
       } else if (!newPwdTxt1.getText().equals(newPwdTxt2.getText())){

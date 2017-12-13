@@ -3,6 +3,14 @@ package controller;
 import model.basic.*;
 import model.manager.*;
 import model.master.*;
+import model.security.*;
+
+import javax.crypto.spec.PBEKeySpec;
+import javax.crypto.SecretKeyFactory;
+import java.security.spec.InvalidKeySpecException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.math.BigInteger;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -105,14 +113,16 @@ public class FeeTypeCreateController {
     // ************************** Other Events ************************************
 
     @FXML
-    void confirmClick(ActionEvent event) {
+    void confirmClick(ActionEvent event)
+    throws NoSuchAlgorithmException, InvalidKeySpecException, PasswordHasher.InvalidHashException, PasswordHasher.CannotPerformOperationException {
       if (mode.equals("create")){
         confirmCreate();
       } else if (mode.equals("edit")){
         confirmEdit();
       }
     }
-    void confirmCreate(){
+    void confirmCreate()
+    throws NoSuchAlgorithmException, InvalidKeySpecException, PasswordHasher.InvalidHashException, PasswordHasher.CannotPerformOperationException {
       String name = nameTxt.getText();
       String descr = descrTxt.getText();
       Double amt = Double.parseDouble(amtTxt.getText());

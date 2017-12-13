@@ -2,5 +2,6 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path=""/>
+	<classpathentry kind="lib" path="libs/commons-crypto-1.0.0/commons-crypto-1.0.0.jar"/>
 	<classpathentry kind="output" path=""/>
 </classpath>

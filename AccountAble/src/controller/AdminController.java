@@ -377,7 +377,7 @@ public class AdminController {
   Account filterAcct;
   Account allAcct;
   ArrayList<Transaction> filteredTrans;
-  
+
   String stylePath;
 
   // NOTE: May be able to declare ObservableLists at the beginning (no repop?)
@@ -633,7 +633,7 @@ public class AdminController {
     newScene.getStylesheets().add(stylePath);
     newStage.show();
   }
-  
+
   @FXML
   void colorClick(ActionEvent event) throws Exception{
 	  stylePath = "view/styles2.css";
@@ -686,7 +686,7 @@ public class AdminController {
     newCtrl.setupEdit(currentUser);
     newScene.getStylesheets().add(stylePath);
     newStage.show();
-    
+
   }
 
     // ****************** Account Tab ********************************************

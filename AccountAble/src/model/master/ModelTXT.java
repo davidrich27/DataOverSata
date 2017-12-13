@@ -2,12 +2,18 @@ package model.master;
 // Local Packages
 import model.basic.*;
 import model.manager.*;
+import model.security.*;
 
 import java.util.*;
 import java.time.LocalDateTime;
 import java.time.LocalDate;
+
+import javax.crypto.spec.PBEKeySpec;
+import javax.crypto.SecretKeyFactory;
 import java.security.spec.InvalidKeySpecException;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.math.BigInteger;
 
 public class ModelTXT {
   public UserAcctManagerTXT uaManager;
@@ -16,7 +22,8 @@ public class ModelTXT {
   public User login;
 
   // Custom Paths
-  public ModelTXT(String userPath, String acctPath, String transPath, String feeTypePath, String codePath, String user_acctPath, String acct_transPath, String idPath) {
+  public ModelTXT(String userPath, String acctPath, String transPath, String feeTypePath, String codePath, String user_acctPath, String acct_transPath, String idPath)
+  throws NoSuchAlgorithmException, InvalidKeySpecException, PasswordHasher.InvalidHashException, PasswordHasher.CannotPerformOperationException {
     uaManager = new UserAcctManagerTXT();
     dataManager = new DataManagerTXT(userPath, acctPath, transPath, feeTypePath, codePath, user_acctPath, acct_transPath, idPath);
 
@@ -24,7 +31,8 @@ public class ModelTXT {
     reconcileAll();
   }
   // Default Paths
-  public ModelTXT(){
+  public ModelTXT()
+  throws NoSuchAlgorithmException, InvalidKeySpecException, PasswordHasher.InvalidHashException, PasswordHasher.CannotPerformOperationException {
     String userPath = "../data/Users.txt";
     String acctPath = "../data/Accounts.txt";
     String transPath = "../data/Transactions.txt";
@@ -41,7 +49,8 @@ public class ModelTXT {
   }
 
   // LOAD FILES
-  public void loadAll(){
+  public void loadAll()
+  throws NoSuchAlgorithmException, InvalidKeySpecException, PasswordHasher.InvalidHashException, PasswordHasher.CannotPerformOperationException {
     dataManager.readIDFileToManager(uaManager);
     dataManager.readUserFileToManager(uaManager);
     dataManager.readAcctFileToManager(uaManager);
@@ -67,7 +76,8 @@ public class ModelTXT {
   public void saveIDs(){
     dataManager.writeManagerIDsToFile(uaManager);
   }
-  public void saveUser(User user){
+  public void saveUser(User user)
+  throws NoSuchAlgorithmException, InvalidKeySpecException, PasswordHasher.InvalidHashException, PasswordHasher.CannotPerformOperationException {
     uaManager.addUser(user);
     dataManager.writeUserToFile(user);
   }
@@ -93,7 +103,8 @@ public class ModelTXT {
   }
 
   // LOGIN
-  public boolean testLogin(String username, String pwd) throws NoSuchAlgorithmException, InvalidKeySpecException{
+  public boolean testLogin(String username, String pwd)
+  throws NoSuchAlgorithmException, InvalidKeySpecException, PasswordHasher.InvalidHashException, PasswordHasher.CannotPerformOperationException {
     User tempUser = uaManager.getUserByUsername(username);
     if (tempUser != null){
       System.out.println("Found user...");
@@ -115,7 +126,8 @@ public class ModelTXT {
   }
 
   // CREATE NEW
-  public boolean addNewUser(String username, String pwd, String firstName, String lastName, String email, String phone, boolean admin){
+  public boolean addNewUser(String username, String pwd, String firstName, String lastName, String email, String phone, boolean admin)
+  throws NoSuchAlgorithmException, InvalidKeySpecException, PasswordHasher.InvalidHashException, PasswordHasher.CannotPerformOperationException {
     int userId = uaManager.addUser(username, pwd, firstName, lastName, email, phone, admin);
     if (userId > -1){
       User tempUser = uaManager.getUserByID(userId);
@@ -135,7 +147,8 @@ public class ModelTXT {
     }
     return false;
   }
-  public boolean addNewFeeType(String name, String descr, double amt, boolean isPercent, boolean isAdditional, boolean isCustom){
+  public boolean addNewFeeType(String name, String descr, double amt, boolean isPercent, boolean isAdditional, boolean isCustom)
+  throws NoSuchAlgorithmException, InvalidKeySpecException, PasswordHasher.InvalidHashException, PasswordHasher.CannotPerformOperationException {
     int feeTypeId = uaManager.addFeeType(name, descr, amt, isPercent, isAdditional, isCustom);
     if (feeTypeId > -1){
       FeeType tempFeeType = uaManager.getFeeTypeByID(feeTypeId);
@@ -210,7 +223,8 @@ public class ModelTXT {
     return false;
   }
   // EDIT
-  public boolean editUser(int id, String username, String pwd, String firstName, String lastName, String email, String phone, boolean admin) throws InvalidKeySpecException, NoSuchAlgorithmException{
+  public boolean editUser(int id, String username, String pwd, String firstName, String lastName, String email, String phone, boolean admin)
+  throws NoSuchAlgorithmException, InvalidKeySpecException, PasswordHasher.InvalidHashException, PasswordHasher.CannotPerformOperationException {
     int userID = uaManager.editUserByID(id, username, pwd, firstName, lastName, email, phone, admin);
     if (userID > -1){
       dataManager.writeManagerUsersToFile(uaManager);

@@ -3,9 +3,14 @@ package controller;
 import model.basic.*;
 import model.manager.*;
 import model.master.*;
+import model.security.*;
 
+import javax.crypto.spec.PBEKeySpec;
+import javax.crypto.SecretKeyFactory;
 import java.security.spec.InvalidKeySpecException;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.math.BigInteger;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -116,7 +121,8 @@ public class UserCreateController {
     // ************************** Other Events ************************************
 
     @FXML
-    void confirmClick(ActionEvent event) throws InvalidKeySpecException, NoSuchAlgorithmException {
+    void confirmClick(ActionEvent event)
+    throws NoSuchAlgorithmException, InvalidKeySpecException, PasswordHasher.InvalidHashException, PasswordHasher.CannotPerformOperationException {
       if (mode.equals("create")){
         confirmCreate();
       } else if (mode.equals("edit")){
@@ -126,7 +132,8 @@ public class UserCreateController {
 
 
     }
-    void confirmCreate(){
+    void confirmCreate()
+    throws NoSuchAlgorithmException, InvalidKeySpecException, PasswordHasher.InvalidHashException, PasswordHasher.CannotPerformOperationException {
       // create new user
       String username = usernameTxt.getText();
       String pwd = newPwdTxt1.getText();
@@ -176,7 +183,8 @@ public class UserCreateController {
     }
 
 
-    void confirmEdit() throws InvalidKeySpecException, NoSuchAlgorithmException{
+    void confirmEdit()
+    throws NoSuchAlgorithmException, InvalidKeySpecException, PasswordHasher.InvalidHashException, PasswordHasher.CannotPerformOperationException {
       int id = selectedUser.getID();
       String username = usernameTxt.getText();
       String pwd = newPwdTxt1.getText();

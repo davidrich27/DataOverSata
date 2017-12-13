@@ -1,6 +1,8 @@
 package model.basic;
 
 import java.util.*;
+// local ref library
+import model.security.*;
 
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.SecretKeyFactory;
@@ -17,10 +19,16 @@ public class User implements Comparable<User> {
   private boolean admin;
 
   // Constructors
-  public User(int id, String username, String pwd, String firstName, String lastName, String email, String phone, boolean admin){
+  public User(int id, String username, String pwd, String firstName, String lastName, String email, String phone, boolean admin)
+  throws NoSuchAlgorithmException, InvalidKeySpecException, PasswordHasher.InvalidHashException, PasswordHasher.CannotPerformOperationException {
     this.id = id;
     this.username = username.toLowerCase();
-    this.pwd = pwd;
+    // only hash password if not already hashed
+    if (pwd.startsWith("sha1:64000:18:")){
+      this.pwd = pwd;
+    } else {
+      this.pwd = PasswordHasher.createHash(pwd);
+    }
     this.admin = admin;
     this.firstName = firstName;
     this.lastName = lastName;
@@ -46,14 +54,17 @@ public class User implements Comparable<User> {
   public void setUsername(String username){
     this.username = username;
   }
-  public boolean testPwd(String test) throws NoSuchAlgorithmException, InvalidKeySpecException{
-    return (test.equals(pwd));
+  public boolean testPwd(String test)
+  throws NoSuchAlgorithmException, InvalidKeySpecException, PasswordHasher.InvalidHashException, PasswordHasher.CannotPerformOperationException{
+    System.out.println("Comparing " + PasswordHasher.createHash(test) + " to " + pwd);
+    return PasswordHasher.verifyPassword(test, pwd);
   }
   public String getPwd(){
     return pwd;
   }
-  public void setPwd(String pwd) throws NoSuchAlgorithmException, InvalidKeySpecException{
-    this.pwd = pwd;
+  public void setPwd(String pwd)
+  throws NoSuchAlgorithmException, InvalidKeySpecException, PasswordHasher.InvalidHashException, PasswordHasher.CannotPerformOperationException{
+    this.pwd = PasswordHasher.createHash(pwd);
   }
   public String[] getName(){
     String[] name = {firstName, lastName};
@@ -140,7 +151,8 @@ public class User implements Comparable<User> {
   }
 
   // Login
-  public boolean login(String username, String pwd) throws InvalidKeySpecException, NoSuchAlgorithmException{
+  public boolean login(String username, String pwd)
+  throws NoSuchAlgorithmException, InvalidKeySpecException, PasswordHasher.InvalidHashException, PasswordHasher.CannotPerformOperationException {
     username = username.toLowerCase();
     if (this.username.equals(username)){
       return testPwd(pwd);
@@ -150,46 +162,6 @@ public class User implements Comparable<User> {
 
   public String toString(){
     return username;
-  }
-
-  // ************************ Password Hashing *******************************************
-
-  /* Example
-  String originalPassword = "password";
-  String generatedSecuredPasswordHash = generateStrongPasswordHash(originalPassword);
-  System.out.println(generatedSecuredPasswordHash);
-  */
-
-  public static String generateStrongPasswordHash(String password) throws NoSuchAlgorithmException, InvalidKeySpecException
-  {
-      int iterations = 1000;
-      char[] chars = password.toCharArray();
-      byte[] salt = getSalt();
-
-      PBEKeySpec spec = new PBEKeySpec(chars, salt, iterations, 64 * 8);
-      SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
-      byte[] hash = skf.generateSecret(spec).getEncoded();
-      return iterations + ":" + toHex(salt) + ":" + toHex(hash);
-  }
-  private static byte[] getSalt() throws NoSuchAlgorithmException
-  {
-      SecureRandom sr = SecureRandom.getInstance("SHA1PRNG");
-      byte[] salt = new byte[16];
-      sr.nextBytes(salt);
-      return salt;
-  }
-
-  private static String toHex(byte[] array) throws NoSuchAlgorithmException
-  {
-      BigInteger bi = new BigInteger(1, array);
-      String hex = bi.toString(16);
-      int paddingLength = (array.length * 2) - hex.length();
-      if(paddingLength > 0)
-      {
-          return String.format("%0"  +paddingLength + "d", 0) + hex;
-      } else {
-          return hex;
-      }
   }
 
   // ************************** Demos / Unit Tests *******************************

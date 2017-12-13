@@ -1,2 +1,0 @@
-1001,Joe's Account,The Account for Joe Schmoe.,1000.0,-80.0,920.0,
-1002,Jane's Account,This is Jane Doe's Account.,2000.0,-80.0,1920.0,

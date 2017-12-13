@@ -1,4 +1,2 @@
-1001,admin,pwd,DEFAULT,DEFAULT,,,true
-1002,csadmin,csci323,DEFAULT,DEFAULT,,,true
-1003,schmoe,pwd,Joe,Schmoe,js@gmail.com,4066772317,false
-1004,jdoe,pwd,Jane,Doe,jdoe@gmail.com,5555555555,false
+1001,admin,sha1:64000:18:pY7AE00+pBfDX2IN/D7WOw1LnxNR/+UW:zNlqC3JspXYQZLBUylQ8HsFq,DEFAULT,DEFAULT,,,true
+1002,csadmin,sha1:64000:18:nGzHHO8zcLWmoCdEpZY75uq85QOWOqYI:hcStB0ov4vLkuVU7F7uhDOgW,DEFAULT,DEFAULT,,,true

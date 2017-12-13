@@ -2,6 +2,7 @@ package controller;
 import model.basic.*;
 import model.manager.*;
 import model.master.*;
+import model.security.*;
 
 import java.util.*;
 import java.security.spec.InvalidKeySpecException;
@@ -66,7 +67,8 @@ public class LoginController{
   //************************* Button Events *********************************************
 
   @FXML
-  private void handleLogin(ActionEvent event) throws InvalidKeySpecException, NoSuchAlgorithmException{
+  private void handleLogin(ActionEvent event)
+  throws NoSuchAlgorithmException, InvalidKeySpecException, PasswordHasher.InvalidHashException, PasswordHasher.CannotPerformOperationException {
     String username = usernameTxt.getText();
     String pwd = pwdTxt.getText();
     boolean success = model.testLogin(username, pwd);

@@ -1,6 +1,7 @@
 package model.manager;
 // local packages
 import model.basic.*;
+import model.security.*;
 
 import java.util.*;
 import java.time.LocalDateTime;
@@ -97,7 +98,8 @@ public class UserAcctManagerTXT{
 
   // Add NEW (returns FALSE if isUnique=F and Add fails) (Returns ID given to NEW object)
   // NEW Users
-  public boolean addUser(User newUser){
+  public boolean addUser(User newUser)
+  throws NoSuchAlgorithmException, InvalidKeySpecException, PasswordHasher.InvalidHashException, PasswordHasher.CannotPerformOperationException {
     if (isUnique(newUser, users) == true){
       users.add(newUser);
       Collections.sort(users);
@@ -105,7 +107,8 @@ public class UserAcctManagerTXT{
     }
     return false;
   }
-  public int addUser(String username, String pwd, String firstName, String lastName, String email, String phone, boolean admin){
+  public int addUser(String username, String pwd, String firstName, String lastName, String email, String phone, boolean admin)
+  throws NoSuchAlgorithmException, InvalidKeySpecException, PasswordHasher.InvalidHashException, PasswordHasher.CannotPerformOperationException {
     userIDgen++;
     User newUser = new User(userIDgen, username, pwd, firstName, lastName, email, phone, admin);
     boolean success = addUser(newUser);
@@ -181,7 +184,8 @@ public class UserAcctManagerTXT{
     }
     return false;
   }
-  public int addFeeType(String name, String descr, double amt, boolean isPercent, boolean isAdditional, boolean isCustom){
+  public int addFeeType(String name, String descr, double amt, boolean isPercent, boolean isAdditional, boolean isCustom)
+  throws NoSuchAlgorithmException, InvalidKeySpecException, PasswordHasher.InvalidHashException, PasswordHasher.CannotPerformOperationException {
     feeTypeIDgen++;
     FeeType newFeeType = new FeeType(feeTypeIDgen, name, descr, amt, isPercent, isAdditional, isCustom);
     boolean success = addFeeType(newFeeType);
@@ -271,7 +275,8 @@ public class UserAcctManagerTXT{
   }
 
   // EDIT (BY ID)
-  public int editUserByID(int id, String username, String pwd, String firstName, String lastName, String email, String phone, boolean admin) throws InvalidKeySpecException, NoSuchAlgorithmException{
+  public int editUserByID(int id, String username, String pwd, String firstName, String lastName, String email, String phone, boolean admin)
+  throws NoSuchAlgorithmException, InvalidKeySpecException, PasswordHasher.InvalidHashException, PasswordHasher.CannotPerformOperationException {
     User gotUser = getUserByID(id);
     if (gotUser == null){
       System.out.println("Error: User does not exist.");
