@@ -451,7 +451,7 @@ public class AdminController {
   // *************************** Login ******************************************
 
   public void login(User loginUser){
-	stylePath = "view/styles.css";
+	stylePath = "styles/current_style.css";
     model.reconcileAll();
 
     currentUser = loginUser;
@@ -636,8 +636,16 @@ public class AdminController {
 
   @FXML
   void colorClick(ActionEvent event) throws Exception{
-	  stylePath = "view/styles2.css";
-	  thisStage.getScene().getStylesheets().add(stylePath);
+    Stage newStage = new Stage();
+    FXMLLoader newLoader = new FXMLLoader(getClass().getResource("../view/ViewSchemes.fxml"));
+    Parent newRoot = newLoader.load();
+    Scene newScene = new Scene(newRoot);
+    newStage.setScene(newScene);
+    SchemeController newCtrl = newLoader.<SchemeController>getController();
+    newCtrl.setStage(newStage);
+    newCtrl.setHome(thisStage, this);
+    newScene.getStylesheets().add(stylePath);
+    newStage.show();
   }
 
   @FXML
@@ -666,7 +674,14 @@ public class AdminController {
     }
   }
   @FXML
-  void aboutClick(ActionEvent event) {
+  void aboutClick(ActionEvent event) throws Exception {
+    Stage newStage = new Stage();
+    FXMLLoader newLoader = new FXMLLoader(getClass().getResource("../view/ViewAbout.fxml"));
+    Parent newRoot = newLoader.load();
+    Scene newScene = new Scene(newRoot);
+    newStage.setScene(newScene);
+    newScene.getStylesheets().add(stylePath);
+    newStage.show();
   }
 
     // ************************ Overview Tab *************************************
@@ -710,7 +725,7 @@ public class AdminController {
   @FXML
   void addTransactionClick(ActionEvent event) throws Exception {
     Account selectedAcct = acctList.getSelectionModel().getSelectedItem();
-    if (selectedAcct != null) {
+    if (selectedAcct != null && selectedAcct.getID() != -1) {
       Stage newStage = new Stage();
       FXMLLoader newLoader = new FXMLLoader(getClass().getResource("../view/ViewCreateTrans.fxml"));
       Parent newRoot = newLoader.load();
@@ -751,6 +766,23 @@ public class AdminController {
 
   @FXML
   void examTransactionClick(ActionEvent event) throws Exception {
+    Transaction selectedTrans = acctTbl.getSelectionModel().getSelectedItem();
+    if (selectedTrans != null) {
+      Stage newStage = new Stage();
+      FXMLLoader newLoader = new FXMLLoader(getClass().getResource("../view/ViewCreateTrans.fxml"));
+      Parent newRoot = newLoader.load();
+      Scene newScene = new Scene(newRoot);
+      newStage.setScene(newScene);
+      TransCreateController newCtrl = newLoader.<TransCreateController>getController();
+      newCtrl.setStage(newStage);
+      newCtrl.setHome(thisStage, this);
+      newCtrl.setModel(model);
+      newCtrl.setupExam(selectedTrans);
+      newScene.getStylesheets().add(stylePath);
+      newStage.show();
+    } else {
+      System.out.println("ERROR: Must select Account for Transaction to be entered.");
+    }
   }
 
   @FXML
@@ -804,7 +836,7 @@ public class AdminController {
   void editAcctClick(ActionEvent event) throws Exception {
     // Pass selected account to controller
     Account selected = acctAllTbl.getSelectionModel().getSelectedItem();
-    if (selected != null){
+    if (selected != null && selected.getID() != 0){
       Stage newStage = new Stage();
       FXMLLoader newLoader = new FXMLLoader(getClass().getResource("../view/ViewCreateAcct.fxml"));
       Parent newRoot = newLoader.load();
@@ -826,7 +858,7 @@ public class AdminController {
   void permissionClick(ActionEvent event) throws Exception {
     // Pass selected account to controller
     Account selected = acctAllTbl.getSelectionModel().getSelectedItem();
-    if (selected != null){
+    if (selected != null && selected.getID() != 0){
       Stage newStage = new Stage();
       FXMLLoader newLoader = new FXMLLoader(getClass().getResource("../view/ViewAcctPermissions.fxml"));
       Parent newRoot = newLoader.load();
@@ -848,7 +880,7 @@ public class AdminController {
   void examAcctClick(ActionEvent event) throws Exception {
     // Pass selected account to controller
     Account selected = acctAllTbl.getSelectionModel().getSelectedItem();
-    if (selected != null){
+    if (selected != null && selected.getID() != 0){
       Stage newStage = new Stage();
       FXMLLoader newLoader = new FXMLLoader(getClass().getResource("../view/ViewCreateAcct.fxml"));
       Parent newRoot = newLoader.load();
@@ -869,7 +901,7 @@ public class AdminController {
   @FXML
   void delAcctClick(ActionEvent event) throws Exception {
     Account selected = acctAllTbl.getSelectionModel().getSelectedItem();
-    if (selected != null){
+    if (selected != null && selected.getID() != 0){
       Alert alert = new Alert(AlertType.CONFIRMATION);
       alert.setTitle("Deleting the '" + selected.getName() + "' Account");
       alert.setHeaderText("Warning: You are about to Delete a Transaction!");

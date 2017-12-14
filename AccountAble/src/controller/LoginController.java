@@ -37,9 +37,7 @@ public class LoginController{
 
   ModelTXT model;
   Stage thisStage;
-  Stage userStage;
   Stage adminStage;
-  UserController userCtrl;
   AdminController adminCtrl;
 
   //*********************** Initialization and Wireup **************************
@@ -54,11 +52,9 @@ public class LoginController{
   public ModelTXT getDataModel(){
     return model;
   }
-  public void setOtherStages(Stage adminStage, AdminController adminCtrl, Stage userStage, UserController userCtrl){
+  public void setOtherStages(Stage adminStage, AdminController adminCtrl){
     this.adminStage = adminStage;
     this.adminCtrl = adminCtrl;
-    this.userStage = userStage;
-    this.userCtrl = userCtrl;
   }
   public void setStage(Stage thisStage){
     this.thisStage = thisStage;

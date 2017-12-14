@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SchemeController">
+  <children>
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+      <children>
+            <Button fx:id="confirmBtn" layoutX="243.0" layoutY="359.0" mnemonicParsing="false" onAction="#confirmClick" text="Set Colors" />
+            <Button fx:id="cancelBtn" layoutX="337.0" layoutY="359.0" mnemonicParsing="false" onAction="#cancelClick" text="Close" />
+            <Label fx:id="titleLbl" layoutX="215.0" layoutY="14.0" text="Choose Color Scheme">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="warningLbl" alignment="CENTER" layoutX="222.0" layoutY="329.0" text="ERROR: Please fill in all fields." textAlignment="CENTER" textFill="RED">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <ColorPicker fx:id="backgroundPicker" layoutX="431.0" layoutY="54.0" />
+            <ColorPicker fx:id="fontPicker" layoutX="431.0" layoutY="107.0" />
+            <ColorPicker fx:id="menuPicker" layoutX="431.0" layoutY="160.0" />
+            <ColorPicker fx:id="buttonPicker" layoutX="431.0" layoutY="218.0" />
+            <Button fx:id="default1Btn" layoutX="133.0" layoutY="84.0" mnemonicParsing="false" onAction="#default1Click" text="Set Default 1" />
+            <Button fx:id="default2Btn" layoutX="133.0" layoutY="137.0" mnemonicParsing="false" onAction="#default2Click" text="Set Default 2" />
+            <Button fx:id="default3Btn" layoutX="133.0" layoutY="190.0" mnemonicParsing="false" onAction="#default3Click" text="Set Default 3" />
+            <Button fx:id="default4Btn" layoutX="133.0" layoutY="248.0" mnemonicParsing="false" onAction="#default4Click" text="Set Default 4" />
+            <Label layoutX="301.0" layoutY="59.0" text="Background Color:" />
+            <Label layoutX="346.0" layoutY="112.0" text="Font Color:" />
+            <Label layoutX="337.0" layoutY="165.0" text="Menu Color:" />
+            <Label layoutX="331.0" layoutY="223.0" text="Button Color:" />
+            <Label layoutX="319.0" layoutY="274.0" text="Text BG Color:" />
+            <ColorPicker fx:id="fontBgPicker" layoutX="431.0" layoutY="269.0" />
+      </children>
+    </AnchorPane>
+  </children>
+</VBox>

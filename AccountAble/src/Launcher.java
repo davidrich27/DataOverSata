@@ -16,12 +16,12 @@ public class Launcher extends Application {
 
     @Override
     public void start(Stage loginStage) throws Exception {
-    	
-      String styleDefaultPath = "view/Styles.css";      
+
+      String styleDefaultPath = "styles/current_style.css";
 
       // Create an instance of the DB / Model
       ModelTXT model = new ModelTXT();
-      model.printInfo();
+      //model.printInfo();
       System.out.println("New Model initialized...");
 
       // Set Stage for Login View
@@ -40,32 +40,19 @@ public class Launcher extends Application {
       Scene adminScene = new Scene(adminRoot);
       adminStage.setScene(adminScene);
       adminStage.setMaximized(true);
+      // Include stylesheet
       adminScene.getStylesheets().add(styleDefaultPath);
       adminStage.hide();
-
-      // Set stage for Normal User Screen
-      Stage userStage = new Stage();
-      FXMLLoader userLoader = new FXMLLoader(getClass().getResource("view/UserView.fxml"));
-      Parent userRoot = userLoader.load();
-      Scene userScene = new Scene(userRoot);
-      userStage.setScene(userScene);
-      userStage.setMaximized(true);
-      userScene.getStylesheets().add(styleDefaultPath);
-      userStage.hide();
 
       // Link the the model to both controllers
       LoginController loginCtrl = loader.<LoginController>getController();
       loginCtrl.setDataModel(model);
       AdminController adminCtrl = adminLoader.<AdminController>getController();
       adminCtrl.setDataModel(model);
-      UserController userCtrl = userLoader.<UserController>getController();
-      userCtrl.setDataModel(model);
       // Link references to eachother's controller and view
       adminCtrl.setOtherStages(loginStage, loginCtrl);
-      userCtrl.setOtherStages(loginStage, loginCtrl);
       adminCtrl.setStage(adminStage);
-      userCtrl.setStage(userStage);
-      loginCtrl.setOtherStages(adminStage, adminCtrl, userStage, userCtrl);
+      loginCtrl.setOtherStages(adminStage, adminCtrl);
       loginCtrl.setStage(loginStage);
     }
 
