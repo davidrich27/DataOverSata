@@ -1,0 +1,30 @@
+/* Color Hex Codes */
+/* rgb(32.0,48.0,61.0) | rgb(221.0,217.0,214.0) | rgb(0.0,0.0,0.0) |  rgb(108.0,112.0,123.0)  */
+
+.root {
+	/*Background panes */
+	-fx-background-color: rgb(32.0,48.0,61.0);
+
+    /*non open tabs and menu bar */
+    -fx-base: rgb(32.0,48.0,61.0);
+
+    /*Main tab pane and selected tab */
+    -fx-background: rgb(108.0,112.0,123.0);
+
+    -fx-text-fill: rgb(0.0,0.0,0.0);
+}
+
+.button {
+
+	-fx-background-color: rgb(108.0,112.0,123.0);
+}
+
+/*All label colors */
+.label{
+	-fx-text-fill: rgb(221.0,217.0,214.0);
+}
+
+.menu-bar{
+	-fx-text-fill: rgb(0.0,0.0,0.0);
+
+}

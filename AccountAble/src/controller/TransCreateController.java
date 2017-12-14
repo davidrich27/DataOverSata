@@ -216,6 +216,53 @@ public class TransCreateController {
 
       warningLbl.setText("NOTE: To make changes, you must re-input proper fees.");
     }
+    void setupExam(Transaction selectedTrans){
+      this.selectedTrans = selectedTrans;
+      setMode("edit");
+      titleLbl.setText("Edit Transaction");
+
+      // For editing, transaction cannot change accounts
+      selectedAcct = model.uaManager.getAcctByID(selectedTrans.getAcctID());
+      currentAccts = new ArrayList<Account>();
+      currentAccts.add(selectedAcct);
+      popLists();
+      // Find code in list and preselect
+      ArrayList<Code> codes = model.uaManager.getAllCodes();
+      for (int i=0; i<codes.size(); i++){
+        if (codes.get(i).getID().equals(selectedTrans.getCodeID())){
+          codeChoiceBx.getSelectionModel().select(i);
+        }
+      }
+      amountTxt.setText(selectedTrans.getSubTotal().toString());
+      descrTxt.setText(selectedTrans.getDescr());
+      otherPartyTxt.setText(selectedTrans.getOtherParty());
+      if (selectedTrans.getIsExpense()){
+        expenseRadio.setSelected(true);
+      } else {
+        depositRadio.setSelected(true);
+      }
+      if(selectedTrans.getPaidFee()){
+        feeYesRadio.setSelected(true);
+      } else {
+        feeNoRadio.setSelected(true);
+      }
+      datePicker.setValue(selectedTrans.getDateSale());
+
+      prevAcctBal = selectedTrans.getPrevAcctBal();
+      subTotal = selectedTrans.getSubTotal();
+      feeTotal = selectedTrans.getFeeTotal();
+      transTotal = selectedTrans.getTotal();
+      postAcctBal = selectedTrans.getAcctBal();
+      prevAcctBalLbl.setText(prevAcctBal.toString());
+      transSubTotalLbl.setText(subTotal.toString());
+      feesTotalLbl.setText(feeTotal.toString());
+      transTotalLbl.setText(transTotal.toString());
+      newAcctBalLbl.setText(postAcctBal.toString());
+
+      warningLbl.setText("NOTE: To make changes, you must re-input proper fees.");
+
+      confirmBtn.setVisible(false);
+    }
 
     void popLists(){
       ArrayList<Code> codes = model.uaManager.getAllCodes();

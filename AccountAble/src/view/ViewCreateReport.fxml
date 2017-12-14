@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CodeCreateController">
+  <children>
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+      <children>
+            <Label layoutX="151.0" layoutY="91.0" text="Title:" />
+            <Label layoutX="109.0" layoutY="125.0" text="Description:" />
+            <TextField fx:id="nameTxt" layoutX="207.0" layoutY="86.0" prefHeight="27.0" prefWidth="314.0" promptText="Title of Report (If Desired)" />
+            <Button fx:id="confirmBtn" layoutX="217.0" layoutY="359.0" mnemonicParsing="false" onAction="#confirmClick" text="Generate Report" />
+            <Button fx:id="cancelBtn" layoutX="345.0" layoutY="359.0" mnemonicParsing="false" onAction="#cancelClick" text="Cancel" />
+            <Label fx:id="titleLbl" layoutX="252.0" layoutY="32.0" prefHeight="23.0" prefWidth="127.0" text="Create Report">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextArea fx:id="descrTxt" layoutX="207.0" layoutY="125.0" prefHeight="53.0" prefWidth="314.0" promptText="Description of Report (If Desired)" />
+            <Label fx:id="warningLbl" alignment="CENTER" layoutX="217.0" layoutY="323.0" text="ERROR: Please fill in all fields." textAlignment="CENTER" textFill="RED">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="127.0" layoutY="194.0" text="Account:" />
+            <ChoiceBox fx:id="acctChoiceBx" layoutX="207.0" layoutY="189.0" prefHeight="27.0" prefWidth="314.0" />
+            <DatePicker fx:id="startDatePicker" layoutX="206.0" layoutY="229.0" prefHeight="27.0" prefWidth="152.0" promptText="Start Date" />
+            <DatePicker fx:id="endDatePicker" layoutX="364.0" layoutY="229.0" prefHeight="27.0" prefWidth="158.0" promptText="End Date" />
+            <Label layoutX="109.0" layoutY="234.0" text="Date Range:" />
+      </children>
+    </AnchorPane>
+  </children>
+</VBox>

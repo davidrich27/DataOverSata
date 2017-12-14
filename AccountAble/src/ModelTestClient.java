@@ -27,7 +27,13 @@ import javax.crypto.SecretKey;
 public class ModelTestClient{
   public static void main(String[] args)
   throws InvalidKeySpecException, NoSuchAlgorithmException, InvalidKeySpecException, PasswordHasher.InvalidHashException, PasswordHasher.CannotPerformOperationException{
-    encryptionTest1();
+    replaceTest();
+  }
+
+  static void replaceTest() {
+    String testStr = "Hey this is the replace-word!";
+    testStr = testStr.replace("replace-word", "answer");
+    System.out.println(testStr);
   }
 
   static void convertByteStrByte() {

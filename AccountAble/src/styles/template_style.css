@@ -1,0 +1,30 @@
+/* Color Hex Codes */
+/* $background-color$ | $main-color$ | $text-color$ |  $button-color$  */
+
+.root {
+	/*Background panes */
+	-fx-background-color: $background-color$;
+
+    /*non open tabs and menu bar */
+    -fx-base: $background-color$;
+
+    /*Main tab pane and selected tab */
+    -fx-background: $button-color$;
+
+    -fx-text-fill: $text-color$;
+}
+
+.button {
+
+	-fx-background-color: $button-color$;
+}
+
+/*All label colors */
+.label{
+	-fx-text-fill: $main-color$;
+}
+
+.menu-bar{
+	-fx-text-fill: $text-color$;
+
+}
