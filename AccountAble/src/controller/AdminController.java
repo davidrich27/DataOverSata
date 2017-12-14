@@ -25,6 +25,7 @@ import javafx.event.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.stage.Modality;
 
 public class AdminController {
 
@@ -379,6 +380,7 @@ public class AdminController {
   ArrayList<Transaction> filteredTrans;
 
   String stylePath;
+  Timer timer;
 
   // NOTE: May be able to declare ObservableLists at the beginning (no repop?)
 
@@ -463,6 +465,10 @@ public class AdminController {
     resetFactories();
     getAcctAndTransLists();
     repop();
+
+    // Set timer to ask for login creds after 1000*60*15 ms (15 min)
+    timer = new Timer();
+    resetSession();
   }
 
   // NOTE: Not efficient algorithm
@@ -595,10 +601,7 @@ public class AdminController {
 
   @FXML
   void logoutClick(ActionEvent event) {
-    currentUser = null;
-    loginCtrl.clear();
-    loginStage.show();
-    thisStage.hide();
+    logout();
   }
   @FXML
   void saveClick(ActionEvent event) {
@@ -627,7 +630,9 @@ public class AdminController {
     newCtrl.setHome(thisStage, this);
     newCtrl.setup(currentUser, currentAccts, currentTrans);
     newScene.getStylesheets().add(stylePath);
-    newStage.show();
+    //newStage.show();
+    newStage.initModality(Modality.APPLICATION_MODAL);
+    newStage.showAndWait();
   }
 
   /* Benefits Calculator */
@@ -642,7 +647,9 @@ public class AdminController {
     BCcontroller newCtrl = newLoader.<BCcontroller>getController();
     newCtrl.setStage(newStage);
     newScene.getStylesheets().add(stylePath);
-    newStage.show();
+    //newStage.show();
+    newStage.initModality(Modality.APPLICATION_MODAL);
+    newStage.showAndWait();
   }
 
   @FXML
@@ -656,7 +663,9 @@ public class AdminController {
     newCtrl.setStage(newStage);
     newCtrl.setHome(thisStage, this);
     newScene.getStylesheets().add(stylePath);
-    newStage.show();
+    //newStage.show();
+    newStage.initModality(Modality.APPLICATION_MODAL);
+    newStage.showAndWait();
   }
 
   @FXML
@@ -692,7 +701,9 @@ public class AdminController {
     Scene newScene = new Scene(newRoot);
     newStage.setScene(newScene);
     newScene.getStylesheets().add(stylePath);
-    newStage.show();
+    //newStage.show();
+    newStage.initModality(Modality.APPLICATION_MODAL);
+    newStage.showAndWait();
   }
 
     // ************************ Overview Tab *************************************
@@ -711,8 +722,9 @@ public class AdminController {
     newCtrl.setModel(model);
     newCtrl.setupEdit(currentUser);
     newScene.getStylesheets().add(stylePath);
-    newStage.show();
-
+    //newStage.show();
+    newStage.initModality(Modality.APPLICATION_MODAL);
+    newStage.showAndWait();
   }
 
     // ****************** Account Tab ********************************************
@@ -748,7 +760,9 @@ public class AdminController {
       newCtrl.setModel(model);
       newCtrl.setupCreate(currentUser, selectedAcct, currentAccts);
       newScene.getStylesheets().add(stylePath);
-      newStage.show();
+      //newStage.show();
+      newStage.initModality(Modality.APPLICATION_MODAL);
+      newStage.showAndWait();
     } else {
       System.out.println("ERROR: Must select Account for Transaction to be entered.");
     }
@@ -769,7 +783,9 @@ public class AdminController {
       newCtrl.setModel(model);
       newCtrl.setupEdit(selectedTrans);
       newScene.getStylesheets().add(stylePath);
-      newStage.show();
+      //newStage.show();
+      newStage.initModality(Modality.APPLICATION_MODAL);
+      newStage.showAndWait();
     } else {
       System.out.println("ERROR: Must select Account for Transaction to be entered.");
     }
@@ -790,7 +806,9 @@ public class AdminController {
       newCtrl.setModel(model);
       newCtrl.setupExam(selectedTrans);
       newScene.getStylesheets().add(stylePath);
-      newStage.show();
+      //newStage.show();
+      newStage.initModality(Modality.APPLICATION_MODAL);
+      newStage.showAndWait();
     } else {
       System.out.println("ERROR: Must select Account for Transaction to be entered.");
     }
@@ -840,7 +858,9 @@ public class AdminController {
     newCtrl.setModel(model);
     newScene.getStylesheets().add(stylePath);
     newCtrl.setupCreate();
-    newStage.show();
+    //newStage.show();
+    newStage.initModality(Modality.APPLICATION_MODAL);
+    newStage.showAndWait();
   }
 
   @FXML
@@ -859,7 +879,9 @@ public class AdminController {
       newCtrl.setModel(model);
       newScene.getStylesheets().add(stylePath);
       newCtrl.setupEdit(selected);
-      newStage.show();
+      //newStage.show();
+      newStage.initModality(Modality.APPLICATION_MODAL);
+      newStage.showAndWait();
     } else {
       System.out.println("ERROR: Must select an Account to edit.");
     }
@@ -881,7 +903,9 @@ public class AdminController {
       newCtrl.setModel(model);
       newScene.getStylesheets().add(stylePath);
       newCtrl.setup(selected);
-      newStage.show();
+      //newStage.show();
+      newStage.initModality(Modality.APPLICATION_MODAL);
+      newStage.showAndWait();
     } else {
       System.out.println("ERROR: Must select an Account to see permissions.");
     }
@@ -903,7 +927,9 @@ public class AdminController {
       newCtrl.setModel(model);
       newScene.getStylesheets().add(stylePath);
       newCtrl.setupExam(selected);
-      newStage.show();
+      //newStage.show();
+      newStage.initModality(Modality.APPLICATION_MODAL);
+      newStage.showAndWait();
     } else {
       System.out.println("ERROR: Must select an Account to edit.");
     }
@@ -954,7 +980,9 @@ public class AdminController {
     newCtrl.setModel(model);
     newScene.getStylesheets().add(stylePath);
     newCtrl.setupCreate();
-    newStage.show();
+    //newStage.show();
+    newStage.initModality(Modality.APPLICATION_MODAL);
+    newStage.showAndWait();
   }
 
   @FXML
@@ -973,7 +1001,9 @@ public class AdminController {
       newCtrl.setModel(model);
       newScene.getStylesheets().add(stylePath);
       newCtrl.setupEdit(selected);
-      newStage.show();
+      //newStage.show();
+      newStage.initModality(Modality.APPLICATION_MODAL);
+      newStage.showAndWait();
     } else {
       System.out.println("ERROR: Must select an User to edit.");
     }
@@ -995,7 +1025,9 @@ public class AdminController {
       newCtrl.setModel(model);
       newScene.getStylesheets().add(stylePath);
       newCtrl.setupExam(selected);
-      newStage.show();
+      //newStage.show();
+      newStage.initModality(Modality.APPLICATION_MODAL);
+      newStage.showAndWait();
     } else {
       System.out.println("ERROR: Must select an User to edit.");
     }
@@ -1047,7 +1079,9 @@ public class AdminController {
     newCtrl.setModel(model);
     newScene.getStylesheets().add(stylePath);
     newCtrl.setupCreate();
-    newStage.show();
+    //newStage.show();
+    newStage.initModality(Modality.APPLICATION_MODAL);
+    newStage.showAndWait();
   }
 
   @FXML
@@ -1066,7 +1100,9 @@ public class AdminController {
       newCtrl.setModel(model);
       newScene.getStylesheets().add(stylePath);
       newCtrl.setupEdit(selected);
-      newStage.show();
+      //newStage.show();
+      newStage.initModality(Modality.APPLICATION_MODAL);
+      newStage.showAndWait();
     } else {
       System.out.println("ERROR: Must select a Fee Type to edit.");
     }
@@ -1119,7 +1155,9 @@ public class AdminController {
     newCtrl.setModel(model);
     newScene.getStylesheets().add(stylePath);
     newCtrl.setupCreate();
-    newStage.show();
+    //newStage.show();
+    newStage.initModality(Modality.APPLICATION_MODAL);
+    newStage.showAndWait();
   }
 
   @FXML
@@ -1138,7 +1176,9 @@ public class AdminController {
       newCtrl.setModel(model);
       newScene.getStylesheets().add(stylePath);
       newCtrl.setupEdit(selected);
-      newStage.show();
+      //newStage.show();
+      newStage.initModality(Modality.APPLICATION_MODAL);
+      newStage.showAndWait();
     } else {
       System.out.println("ERROR: Must select an Code to edit.");
     }
@@ -1175,10 +1215,52 @@ public class AdminController {
     }
   }
 
-  // ************************ Notifications *************************************
+  // ************************ Notifications & Sessions *************************************
 
   // Warning if user needs to select something but hasn't
   void noSelectNotif(String thing){
     System.out.println("Error: Sorry, you must select a " + thing + " to open this dialog.");
+  }
+
+  void resetSession(){
+    System.out.println("New Session Begun!");
+    // Schedule a sessionEnd event
+    TimerTask sessionEnd = new TimerTask()
+    {
+            public void run()
+            { sessionEndingNotif(); }
+    };
+    // Schedule for
+    Long min = 1l;
+    timer.schedule(sessionEnd,1000);
+  }
+
+  void sessionEndingNotif() {
+    try {
+      System.out.println("Session Ending!");
+      Stage newStage = new Stage();
+      FXMLLoader newLoader = new FXMLLoader(getClass().getResource("../view/ViewSessionEnd.fxml"));
+      Parent newRoot = newLoader.load();
+      Scene newScene = new Scene(newRoot);
+      newStage.setScene(newScene);
+      SessionEndController newCtrl = newLoader.<SessionEndController>getController();
+      newCtrl.setStage(newStage);
+      newCtrl.setHome(thisStage, this);
+      newCtrl.setModel(model);
+      newScene.getStylesheets().add(stylePath);
+      newCtrl.setup(currentUser);
+      //newStage.show();
+      newStage.initModality(Modality.APPLICATION_MODAL);
+      newStage.showAndWait();
+    } catch(Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  void logout() {
+    currentUser = null;
+    loginCtrl.clear();
+    loginStage.show();
+    thisStage.hide();
   }
 }
