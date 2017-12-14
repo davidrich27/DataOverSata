@@ -1,0 +1,22 @@
+
+Financial Report: Rob's December Income Statement
+
+Description: 
+
+Account: Rob Smith's Data Account
+
+Date Range: From 2017-11-01 to 2017-12-31
+
+=======================================
+
+2017-12-14	 $3000.0	CS Dept || Initial Deposit
+
+2017-12-14	 $-100.0	KK || Donuts
+
+2017-12-25	 $-2500.0	Cutting Edge Tech Group || Data Robots
+
+=========================================
+
+Total Expenses: $-2600.0	 Total Deposits: $3000.0
+
+Net Total: $400.0

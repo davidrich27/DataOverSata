@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UserController">
+   <center>
+      <TabPane prefHeight="395.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+        <tabs>
+          <Tab text="Overview">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <GridPane layoutX="-1.0" layoutY="3.0" prefHeight="299.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="295.0" minWidth="10.0" prefWidth="212.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="529.0" minWidth="10.0" prefWidth="388.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints maxHeight="65.0" minHeight="0.0" prefHeight="10.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="285.0" minHeight="10.0" prefHeight="282.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="101.0" minHeight="0.0" prefHeight="14.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <TableView prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                <columns>
+                                  <TableColumn prefWidth="43.0" text="ID" />
+                                  <TableColumn prefWidth="73.0" text="Name" />
+                                    <TableColumn prefWidth="153.0" text="Description" />
+                                    <TableColumn prefWidth="165.0" text="Balance" />
+                                </columns>
+                              </TableView>
+                              <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
+                                 <children>
+                                    <Label text="Username: ">
+                                       <VBox.margin>
+                                          <Insets bottom="5.0" top="5.0" />
+                                       </VBox.margin></Label>
+                                    <Label fx:id="usernameLbl" text="UsernameLbl">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Label text="First Name:">
+                                       <VBox.margin>
+                                          <Insets bottom="5.0" top="5.0" />
+                                       </VBox.margin></Label>
+                                    <Label fx:id="firstNameLbl" layoutX="93.0" layoutY="37.0" text="firstNameLbl">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Label text="Last Name:">
+                                       <VBox.margin>
+                                          <Insets bottom="5.0" top="5.0" />
+                                       </VBox.margin></Label>
+                                    <Label fx:id="lastNameLbl" layoutX="62.0" layoutY="93.0" text="lastNameLbl">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Label text="Email:">
+                                       <VBox.margin>
+                                          <Insets bottom="5.0" top="5.0" />
+                                       </VBox.margin></Label>
+                                    <Label fx:id="emailLbl" layoutX="69.0" layoutY="145.0" text="emailLbl">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Label text="Phone:">
+                                       <VBox.margin>
+                                          <Insets bottom="5.0" top="5.0" />
+                                       </VBox.margin></Label>
+                                    <Label fx:id="phoneLbl" layoutX="85.0" layoutY="182.0" text="phoneLbl">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Button fx:id="changeInfoBtn" mnemonicParsing="false" text="Change Account Info">
+                                       <VBox.margin>
+                                          <Insets top="5.0" />
+                                       </VBox.margin></Button>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </GridPane>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Accounts">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <BorderPane layoutX="61.0" layoutY="29.0" prefHeight="323.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <left>
+                              <VBox alignment="CENTER" prefHeight="323.0" prefWidth="203.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <Label text="Available Accounts:">
+                                       <VBox.margin>
+                                          <Insets bottom="5.0" />
+                                       </VBox.margin></Label>
+                                    <ListView fx:id="acctsList" prefHeight="38.0" prefWidth="203.0" />
+                                    <Label text="Find Account:">
+                                       <VBox.margin>
+                                          <Insets bottom="5.0" top="5.0" />
+                                       </VBox.margin></Label>
+                                    <TextField fx:id="acctSearchTxt" />
+                                    <Button fx:id="acctHistoryBtn" mnemonicParsing="false" text="View History">
+                                       <VBox.margin>
+                                          <Insets top="5.0" />
+                                       </VBox.margin></Button>
+                                    <Button fx:id="addTransactionBtn" mnemonicParsing="false" text="Add New Transaction">
+                                       <VBox.margin>
+                                          <Insets top="5.0" />
+                                       </VBox.margin></Button>
+                                    <Button fx:id="addNewExpenseBtn" mnemonicParsing="false" text="Create Expense">
+                                       <VBox.margin>
+                                          <Insets top="5.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                    <Button fx:id="addNewDepositBtn" mnemonicParsing="false" text="Create Deposit">
+                                       <VBox.margin>
+                                          <Insets top="5.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                 </children>
+                              </VBox>
+                           </left>
+                           <center>
+                              <TableView fx:id="acctTbl" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                <columns>
+                                  <TableColumn minWidth="3.0" prefWidth="45.0" text="Date" />
+                                    <TableColumn prefWidth="54.0" text="Balance" />
+                                  <TableColumn prefWidth="58.0" text="Amount" />
+                                    <TableColumn prefWidth="90.0" text="Description" />
+                                    <TableColumn prefWidth="51.0" text="Fees" />
+                                    <TableColumn prefWidth="41.0" text="User" />
+                                    <TableColumn prefWidth="75.0" text="Other Party" />
+                                </columns>
+                              </TableView>
+                           </center>
+                        </BorderPane>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </center>
+   <top>
+      <BorderPane prefHeight="19.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <center>
+            <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <right>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Label fx:id="greetingLbl" alignment="CENTER_RIGHT" text="Please Login. ">
+                           <opaqueInsets>
+                              <Insets bottom="5.0" right="5.0" />
+                           </opaqueInsets>
+                        </Label>
+                        <Button fx:id="logoutBtn" mnemonicParsing="false" onAction="#handleLogout" prefHeight="24.0" prefWidth="73.0" text="Logout" />
+                     </children>
+                  </HBox>
+               </right>
+               <top>
+                  <MenuBar BorderPane.alignment="CENTER">
+                    <menus>
+                      <Menu mnemonicParsing="false" text="File">
+                        <items>
+                          <MenuItem mnemonicParsing="false" text="Close" />
+                        </items>
+                      </Menu>
+                      <Menu mnemonicParsing="false" text="Edit">
+                        <items>
+                          <MenuItem mnemonicParsing="false" text="Delete" />
+                        </items>
+                      </Menu>
+                      <Menu mnemonicParsing="false" text="Help">
+                        <items>
+                          <MenuItem mnemonicParsing="false" text="About" />
+                        </items>
+                      </Menu>
+                    </menus>
+                  </MenuBar>
+               </top>
+            </BorderPane>
+         </center>
+      </BorderPane>
+   </top>
+   <bottom>
+      <HBox alignment="BASELINE_RIGHT" prefHeight="0.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label alignment="BASELINE_RIGHT" text="Developed by DATA OVER SATA " />
+         </children>
+      </HBox>
+   </bottom>
+</BorderPane>

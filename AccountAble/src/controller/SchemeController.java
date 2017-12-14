@@ -166,12 +166,20 @@ public class SchemeController {
 
     @FXML
     void default3Click(ActionEvent event) {
-
+      backgroundPicker.setValue(Color.web("#5E001D"));
+      fontPicker.setValue(Color.web("#DDD9D6"));
+      menuPicker.setValue(Color.web("#8c8e90"));
+      buttonPicker.setValue(Color.web("#8c8e90"));
+      fontBgPicker.setValue(Color.web("#fbfbf5"));
     }
 
     @FXML
     void default4Click(ActionEvent event) {
-
+      backgroundPicker.setValue(Color.web("#1c2240"));
+      fontPicker.setValue(Color.web("#9399a9"));
+      menuPicker.setValue(Color.web("#232b40"));
+      buttonPicker.setValue(Color.web("#5f6473"));
+      fontBgPicker.setValue(Color.web("#939989"));
     }
 
 }
