@@ -71,7 +71,7 @@ public class LoginController{
     if (success == true){
       System.out.println("Logging user in...");
       User loginUser = model.getUserByUsername(username);
-      loginUser.printInfo();
+      //loginUser.printInfo();
       adminCtrl.login(loginUser);
       adminStage.show();
       thisStage.hide();

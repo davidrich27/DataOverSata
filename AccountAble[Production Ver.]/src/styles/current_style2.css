@@ -1,0 +1,29 @@
+/* Color Hex Codes */
+/* #20303D | #6C707B | #000000 | #DDD9D6 */
+
+.root {
+	/*Background panes */
+	-fx-background-color: #20303D;
+
+    /*non open tabs and menu bar */
+    -fx-base: #20303D;
+
+    /*Main tab pane and selected tab */
+    -fx-background: #6C707B;
+
+    -fx-text-fill: #000000;
+}
+.button {
+
+	-fx-background-color: #6C707B;
+}
+
+/*All label colors */
+.label{
+	-fx-text-fill: #DDD9D6;
+}
+
+.menu-bar{
+	-fx-text-fill: #000000;
+
+}

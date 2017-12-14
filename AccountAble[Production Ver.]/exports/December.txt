@@ -1,0 +1,20 @@
+
+Financial Report: 
+
+Description: 
+
+Account: ALL ACCOUNTS
+
+Date Range: From 2017-11-14 to 2017-12-14
+
+=======================================
+
+2017-12-14	 $1000.0	CS Dept. || Initial Deposit
+
+2017-12-14	 $3000.0	CS Dept || Initial Deposit
+
+=========================================
+
+Total Expenses: $0.0	 Total Deposits: $4000.0
+
+Net Total: $4000.0

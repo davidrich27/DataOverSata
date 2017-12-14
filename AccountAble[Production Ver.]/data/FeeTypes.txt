@@ -1,0 +1,2 @@
+1001,8% Standard UM Fee,For All Transactions.,8.0,true,false,false
+1002,4% Credit Card Fee,For All Credit Card Transactions,4.0,true,false,false

@@ -467,8 +467,8 @@ public class AdminController {
     repop();
 
     // Set timer to ask for login creds after 1000*60*15 ms (15 min)
-    timer = new Timer();
-    resetSession();
+    // timer = new Timer();
+    // resetSession();
   }
 
   // NOTE: Not efficient algorithm

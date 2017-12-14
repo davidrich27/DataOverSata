@@ -115,6 +115,7 @@ public class ReportCreateController {
       ObservableList<Account> acctsObservable = FXCollections.observableArrayList(currentAccts);
       acctChoiceBx.setItems(acctsObservable);
       acctChoiceBx.getSelectionModel().selectFirst();
+      currentAccts.remove(0);
     }
 
     // ************************** Button Events ************************************
@@ -179,7 +180,11 @@ public class ReportCreateController {
           writer.println("Description: " + reportDescr);
         }
         writer.println("");
-        writer.println("Account: " + filterAcct.getName());
+        if (filterAcct != null){
+          writer.println("Account: " + filterAcct.getName());
+        } else {
+          writer.println("Account: ALL ACCOUNTS");
+        }
         writer.println("");
         writer.println("Date Range: From " + filterStartDate.toString() + " to " + filterEndDate.toString());
         writer.println("");
@@ -188,7 +193,7 @@ public class ReportCreateController {
         // Iterate through transactions and output them
         for (Transaction tran : filteredTrans){
           // Print transaction to Line
-          writer.println(tran.getDateSale() + "\t $" + tran.getSubTotal() + "\t" + tran.getOtherParty() + "\t" + tran.getDescr());
+          writer.println(tran.getDateSale() + "\t $" + tran.getSubTotal() + "\t" + tran.getOtherParty() + " || " + tran.getDescr());
           writer.println("");
           // Add trans to totals
           totalNet += tran.getSubTotal();
