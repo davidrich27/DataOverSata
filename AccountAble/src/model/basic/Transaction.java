@@ -97,13 +97,13 @@ public class Transaction implements Comparable<Transaction>{
   public LocalDateTime getDateEntry(){
     return dateEntry;
   }
-  public void setDateEntry(LocalDateTime date){
+  public void setDateEntry(LocalDateTime dateEntry){
     this.dateEntry = dateEntry;
   }
   public LocalDate getDateSale(){
     return dateSale;
   }
-  public void setDateSale(LocalDate date){
+  public void setDateSale(LocalDate dateSale){
     this.dateSale = dateSale;
   }
   public Boolean getIsExpense(){

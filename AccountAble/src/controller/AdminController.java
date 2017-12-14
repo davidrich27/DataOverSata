@@ -616,10 +616,21 @@ public class AdminController {
   }
 
   @FXML
-  void statementClick(ActionEvent event) {
+  void statementClick(ActionEvent event) throws Exception {
+    Stage newStage = new Stage();
+    FXMLLoader newLoader = new FXMLLoader(getClass().getResource("../view/ViewCreateReport.fxml"));
+    Parent newRoot = newLoader.load();
+    Scene newScene = new Scene(newRoot);
+    newStage.setScene(newScene);
+    ReportCreateController newCtrl = newLoader.<ReportCreateController>getController();
+    newCtrl.setStage(newStage);
+    newCtrl.setHome(thisStage, this);
+    newCtrl.setup(currentUser, currentAccts, currentTrans);
+    newScene.getStylesheets().add(stylePath);
+    newStage.show();
   }
 
-  /* Benefits Calculator*/
+  /* Benefits Calculator */
   @FXML
   void benCalcClick(ActionEvent event) throws Exception {
 	//  System.out.println("benCalc clicked!");
@@ -635,7 +646,7 @@ public class AdminController {
   }
 
   @FXML
-  void colorClick(ActionEvent event) throws Exception{
+  void colorClick(ActionEvent event) throws Exception {
     Stage newStage = new Stage();
     FXMLLoader newLoader = new FXMLLoader(getClass().getResource("../view/ViewSchemes.fxml"));
     Parent newRoot = newLoader.load();
