@@ -27,7 +27,7 @@ import javax.crypto.SecretKey;
 public class ModelTestClient{
   public static void main(String[] args)
   throws InvalidKeySpecException, NoSuchAlgorithmException, InvalidKeySpecException, PasswordHasher.InvalidHashException, PasswordHasher.CannotPerformOperationException{
-    replaceTest();
+    passwordTest1();
   }
 
   static void replaceTest() {
@@ -98,7 +98,7 @@ public class ModelTestClient{
 
   static void passwordTest1()
   throws NoSuchAlgorithmException, InvalidKeySpecException, PasswordHasher.InvalidHashException, PasswordHasher.CannotPerformOperationException{
-    String pwd1 = "pwd";
+    String pwd1 = "csci323";
     String pwd2 = "this is a test";
 
     String pwd1Hash = PasswordHasher.createHash(pwd1);
